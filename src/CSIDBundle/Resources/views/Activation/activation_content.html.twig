@@ -1,0 +1,45 @@
+<form action="{{ path('fos_user_registration_register') }}" {{ form_start(form) }} method="POST" class="csid_user_askactivation_form">
+   	<h2>Demande d'accès à l'application CSID <br/> <img src="/img/logo-carlooker2.png" alt="Carlooker" /></h2>							
+		{{ bootstrap_set_style('inline') }}
+		
+		<div class="row">
+			<div class="col-sm-6">
+				{{ form_row(form.username) }}
+			</div>
+			<div class="col-sm-6">
+				{{ form_row(form.email) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				{{ form_row(form.plainPassword.first) }}
+			</div>
+			<div class="col-sm-6">
+				{{ form_row(form.plainPassword.second) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				{{ form_row(form.postal_code) }}
+			</div>
+			<div class="col-sm-6">
+				{{ form_row(form.city) }}
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-6">
+				{{ form_row(form.societe) }}
+			</div>
+			<div class="col-sm-6">
+				{{ form_row(form.societe) }}
+			</div>
+		</div>
+		
+		{{ form_row(form._token) }}
+		
+		{{ bootstrap_set_style('') }}
+    <div>
+        <input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+    </div>
+</form>

@@ -1,0 +1,115 @@
+<html>
+    <head>
+         {% block stylesheets %}
+            <link href="{{ asset('libs/bootstrap/dist/css/bootstrap.min.css', absolute = true) }}" rel="stylesheet" type="text/css" />
+            <meta charset="UTF-8" >
+        {% endblock %}
+    </head>
+    <body>
+    
+    	{% if order.retailer %}
+			{% if order.retailer.logo != null %}
+				{% set foo = media_public_url(order.retailer.logo, 'reference') %}
+    			<img src="{{ foo|imagine_filter('heighten_60') }}" />
+    		{% endif %}
+		{% endif %}
+    
+        <h2 class="text-center" style="margin-bottom: 30px">
+		{% if order.status == 'quotation' %}
+		{{ "quotation"|trans({}, 'csid') }}
+		{% else %}
+		{{ "invoice"|trans({}, 'csid') }}
+		{% endif %}
+		 n° {{ order.retailer.commandNo }}{{ order.number }}
+		</h2>
+		<h4 class="text-center">Du {{ order.created|date("d/m/Y") }}</h4>
+		
+		<div class="clearfix" style="margin-bottom: 30px">
+			<div class="pull-left" style="width:300px;border:1px solid #000;padding:15px;font-size:14px">
+				{{ order.retailer.company }} <br/>
+				{{ order.retailer.address }}<br/>
+				{{ order.retailer.postalCode }} {{ order.retailer.city }}
+			</div>
+			<div class="pull-right text-right" style="width:300px;border:1px solid #000;padding:15px;font-size:14px">
+				{{ order.customer.lastname }} {{ order.customer.firstname }}<br/>
+				{{ order.customer.address }}<br/>
+				{{ order.customer.postalCode }} {{ order.customer.city }}
+			</div>
+		</div>
+		
+		<table class="table table-bordered table-striped" id="tableBasket">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Désignation</th>
+					<th>Prix HT</th>
+					<th>Quantité</th>
+					<th>Total HT</th>
+					<th>Total HT TTC</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% if order.items is defined  %}
+			{% for item in order.items %}
+				<tr>
+					<td>{{ loop.index }}</td>
+					<td>
+						{{ item.technical.name }}<br/>
+						Matière : {{ item.plateMatter.name }} ({{ item.plateMatterColor.name }})
+						{% if item.backplateMatter != null %}
+						/ {{ item.backplateMatter.name }} ({{ item.backplateMatterColor.name }})
+						{% endif %}
+						<br/>
+						Fixation : {{ item.fixing.name }}<br/>
+						Perçages : {{ item.nbHoles }} perçages ; diam {{ item.holesDiameter }}mm<br/>
+						Dimension : {{ item.plateWidth }}L x {{ item.plateHeight }}H<br/>
+						Air d'impression : {{ item.printWidth }}L x {{ item.printHeight }}H<br/>
+						<br/>
+						{% set foo = media_public_url(item.mediaJPG, 'reference') %}
+				    	<img src="{{ foo|imagine_filter('heighten_300') }}" class="img-responsive" />
+					</td>
+					<td class="text-right">{{ item.amountWithMargin }} €</td>
+					<td class="text-right">{{ item.qty }}</td>
+					<td class="text-right">{{ (item.amountWithMargin*item.qty) }} €</td>
+					<td class="text-right">{{ (item.amountVATWithMargin*item.qty) }} €</td>
+				</tr>
+			{% endfor %}
+			{% endif %}
+			{% if order.increaseOrDecrease is defined %}
+				{% for item in order.increaseOrDecrease %}
+					<tr>
+						<td></td>
+						<td>
+							{{ item.label }}
+						</td>
+						<td class="text-right"></td>
+						<td class="text-right"></td>
+						<td class="text-right">{{ item.amount }} €</td>
+						<td class="text-right">{{ item.amountVAT }} €</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4" class="text-right">
+						<b>TOTAL</b>
+					</td>
+					<td class="text-right"><b>{{ order.amountWithMargin }} €</b></td>
+					<td class="text-right"><b>{{ order.amountVATWithMargin }} €</b></td>
+				</tr>
+			</tfoot>
+		</table>
+		
+		{% if order.signature != null %}
+		<div class="text-right">
+			<p>Signé le {{ order.signatureDate|date("d/m/Y") }}</p>
+			{% set foo = media_public_url(order.signature, 'reference') %}
+    		<img src="{{ foo|imagine_filter('heighten_250') }}" />
+    	</div>
+    	{% endif %}
+		
+    </body>
+</html>
+
+	

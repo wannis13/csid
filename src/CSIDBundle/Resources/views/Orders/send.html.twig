@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %} 
+{% block body %} 
+<div class="margin-top container-shadow-top">
+	<div class="container">
+		
+		<ol class="breadcrumb">
+		  <li><a href="{{ url('homepage') }}">Accueil</a></li>
+		  <li><a href="{{ url('csid_orders') }}">Commandes</a></li>
+		  <li class="active">Partager le devis</li>
+		</ol>
+		
+		<div class="form-messages"></div>
+		
+		<div class="title grid-full">
+		    <h2>{% if order.status == 'quotation' %}
+		{{ "quotation"|trans({}, 'csid') }}
+		{% else %}
+		{{ "order"|trans({}, 'csid') }}
+		{% endif %}
+		 n°{{ order.retailer.commandNo }}{{ order.number }}</h2>
+		    <span class="border"></span>
+		</div> 
+		
+		<form method="POST">
+			{{ form_row(form._token) }}
+			{{ form_errors(form) }}
+			
+			<div class="row">
+				<div class="col-md-6">
+					<div class="panel panel-border panel-info">
+						<div class="panel-heading">Partager le devis par email</div>
+						<div class="panel-body">
+						{{ form_row(form.message) }}
+						
+						<ul id="email-fields-list" class="list-unstyled" data-prototype="{{ form_row(form.recipients.vars.prototype)|e }}">
+					    {% for emailField in form.recipients %}
+					        <li>
+					            {{ form_errors(emailField) }}
+					            {{ form_row(emailField) }}
+					        </li>
+					    {% endfor %}
+					    </ul>
+						<p>
+					    	<a href="#" id="add-another-email" class="btn btn-info">{{ "Add another email"|trans({}, 'csid') }}</a>
+						</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<input type="submit" class="btn btn-default" value="Envoyer" />
+			
+		</form>
+		
+		
+	</div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+var emailCount = '{{ form.recipients|length }}';
+</script>
+<script src="/dist/js/order.send.min.js"></script>
+{% endblock %}

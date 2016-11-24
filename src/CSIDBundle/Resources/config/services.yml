@@ -1,0 +1,418 @@
+services:
+
+    # Back-Office
+    admin.pictogram:
+        class: CSIDBundle\Admin\PictogramAdmin
+        arguments: [~, CSIDBundle\Entity\Pictogram, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: admin.pictograms, group: "Pictogrammes" }            
+    admin.pictogram.category:
+        class: CSIDBundle\Admin\PictogramCategoryAdmin
+        arguments: [~, CSIDBundle\Entity\PictogramCategory, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: admin.categories, group: "Pictogrammes" }
+    admin.matter:
+        class: CSIDBundle\Admin\MatterAdmin
+        arguments: [~, CSIDBundle\Entity\Matter, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: admin.matters, group: "Matières" }
+    admin.matter.color:
+        class: CSIDBundle\Admin\MatterColorAdmin
+        arguments: [~, CSIDBundle\Entity\MatterColor, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: admin.matters_colors, group: "Matières" }
+    admin.dimension:
+        class: CSIDBundle\Admin\DimensionAdmin
+        arguments: [~, CSIDBundle\Entity\Dimension, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: admin.dimensions, group: "Dimensions" }
+    admin.fixing:
+        class: CSIDBundle\Admin\FixingAdmin
+        arguments: [~, CSIDBundle\Entity\Fixing, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: admin.fixings, group: "Fixations" }
+    admin.technical:
+        class: CSIDBundle\Admin\TechnicalAdmin
+        arguments: [~, CSIDBundle\Entity\Technical, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: admin.technicals, group: "Techniques" }            
+    admin.orders:
+        class: CSIDBundle\Admin\OrderAdmin
+        arguments: [~, CSIDBundle\Entity\Order, ~]
+        calls:
+          - [ setTemplate, ['show', CSIDBundle:Admin:order.html.twig]]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: admin.orders, group: "Commandes/Devis" }
+    
+    # Form Ask account
+    csid_user.askaccount.form:
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments:             
+            - csid_user_askactivation_form # name of the form
+            - csid_user_askactivation_form # alias of the form type
+            - null # data to bind, this is where your entity could go if you have that defined as a service
+            - { validation_groups: [Registration]  }
+    
+    csid_user.askaccount.form.type:
+        class: CSIDBundle\Form\Type\AskAccountFormType
+        arguments: [~, La2UserBundle\Entity\User, ~]
+        tags:
+            - { name: form.type, alias: csid_user_askactivation_form }
+    
+    csid_user.askaccount.form.handler:
+        class : CSIDBundle\Form\Handler\RegistrationFormHandler
+        scope : request
+        arguments: 
+            - @csid_user.askaccount.form
+            - @request
+            - @csid.user_manager
+            - @fos_user.mailer
+            - @fos_user.util.token_generator 
+            - @service_container 
+    
+    # Pictogram Manager
+    csid.pictogram_manager:
+        class: CSIDBundle\Doctrine\PictogramManager
+        arguments: 
+          - @doctrine.orm.entity_manager
+          - CSIDBundle\Entity\Pictogram
+          
+    # Pictogram Category Manager       
+    csid.pictogram_category_manager:
+        class: CSIDBundle\Doctrine\PictogramCategoryManager
+        arguments: 
+          - @doctrine.orm.entity_manager
+          - CSIDBundle\Entity\PictogramCategory
+     
+    # Technical Manager      
+    csid.technichal_manager:
+        class: CSIDBundle\Doctrine\TechnicalManager
+        arguments: 
+          - @doctrine.orm.entity_manager
+          - CSIDBundle\Entity\Technical
+       
+    # Matter Manager   
+    csid.matter_manager:
+        class: CSIDBundle\Doctrine\MatterManager
+        arguments: 
+          - @doctrine.orm.entity_manager
+          - CSIDBundle\Entity\Matter
+          
+    # Fixing Manager
+    csid.fixing_manager:
+        class: CSIDBundle\Doctrine\FixingManager
+        arguments: 
+          - @doctrine.orm.entity_manager
+          - CSIDBundle\Entity\Fixing
+          
+    # Basket manager
+    basket_manager:
+        class: CSIDBundle\Doctrine\BasketManager
+        arguments: 
+          - @doctrine.orm.entity_manager
+          - CSIDBundle\Entity\Order
+          - CSIDBundle\Entity\Product
+          - CSIDBundle\Entity\OrderIncreaseDecrease
+          - @sonata.media.manager.media
+          - @sonata.media.provider.image
+       
+    # Order manager 
+    csid.order_manager:
+        class: CSIDBundle\Doctrine\OrderManager
+        arguments: 
+          - @doctrine.orm.entity_manager
+          - CSIDBundle\Entity\Order
+          - CSIDBundle\Entity\Product
+          - @sonata.media.manager.media
+          - @sonata.media.provider.image
+          - @csid.mailer
+        
+    # Form add item to basket    
+    csid_basket.item.form:
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments:             
+            - csid_basket_item_form # name of the form
+            - csid_basket_item_form # alias of the form type
+            - null # data to bind, this is where your entity could go if you have that defined as a service
+            - { validation_groups: [Default]  }
+            
+    csid_basket.item.form.type:
+        class: CSIDBundle\Form\Type\BasketItemFormType
+        arguments:
+            - CSIDBundle\Entity\Product
+        tags:
+            - { name: form.type, alias: csid_basket_item_form }
+            
+    csid_basket.item.form.handler:
+        class : CSIDBundle\Form\Handler\BasketItemFormHandler
+        scope : request
+        arguments: 
+            - @csid_basket.item.form
+            - @request
+            - @basket_manager
+            
+    # Form calcule price item to basket  
+    csid_basket.calculate_price_item.form.handler:
+        class : CSIDBundle\Form\Handler\BasketCalculateItemPriceFormHandler
+        scope : request
+        arguments: 
+            - @csid_basket.item.form
+            - @request
+            - @basket_manager
+            
+    # Form add increase or decrease to basket    
+    csid_basket.increase_decrease.form:
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments:             
+            - csid_basket_increase_decrease_form # name of the form
+            - csid_basket_increase_decrease_form # alias of the form type
+            - null # data to bind, this is where your entity could go if you have that defined as a service
+            - { validation_groups: [Default]  }
+            
+    csid_basket.increase_decrease.form.type:
+        class: CSIDBundle\Form\Type\BasketIncreaseDecreaseFormType
+        tags:
+            - { name: form.type, alias: csid_basket_increase_decrease_form }
+            
+    csid_basket.increase_decrease.form.handler:
+        class : CSIDBundle\Form\Handler\BasketIncreaseDecreaseFormHandler
+        scope : request
+        arguments: 
+            - @csid_basket.increase_decrease.form
+            - @request
+            - @basket_manager
+            
+    # Form update qty   
+    csid_basket.update_qty.form:
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments:             
+            - csid_basket_update_qty_form # name of the form
+            - csid_basket_update_qty_form # alias of the form type
+            - null # data to bind, this is where your entity could go if you have that defined as a service
+            - { validation_groups: [Default]  }
+            
+    csid_basket.update_qty.form.type:
+        class: CSIDBundle\Form\Type\BasketUpdateQtyFormType
+        tags:
+            - { name: form.type, alias: csid_basket_update_qty_form }
+            
+    csid_basket.update_qty.form.handler:
+        class : CSIDBundle\Form\Handler\BasketUpdateQtyFormHandler
+        scope : request
+        arguments: 
+            - @csid_basket.update_qty.form
+            - @request
+            - @basket_manager
+            
+    # Confirm Basket
+    csid_basket.confirm.form:
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments:             
+            - csid_basket_confirm_form # name of the form
+            - csid_basket_confirm_form # alias of the form type
+            - null # data to bind, this is where your entity could go if you have that defined as a service
+            - { validation_groups: [Default]  }
+            
+    csid_basket.confirm.form.type:
+        class: CSIDBundle\Form\Type\BasketConfirmFormType
+        tags:
+            - { name: form.type, alias: csid_basket_confirm_form }
+            
+    csid_basket.confirm.form.handler:
+        class : CSIDBundle\Form\Handler\BasketConfirmFormHandler
+        scope : request
+        arguments: 
+            - @csid_basket.confirm.form
+            - @request
+            - @basket_manager
+            - @csid.customer_manager
+            
+    # Confirm Order
+    csid.order.confirm.form:
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments:             
+            - csid_confirm_order_form # name of the form
+            - csid_confirm_order_form # alias of the form type
+            - null # data to bind, this is where your entity could go if you have that defined as a service
+            - { validation_groups: [Default]  }
+            
+    csid.order.confirm.form.type:
+        class: CSIDBundle\Form\Type\OrderValidFormType
+        tags:
+            - { name: form.type, alias: csid_confirm_order_form }
+            
+    csid.order.confirm.form.handler:
+        class : CSIDBundle\Form\Handler\OrderValidFormHandler
+        scope : request
+        arguments: 
+            - @csid.order.confirm.form
+            - @request
+            - @csid.order_manager
+         
+    # Send order   
+    csid_order.send.form:
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments:             
+            - csid_order_send_form # name of the form
+            - csid_order_send_form # alias of the form type
+            - null # data to bind, this is where your entity could go if you have that defined as a service
+            - { validation_groups: [Default]  }
+            
+    csid_order.send.form.type:
+        class: CSIDBundle\Form\Type\OrderSendFormType
+        tags:
+            - { name: form.type, alias: csid_order_send_form }
+            
+    csid_order.send.form.handler:
+        class : CSIDBundle\Form\Handler\OrderSendFormHandler
+        scope : request
+        arguments: 
+            - @csid_order.send.form
+            - @request
+            - @csid.order_manager
+    
+    # User manager
+    csid.user_manager:
+        class: CSIDBundle\Doctrine\UserManager
+        arguments: 
+          - @security.encoder_factory
+          - @fos_user.util.username_canonicalizer
+          - @fos_user.util.email_canonicalizer
+          - @doctrine.orm.entity_manager
+          - CSIDBundle\Entity\User 
+
+    # Customer manager      
+    csid.customer_manager:
+        class: CSIDBundle\Doctrine\CustomerManager
+        arguments: 
+          - @security.encoder_factory
+          - @fos_user.util.username_canonicalizer
+          - @fos_user.util.email_canonicalizer
+          - @doctrine.orm.entity_manager
+          - CSIDBundle\Entity\User 
+    
+    # Customer Edit Form
+    csid_customer.edit.form:
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments:             
+            - csid_customer_edit_form # name of the form
+            - csid_customer_edit_form # alias of the form type
+            - null # data to bind, this is where your entity could go if you have that defined as a service
+            - { validation_groups: [Profile]  }
+            
+    csid_customer.edit.form.type:
+        class: CSIDBundle\Form\Type\CustomerFormType
+        arguments: [~, La2UserBundle\Entity\User, ~]
+        tags:
+            - { name: form.type, alias: csid_customer_edit_form }
+            
+    csid_customer.edit.form.handler:
+        class : CSIDBundle\Form\Handler\CustomerFormHandler
+        scope : request
+        arguments: 
+            - @csid_customer.edit.form
+            - @request
+            - @csid.user_manager
+            - @fos_user.mailer
+            - @fos_user.util.token_generator 
+            - @service_container                           
+    
+    # User Edit Form
+    csid_user.edit.form:
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments:
+            - csid_user_edit_form # name of the form
+            - csid_user_edit_form # alias of the form type
+            - null # data to bind, this is where your entity could go if you have that defined as a service
+            - { validation_groups: [Profile]  }
+            
+    csid_user.edit.form.type:
+        class: CSIDBundle\Form\Type\UserEditFormType
+        arguments: [, La2UserBundle\Entity\User, ]
+        tags:
+            - { name: form.type, alias: csid_user_edit_form }
+            
+    csid_user.edit.form.handler:
+        class : CSIDBundle\Form\Handler\UserEditFormHandler
+        scope : request
+        arguments:
+            - @csid_user.edit.form
+            - @request
+            - @csid.user_manager
+            - @fos_user.mailer
+            - @fos_user.util.token_generator
+            - @service_container
+            
+            
+    # User Edit Password        
+    csid_user.changepass.form:
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments:
+            - csid_user_changepass_form # name of the form
+            - csid_user_changepass_form # alias of the form type
+            - null # data to bind, this is where your entity could go if you have that defined as a service
+            - { validation_groups: [Default]  }
+    csid_user.changepass.form.type:
+        class: CSIDBundle\Form\Type\UserChangePassFormType
+        arguments: [, La2UserBundle\Entity\User, ]
+        tags:
+            - { name: form.type, alias: csid_user_changepass_form }
+    csid_user.changepass.form.handler:
+        class : CSIDBundle\Form\Handler\UserChangePassFormHandler
+        scope : request
+        arguments:
+            - @csid_user.changepass.form
+            - @request
+            - @csid.user_manager
+            - @fos_user.mailer
+            - @fos_user.util.token_generator
+            - @service_container
+            
+    # Media Extension Twig
+    csid.mediapathextension:
+        class: CSIDBundle\Twig\Extension\MediaPathExtension
+        public: false
+        arguments:
+            - @service_container
+            - @sonata.media.manager.media
+        tags:
+            - { name: twig.extension }
+        
+    # Mailer    
+    csid.mailer:
+        class: CSIDBundle\Mailer\Mailer
+        arguments:
+            - @mailer
+            - @router
+            - @templating
+            - @csid.pdf
+            
+    # PDF    
+    csid.pdf:
+        class: CSIDBundle\Pdf\Pdf
+        arguments:
+            - @knp_snappy.pdf
+            - @templating
+            
+    form_serializer:
+        class: CSIDBundle\Form\FormErrorsSerializer

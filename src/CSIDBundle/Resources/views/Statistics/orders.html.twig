@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %} 
+
+{% block body %} 
+<div class="margin-top container-shadow-top">
+	<div class="container">
+		<ol class="breadcrumb">
+		  <li><a href="{{ url('homepage') }}">Accueil</a></li>
+		  <li class="active">Statistiques des ventes</li>
+		</ol>
+		<div class="title grid-full">
+		    <h2>Statistiques <small>Ventes</small></h2>
+		    <span class="border"></span>
+		</div>
+		
+		<form class="form-inline">
+		    <div class="form-group">
+		        <label for="dateBegin">Début</label>
+		        <input type="text" class="form-control datepicker" id="dateBegin" name="date-begin" value="{{ dateBegin }}">
+		    </div>
+		    <div class="form-group">
+		        <label for="dateEnd">Fin</label>
+		        <input type="text" class="form-control datepicker" id="dateEnd"  name="date-end" value="{{ dateEnd }}">
+		    </div>
+		    <button type="submit" class="btn btn-primary">Rechercher</button>
+		</form>
+		<br/><br/>
+		
+		<div id="chartContainer" style="height: 300px; width: 100%; margin-bottom: 30px"></div>
+		
+		<div id="chartContainer2" style="height: 300px; width: 100%; margin-bottom: 30px"></div>
+	
+		<a href="{{ url('csid_statistics_orders') }}?export=csv&date-begin={{ dateBegin }}&date-end={{ dateEnd }}" class="btn btn-default">Export CSV</a>
+	
+	</div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript">
+var $dataSeries1 = {{ statsCount|json_encode()|raw }};
+var $dataSeries2 = {{ statsSum|json_encode()|raw }};
+$(function() {
+	$( ".datepicker" ).datepicker({
+		dateFormat: "dd/mm/yy"
+	});
+});
+
+window.onload = function () {
+
+	var chart = new CanvasJS.Chart("chartContainer", {
+		title:{
+        	text: "Nombre de ventes"              
+      	},
+		data: [              
+		{
+			// Change type to "doughnut", "line", "splineArea", etc.
+			type: "column",
+			dataPoints: $dataSeries1
+		}
+		]
+	});
+	chart.render();
+
+	var chart = new CanvasJS.Chart("chartContainer2", {
+		title:{
+        	text: "Montant des ventes"              
+      	},
+		data: [              
+		{
+			// Change type to "doughnut", "line", "splineArea", etc.
+			type: "column",
+			dataPoints: $dataSeries2
+		}
+		]
+	});
+	chart.render();
+}
+</script>
+{% endblock %}

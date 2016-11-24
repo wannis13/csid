@@ -1,0 +1,143 @@
+{% extends 'base.html.twig' %} 
+{% block body %} 
+<div class="margin-top container-shadow-top">
+	<div class="container">
+		<div class="form-messages"></div>
+		
+		<ol class="breadcrumb">
+		  <li><a href="{{ url('homepage') }}">Accueil</a></li>
+		  <li><a href="{{ url('csid_orders') }}">Commandes</a></li>
+		  <li class="active">Détails</li>
+		</ol>
+		
+		<div class="title grid-full">
+		    <h2>{% if order.status == 'quotation' %}
+		{{ "quotation"|trans({}, 'csid') }}
+		{% else %}
+		{{ "invoice"|trans({}, 'csid') }}
+		{% endif %}
+		 n°{{ order.retailer.commandNo }}{{ order.number }}</h2>
+		    <span class="border"></span>
+		</div> 
+		
+		<h4 class="text-center">Du {{ order.created|date("d/m/Y") }}</h4>
+		
+		{% for type, messages in app.session.flashBag.all %}
+			{% for message in messages %}
+			<div class="alert {{ type }}">{{ message }}</div>
+			{% endfor %}
+		{% endfor %}
+		
+		
+		
+		<div class="clearfix" style="margin-bottom: 30px">
+			
+			<div class="pull-right text-right">
+				{{ order.customer.lastname }} {{ order.customer.firstname }}<br/>
+				{{ order.customer.address }}<br/>
+				{{ order.customer.postalCode }} {{ order.customer.city }}
+			</div>
+		</div>
+		
+		<table class="table table-bordered table-striped" id="tableBasket">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Désignation</th>
+					<th>Prix HT</th>
+					<th>Qté</th>
+					<th>Total HT</th>
+					<th>Total TTC</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% if order.items is defined  %}
+			{% for item in order.items %}
+				<tr>
+					<td>{{ loop.index }}</td>
+					<td>
+						{{ item.technical.name }}<br/>
+						Matière : {{ item.plateMatter.name }} ({{ item.plateMatterColor.name }})
+						{% if item.backplateMatter != null %}
+						/ {{ item.backplateMatter.name }} ({{ item.backplateMatterColor.name }})
+						{% endif %}
+						<br/>		
+						Dimension : {{ item.plateWidth }}L x {{ item.plateHeight }}H<br/>
+						Air d'impression : {{ item.printWidth }}L x {{ item.printHeight }}H<br/>
+						Angles : {% if item.roundedCorner %} arrondi {% else %} droit {% endif %}<br/>
+						Fixation : {{ item.fixing.name }}<br/>
+						{% if item.nbHoles > 0 %}
+						Perçages : {{ item.nbHoles }} perçages ; diam {{ item.holesDiameter }}mm<br/>
+						{% endif %}
+						{% if item.standardBearer is not null %}
+						Porte-drapeau : {{ item.standardBearer|trans({},'csid') }}<br/>
+						{% endif %}
+						<br/><br/>
+						{% set foo = media_public_url(item.mediaJPG, 'reference') %}
+				    	<img src="{{ foo|imagine_filter('heighten_300') }}" class="img-responsive" />
+					</td>
+					<td class="text-right">{{ item.amountWithMargin }} €</td>
+					<td class="text-right">{{ item.qty }}</td>
+					<td class="text-right">{{ (item.amountWithMargin*item.qty) }} €</td>
+					<td class="text-right">{{ (item.amountVATWithMargin*item.qty) }} €</td>
+				</tr>
+			{% endfor %}
+			{% endif %}
+			{% if order.increaseOrDecrease is defined %}
+				{% for item in order.increaseOrDecrease %}
+					<tr>
+						<td></td>
+						<td>
+							{{ item.label }}
+						</td>
+						<td class="text-right"></td>
+						<td class="text-right"></td>
+						<td class="text-right">{{ item.amount }} €</td>
+						<td class="text-right">{{ item.amountVAT }} €</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4" class="text-right">
+						<b>TOTAL</b>
+					</td>
+					<td class="text-right"><b>{{ order.amountWithMargin }} €</b></td>
+					<td class="text-right"><b>{{ order.amountVATWithMargin }} €</b></td>
+				</tr>
+			</tfoot>
+		</table>
+		{% if order.status == "quotation" %}
+		<div class="panel panel-default">
+			<div class="panel-heading">Accorder une augmentation ou remise</div>
+			<div class="panel-body">
+				<form method="POST" class="form-inline">
+					{{ form_row(form._token) }}
+					{{ form_errors(form) }}
+				
+					{{ form(form, { 'style': 'inline' }) }}
+				</form>
+			</div>
+		</div>
+		{% endif %}
+		
+		{% if order.signature != null %}
+		<div class="text-right">
+			<p>Devis validé le {{ order.signatureDate|date("d/m/Y") }}</p>
+		</div>
+		{% endif %}
+		
+		<p class="text-right">
+			{% if order.status == "quotation" %}
+				<a href="{{ path('csid_order_valid', {'id': order.id}) }}" class="btn btn-default">Valider le devis</a> 
+				<a href="{{ path('csid_order_pdf', {'id': order.id}) }}" class="btn btn-default">Imprimer le devis</a> 
+			{% else %}
+				<a href="{{ path('csid_order_pdf', {'id': order.id}) }}" class="btn btn-default">Imprimer la facture</a> 
+			{% endif %}
+			
+			<a href="{{ path('csid_order_send', {'id': order.id}) }}" class="btn btn-default">Partager</a> 
+		</p>
+	</div>
+</div>
+{% endblock %}

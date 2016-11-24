@@ -1,0 +1,3 @@
+la2_user_registration_confirm:
+    path : /register/confirm/{token}
+    defaults: { _controller: La2UserBundle:Registration:confirm }

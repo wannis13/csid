@@ -1,0 +1,4 @@
+services:
+#    la2_message.example:
+#        class: La2MessageBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

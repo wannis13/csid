@@ -1,0 +1,5 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+	<div class="imgFilePreview"><img src="{{ asset(object.jpg) | imagine_filter('heighten_60') }}" /></div>
+{% endblock %}

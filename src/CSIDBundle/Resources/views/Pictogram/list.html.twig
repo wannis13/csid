@@ -1,0 +1,26 @@
+{% for category in categories %}
+<div id="pictogramCategory{{ category.id }}" class="owl-carousel-pictogram-category owl-carousel hide">
+	<div class="item">
+	{% for pictogram in category.pictograms %}
+			<a href="#" data-svg="/{{ pictogram.webPath }}"><img src="{{ pictogram.jpg|imagine_filter('heighten_120') }}" alt="{{ pictogram.name }}" /></a>
+			{% if (loop.index) is divisible by(2) %}
+			</div><div class="item">
+			{% else %}
+			{% endif %}
+	{% endfor %}
+	</div>
+</div>
+{% endfor %}
+
+<div id="pictogramCategories" >
+	<ul>
+	{% for category in categories %}
+		<li><a href="#" data-id="{{ category.id }}"><img class="filter-tint" data-pb-tint-opacity="1" data-pb-tint-colour="#fff" src="{{ category.webPath|imagine_filter('heighten_60') }}" alt="{{ category.name }}" /></a></li>
+	{% endfor %}
+	</ul>
+</div>
+
+<div id="pictogramUpload">
+
+</div>
+

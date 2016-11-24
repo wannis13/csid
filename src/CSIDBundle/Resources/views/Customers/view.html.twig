@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block fos_user_content %}
+	<div class="margin-top container-shadow-top">
+		<div class="container">
+		
+			<ol class="breadcrumb">
+			  <li><a href="{{ url('homepage') }}">Accueil</a></li>
+			  <li><a href="{{ url('csid_customers') }}">Clients</a></li>
+			  <li class="active">Fiche</li>
+			</ol>
+		
+			<div class="title grid-full">
+			    <h2>Clients <span>Fiche</span></h2>
+			    <span class="border"></span>
+			</div> 
+		
+			<p class="clearfix">
+				<a href="{{ path('csid_customer_edit', {'id':customer.id}) }}" class="pull-right btn btn-success">Modifier</a>
+			</p>
+			
+			<div class="row">
+				
+				<div class="col-md-6">
+					
+					<div class="panel panel-border panel-info">
+						<div class="panel-heading">Informations</div>
+						<table class="table table-bordered table-striped">
+							<tr>
+								<td>{{ 'form.created_at'|trans({}, "csid") }}</td>
+								<td>{{ customer.createdAt|date("d/m/Y") }}</td>
+							</tr>
+							<tr>
+								<td>{{ 'form.username'|trans({}, "csid") }}</td>
+								<td>{{ customer.username }}</td>
+							</tr>
+							<tr>
+								<td>{{ 'form.email'|trans({}, "csid") }}</td>
+								<td>{{ customer.email }}</td>
+							</tr>
+							<tr>
+								<td>{{ 'form.lastname'|trans({}, "csid") }}</td>
+								<td>{{ customer.lastname }}</td>
+							</tr>
+							<tr>
+								<td>{{ 'form.firstname'|trans({}, "csid") }}</td>
+								<td>{{ customer.firstname }}</td>
+							</tr>
+							<tr>
+								<td>{{ 'form.address'|trans({}, "csid") }}</td>
+								<td>{{ customer.address }}</td>
+							</tr>
+							<tr>
+								<td>{{ 'form.postal_code'|trans({}, "csid") }}</td>
+								<td>{{ customer.postalCode }}</td>
+							</tr>
+							<tr>
+								<td>{{ 'form.city'|trans({}, "csid") }}</td>
+								<td>{{ customer.city }}</td>
+							</tr>
+						</table> 	
+					</div>
+				</div>
+			</div>
+			
+			<div class="panel panel-border panel-info">
+				<div class="panel-heading">Commandes</div>
+				<table id="jqGrid"></table>
+				<div id="jqGridPager"></div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+var customer_id = {{ customer.id }};
+</script>
+<script src="/libs/jqGrid/js/i18n/grid.locale-fr.js"></script>
+<script src="/libs/jqGrid/js/jquery.jqGrid.min.js"></script>
+<script src="/dist/js/customer.min.js"></script>
+{% endblock %}
+
+ 

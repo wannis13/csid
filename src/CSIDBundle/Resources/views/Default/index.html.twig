@@ -1,0 +1,247 @@
+{% extends 'base.html.twig' %} 
+{% block body %} 
+
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+<script type="text/javascript">
+{% if product is defined %}
+var productJson = {{ form.vars.value.json|raw }};
+{% endif %}
+
+var technicals = {{ technicals|json_encode(constant('JSON_PRETTY_PRINT'))|raw }};
+
+
+</script>
+
+<div id="containerGenerator" class="container-shadow-top" style="display:none">
+	<div class="">
+		<form name="editorForm">
+			{{ form_row(form._token) }}
+			{{ form_row(form.svg) }}
+			{{ form_row(form.png) }}
+			
+			<input type="hidden" name="{{ form.json.vars.full_name }}" />
+			<input type="hidden" name="{{ form.plateMatter.vars.full_name }}" {% if product is defined and product.plateMatter is not null %}value="{{ product.plateMatter.id }}"{% endif %} />
+			<input type="hidden" name="{{ form.plateMatterColor.vars.full_name }}" {% if product is defined and product.plateMatterColor is not null %}value="{{ product.plateMatterColor.id }}"{% endif %} />
+			<input type="hidden" name="{{ form.backplateMatter.vars.full_name }}" {% if product is defined and product.backplateMatter is not null %}value="{{ product.backplateMatter.id }}"{% endif %} />
+			<input type="hidden" name="{{ form.backplateMatterColor.vars.full_name }}" {% if product is defined and product.backplateMatterColor is not null %}value="{{ product.backplateMatterColor.id }}"{% endif %} />
+			<input type="hidden" name="{{ form.printHeight.vars.full_name }}" {% if product is defined %}value="{{ form.vars.value.printHeight }}"{% endif %} />
+			<input type="hidden" name="{{ form.printWidth.vars.full_name }}" {% if product is defined %}value="{{ form.vars.value.printWidth }}"{% endif %} />
+			<input type="hidden" name="{{ form.fixing.vars.full_name }}" {% if product is defined and product.fixing is not null %}value="{{ product.fixing.id }}"{% endif %}>
+			<input type="hidden" name="{{ form.roundedCorner.vars.full_name }}" {% if product is defined %}value="{{ form.vars.value.roundedCorner }}"{% endif %} />
+		
+			<div class="form-messages"></div>
+			<div id="generatorStep">
+				<h3>Choix de la technique</h3>
+			    <section>
+			    	<div class="container">
+				        <div class="row-fluid row-technicals">
+							{% for technical in technicals %}
+							<div class="col-xs-4 col">
+								<div class="technical" data-id="{{ technical.id }}">
+									<img src="{{ asset(technical.webPath) }}" alt="{{ technical.name }}" />
+									<div class="overlay">
+										{{ technical.name }}
+									</div>
+									{% set checked = '' %}
+									{% if product is defined and product.technical is not null %}
+										{% if product.technical.id == technical.id %}
+										{% set checked = 'checked="checked"' %}
+										{% endif %}
+									{% endif %}
+									<input type="radio" value="{{ technical.id }}" name="{{ form.technical.vars.full_name }}" id="technical{{ technical.id }}" class="sr-only" {{ checked|raw }} />
+								</div>
+								
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+			    </section>
+			    <h3>Choix du visuel</h3>
+
+			    <section>
+			    	<div class="container">
+						<div id="div-technique" style="display: none" class="row">
+	
+							<h6>Technique utilisée</h6>
+							<div class="col-md-3"><input type="radio"  name="technique" value="Gravure" /><span>Gravure</span></div>
+							<div class="col-md-3"><input type="radio" name="technique" value="Relief" /><span>Relief</span></div>
+						</div>
+				        {{ render(controller(
+					        'CSIDBundle:Pictogram:list'
+					    )) }}
+					</div>
+			    </section>
+			    <h3>Plaque : choix de la matière</h3>
+			    <section>
+			    	<div class="container">
+				    	<div class="matterChoice" id="MatterPlaceChoice" class="owl-carousel"></div>
+					</div>
+			    </section>
+			    <h3>Contre-plaque : choix de la matière</h3>
+			    <section>
+			    	<div class="container">
+				    	<div class="matterChoice" id="Matter2PlaceChoice" class="owl-carousel"></div>
+					</div>
+			    </section>
+			    <h3>Choix de la fixation</h3>
+			    <section>
+			    	<div class="container">
+				        <div id="fixingChoice" class="owl-carousel">
+						</div>
+					</div>
+			    </section>
+			     <h3>Finalisation</h3>
+			    <section id="finalStep">
+			    	<div class="row" style="margin: 0">
+			    		<div class="col-sm-8" style="padding: 0"> 
+			    			<div id="mainCanvas">
+					    		<canvas id="c"></canvas>
+					    	</div>
+		    			</div>	
+			    		<div class="col-sm-4" style="padding: 0">
+			    			<div id="contentToolbar">
+								<div>
+		
+								    <!-- Nav tabs -->
+								    <ul class="nav nav-tabs navtab-bg" role="tablist">
+								        <li role="home" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Support</a></li>
+								        <li role="presentation"><a href="#tools" aria-controls="tools" role="tab" data-toggle="tab">Outils</a></li>
+								        <li role="presentation"><a href="#layers" aria-controls="layers" role="tab" data-toggle="tab">Calques</a></li>
+								        <li role="objects" class="disabled"><a href="#objects" aria-controls="objects" role="tab" data-toggle="tab">Objet</a></li>
+								    </ul>
+								
+								    <!-- Tab panes -->
+								    <div class="tab-content">
+								        <div role="tabpanel" class="tab-pane active" id="home">
+											<div class="form-group">
+											    <label for="supportSize">Dimension (mm)</label>
+											    <select name="dimension" id="supportSize" class="form-control input-sm">
+													<option value="90x30">90x30</option>
+													<option value="120x60">120x60</option>
+												</select>
+										  	</div>
+										  	<div class="form-group">
+											    <label for="supportHeight">Hauteur (mm)</label>
+											    {{ form_widget(form.plateHeight, { 'id': 'supportHeight' }) }}
+										  	</div>
+										  	<div class="form-group">
+											    <label for="supportWidth">Largeur (mm)</label>
+											    {{ form_widget(form.plateWidth, { 'id': 'supportWidth' }) }}
+										  	</div>
+											<div class="clearfix" style="margin-bottom: 15px;">
+												<span class="tlbar-span pull-left">Angle</span> 
+												<div class="pull-left" style="margin-left: 15px">
+													<a href="" id="basic-angle" class="basic-angle active">Angle sans arrondi</a>
+													<a href="" id="rounded-angle" class="rounded-angle">Angle avec arrondi</a>
+												</div>
+											</div>
+											
+											<div class="form-group">
+											    <label for="supportSize">Porte drapeau</label>
+											    
+											    {{ form_widget(form.standardBearer, { 'id': 'standardBearer' }) }}
+										  	</div>
+										  	
+										  	<div class="form-group">
+											    <label for="supportSize">Fond d'écran</label>
+											    <input type="file" name="background" />
+										  	</div>
+											
+											<div class="clearfix" style="margin-bottom: 15px;">
+												<span class="tlbar-span pull-left">Perçage</span> 
+												<div class="pull-left" style="margin-left: 15px">
+													<select name="{{ form.nbHoles.vars.full_name }}" id="supportDrilling" class="form-control input-sm">
+														<option value="0">Aucun</option>
+														<option value="2">2 perçages</option>
+														<option value="4">4 perçages</option>
+													</select>
+												</div>
+												<div class="pull-left" style="margin-left: 15px">
+													<select name="{{ form.holesDiameter.vars.full_name }}" id="supportDiameter" class="form-control input-sm">
+														<option value="2">diam 2mm</option>
+														<option value="4">diam 4mm</option>
+														<option value="8">diam 8mm</option>
+													</select>
+												</div>
+											</div>
+								        </div>
+								        <div role="tabpanel" class="tab-pane" id="tools">
+								        	<ul>
+								        		<li><a href="" class="add-rect"><i class="glyphicon glyphicon-stop"></i> Rectangle </a> </li>
+								        		<li><a href="" class="add-triangle"><i class="fa fa-caret-up"></i> Triangle</a> </li>
+								        		<li><a href="" class="add-circle"><i class="fa fa-circle"></i> Cercle</a></li>
+								        		<li><a href="" class="add-text"><i class="fa fa-font"></i> Texte</a> </li>
+								        	</ul>
+								        </div>
+								        <div role="tabpanel" class="tab-pane" id="layers">
+								        
+								        </div>
+								        <div role="tabpanel" class="tab-pane" id="objects">
+								        
+								        </div>
+								    </div>
+								</div>
+							</div>
+			    		</div>
+			    	</div>
+			    	
+			    
+			    	
+			    </section>
+			</div>
+			
+		</form>
+		
+		<script type="text/javascript">
+			var inputNameJson = "{{ form.json.vars.full_name }}";
+			var inputNameSVG = "{{ form.svg.vars.full_name }}";
+			var inputTechnical = "{{ form.technical.vars.full_name }}";
+			var inputPlateMatter = "{{ form.plateMatter.vars.full_name }}";
+			var inputPlateMatterColor = "{{ form.plateMatterColor.vars.full_name }}";
+			var inputBackPlateMatter = "{{ form.backplateMatter.vars.full_name }}";
+			var inputBackPlateMatterColor = "{{ form.backplateMatterColor.vars.full_name }}";
+			var inputFixing = "{{ form.fixing.vars.full_name }}";
+			var inputPlateHeight = "{{ form.plateHeight.vars.full_name }}";
+			var inputPlateWidth = "{{ form.plateWidth.vars.full_name }}";
+			var inputPrintHeight = "{{ form.printHeight.vars.full_name }}";
+			var inputPrintWidth = "{{ form.printWidth.vars.full_name }}";
+			var inputPng = "{{ form.png.vars.full_name }}";
+			var inputRoundedCorner = "{{ form.roundedCorner.vars.full_name }}";
+		</script>
+		
+	</div>
+</div>
+{% else %} {% endif %} {% endblock %} 
+{% block javascripts %}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+<!--<script src="{{ asset('dist/js/utils.min.js') }}"></script>
+<script src="{{ asset('libs/jquery-steps/jquery.steps.min.js') }}"></script>
+<script src="{{ asset('libs/fabric.js-1.6.0/dist/fabric.min.js') }}"></script>
+<script src="{{ asset('libs/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
+<script src="{{ asset('libs/owl.carousel/owl-carousel/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('libs/mezzoblue-PaintbrushJS/common.js') }}"></script>
+
+<script src="{{ asset('libs/mezzoblue-PaintbrushJS/paintbrush.js') }}"></script>
+
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+<script src="{{ asset('dist/js/pictogram.edit.min.js') }}"></script>
+{#% endif %#}
+<script type="text/javascript" src="{{ asset('dist/js/home.min.js') }}"></script> -->
+<!-- file js -->
+<script src="{{ asset('dist/js/utils.js') }}"></script>
+<script src="{{ asset('libs/jquery-steps/jquery.steps.js') }}"></script>
+<script src="{{ asset('libs/fabric.js-1.6.0/dist/fabric.min.js') }}"></script>
+<script src="{{ asset('libs/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
+<script src="{{ asset('libs/owl.carousel/owl-carousel/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('libs/mezzoblue-PaintbrushJS/common.js') }}"></script>
+
+<script src="{{ asset('libs/mezzoblue-PaintbrushJS/paintbrush.js') }}"></script>
+
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+<script src="{{ asset('dist/js/pictogram.edit.min.js') }}"></script>
+{% endif %}
+<script type="text/javascript" src="{{ asset('dist/js/home.js') }}"></script>
+{% endblock %}

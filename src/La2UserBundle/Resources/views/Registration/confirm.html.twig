@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="margin-top">
+	<div class="container">
+		<p><button type="button" class="btn btn-primary">Je suis un particulier</button>&nbsp;
+		<button type="button" class="btn btn-default">Je suis un professionel</button></p>
+		
+		
+		
+		<form action="{{ path('la2_user_registration_confirm', {'token': token}) }}" {{ form_enctype(form_pro) }} method="POST">
+			
+			{{ bootstrap_set_style('inline') }}
+			
+			{{ form_errors(form_pro) }}
+			
+			<div class="row">
+				<div class="col-sm-6">
+					{{ form_row(form_pro.siren) }}
+				</div>
+				<div class="col-sm-6">
+					
+				</div>
+			</div>
+			
+			<p>
+		        <input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" class="btn btn-primary" />
+		    </p>
+		    
+		    {{ form_row(form_pro._token) }}
+			
+			{{ bootstrap_set_style('') }}
+			
+		</form>
+		
+	</div>
+
+{% endblock %}

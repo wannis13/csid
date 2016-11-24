@@ -1,0 +1,15 @@
+<div class="row">
+	{% for technical in technicals %}
+	<div class="col-md-4">
+		
+		<div class="technical" data-id="{{ technical.id }}">
+			<img src="{{ technical.webPath }}" alt="{{ technical.name }}" />
+			<div class="overlay">
+				{{ technical.name }}
+			</div>
+			<input type="radio" value="{{ technical.id }}" name="technical" id="technical{{ technical.id }}" class="sr-only" />
+		</div>
+		
+	</div>
+	{% endfor %}
+</div>

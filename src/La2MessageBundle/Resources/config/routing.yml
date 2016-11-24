@@ -1,0 +1,3 @@
+la2_message_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: La2MessageBundle:Default:index }

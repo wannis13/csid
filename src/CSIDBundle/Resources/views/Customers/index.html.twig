@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block fos_user_content %}
+	<div class="margin-top container-shadow-top">
+	  	<div class="container">
+	  		<ol class="breadcrumb">
+			  <li><a href="{{ url('homepage') }}">Accueil</a></li>
+			  <li class="active">Clients</li>
+			</ol>
+	  		<div class="title grid-full">
+			    <h2>Clients</h2>
+			    <span class="border"></span>
+			</div> 
+	  	
+	  		<p class="text-right"><a href="{{ path('csid_customer_add') }}" class="btn btn-success">Ajouter un client</a></p>
+	  	
+	  		<div class="panel panel-border panel-info">
+				<div class="panel-heading">Tableau des clients</div>
+				<table id="jqGrid"></table>
+				<div id="jqGridPager"></div>
+			</div>
+		</div>	
+	</div>				
+{% endblock %}
+
+{% block javascripts %}
+<script src="/libs/jqGrid/js/i18n/grid.locale-fr.js"></script>
+<script src="/libs/jqGrid/js/jquery.jqGrid.min.js"></script>
+<script src="/dist/js/customers.min.js"></script>
+{% endblock %}
+

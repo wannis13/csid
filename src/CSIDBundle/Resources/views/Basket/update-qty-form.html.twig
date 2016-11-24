@@ -1,0 +1,5 @@
+<form method="POST" class="form-inline" action="{{ path('csid_basket_update_qty') }}">
+	{{ form_row(formQty._token) }}
+	{{ form_row(formQty.product, {'value': id}) }}
+	{{ form_widget(formQty.qty, {'value': qty}) }}
+</form>

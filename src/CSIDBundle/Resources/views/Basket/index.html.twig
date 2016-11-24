@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %} 
+{% block body %} 
+	<div class="container-shadow-top margin-top">
+		
+		{% if order != null %}
+		
+		<div class="container">
+			<ol class="breadcrumb">
+			  <li><a href="{{ url('homepage') }}">Accueil</a></li>
+			  <li class="active">Panier</li>
+			</ol>
+			
+			<div class="title grid-full">
+			    <h2>Panier</h2>
+			    <span class="border"></span>
+			</div>
+			
+			<div class="form-messages"></div>
+			
+			<div class="panel panel-border panel-info">
+				<table class="table table-bordered table-striped" id="tableBasket">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Désignation</th>
+							<th>Prix HT</th>
+							<th>Qté</th>
+							<th>Total HT</th>
+							<th>Total TTC</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+					{% if order.items is defined  %}
+					{% for item in order.items %}
+						<tr>
+							<td>{{ loop.index }}</td>
+							<td>
+								{{ item.technical.name }}<br/>
+								Matière : {{ item.plateMatter.name }} ({{ item.plateMatterColor.name }})
+								{% if item.backplateMatter != null %}
+								/ {{ item.backplateMatter.name }} ({{ item.backplateMatterColor.name }})
+								{% endif %}
+								<br/>		
+								Dimension : {{ item.plateWidth }}L x {{ item.plateHeight }}H<br/>
+								Air d'impression : {{ item.printWidth }}L x {{ item.printHeight }}H<br/>
+								Angles : {% if item.roundedCorner %} arrondi {% else %} droit {% endif %}<br/>
+								Fixation : {{ item.fixing.name }}<br/>
+								{% if item.nbHoles > 0 %}
+								Perçages : {{ item.nbHoles }} perçages ; diam {{ item.holesDiameter }}mm<br/>
+								{% endif %}
+								{% if item.standardBearer is not null %}
+								Porte-drapeau : {{ item.standardBearer|trans({},'csid') }}<br/>
+								{% endif %}
+								<br/><br/>
+								{% set foo = media_public_url(item.mediaJPG, 'reference') %}
+						    	<img src="{{ foo|imagine_filter('heighten_300') }}" class="img-responsive" />
+							</td>
+							<td class="text-right">{{ item.amountWithMargin }} €</td>
+							<td class="text-right">
+							
+								{{ render(controller('CSIDBundle:Basket:updateQtyForm', { 'id': item.id, 'qty' : item.qty })) }}
+								
+							</td>
+							<td class="text-right">{{ (item.amountWithMargin*item.qty) }} €</td>
+							<td class="text-right">{{ item.amountVATWithMargin*item.qty }} €</td>
+							<td>
+								<a href="{{ path('csid_basket_delete' ,{ 'id': item.id }) }}" class="delete_item"><span class="typcn typcn-trash"></span></a>
+								<!-- <a href="{{ path('csid_edit_product' ,{ 'id': item.id }) }}"><span class="typcn typcn-edit"></span></a></td> -->
+						</tr>
+					{% endfor %}
+					{% endif %}
+					{% if order.increaseOrDecrease is defined %}
+					{% for item in order.increaseOrDecrease %}
+						<tr>
+							<td></td>
+							<td>
+								{{ item.label }}
+							</td>
+							<td class="text-right"></td>
+							<td class="text-right"></td>
+							<td class="text-right">{{ item.amount }} €</td>
+							<td class="text-right">{{ item.amountVAT }} €</td>
+							<td>
+								<a href="{{ path('csid_basket_delete_increase_decrease' ,{ 'id': item.id }) }}" class="delete_item"><span class="typcn typcn-trash"></span></a></td>
+						</tr>
+					{% endfor %}
+					{% endif %}
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="3" class="text-right"></td>
+							<td class="text-right">Total</td>
+							<td class="text-right total-amount">{{ order.amountWithMargin }} €</td>
+							<td class="text-right total-amountVAT">{{ order.amountVATWithMargin }} €</td>
+							<td></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			{% if is_granted('ROLE_RESELLER') %}
+			<div class="panel panel-border panel-info">
+				<div class="panel-heading">Accorder une augmentation ou remise</div>
+				<div class="panel-body">
+					<form method="POST" class="form-inline">
+						{{ form_row(form._token) }}
+						{{ form_errors(form) }}
+					
+						{{ form(form, { 'style': 'inline' }) }}
+					</form>
+				</div>
+			</div>
+			{% endif %}
+			<div class="text-right">
+				<a href="{{ path('csid_basket_empty')}}" class="empty_basket btn btn-default">Vider le panier</a> 
+				<a href="{{ path('csid_basket_valid')}}" class="btn btn-primary">Valider</a>
+			</div>
+		</div>
+		{% endif %}
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="{{ asset('dist/js/utils.min.js') }}"></script>
+<script src="{{ asset('dist/js/basket.min.js') }}"></script>
+{% endblock %}

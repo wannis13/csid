@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %} 
+
+{% block body %} 
+<div class="container">
+	<div class="title grid-full">
+	    <h2>Mon compte</h2>
+	    <span class="border"></span>
+	</div> 
+	<ul>
+		<li><a href="/orders">Commandes</a></li>
+		<li><a href="/user/edit">Mon Profil</a></li>
+		<li><a href="{{ url('csid_customers') }}">Clients</a></li>
+		<li><a href="/user/editPass">Changer mon mot de passe</a></li>
+
+	</ul>
+</div>
+{% endblock %}

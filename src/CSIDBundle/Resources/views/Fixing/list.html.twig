@@ -1,0 +1,12 @@
+<div class="row">
+	{% for fixing in fixings %}
+	<div class="col-md-3">
+		<div class="radio">
+			<label for="fixing_{{ fixing.id }}"> <input type="radio" name="fixing" id="fixing_{{ fixing.id }}"
+				value="{{ fixing.id }}"
+			/> {{ fixing.name }}
+			</label> 
+		</div>
+	</div>
+	{% endfor %}
+</div>

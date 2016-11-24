@@ -1,0 +1,27 @@
+services:
+
+    la2_user.activation.pro.form: 
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments: 
+            - la2_user_activation_pro_form # name of the form
+            - la2_user_activation_pro_form # alias of the form type
+            - null # data to bind, this is where your entity could go if you have that defined as a service
+            - { validation_groups: [Default] }
+
+    la2_user.activation.pro.form.type:
+        class: La2UserBundle\Form\Type\ActivationProFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: la2_user_activation_pro_form }
+            
+    la2_user.activation.pro.form.handler:
+        class : La2UserBundle\Form\Handler\ActivationProFormHandler
+        scope : request
+        arguments: 
+            - @la2_user.activation.pro.form
+            - @request
+            - @fos_user.user_manager
+            - @fos_user.mailer
+            - @fos_user.util.token_generator

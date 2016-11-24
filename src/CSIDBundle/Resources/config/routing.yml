@@ -1,0 +1,134 @@
+sonata_user_register:
+    resource: "@CSIDBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+csid_homepage:
+    path:     /
+    defaults: { _controller: CSIDBundle:Default:index }
+    
+csid_edit_product:
+    path:     /product/edit/{id}
+    defaults: { _controller: CSIDBundle:Default:edit }
+
+# Statistics
+
+csid_statistics_orders:
+    path:     /statistics/orders
+    defaults: { _controller: CSIDBundle:Statistics:orders }
+  
+csid_statistics_quotations:
+    path:     /statistics/quotations
+    defaults: { _controller: CSIDBundle:Statistics:quotations }
+
+# Product
+csid_products:
+    path:     /products
+    defaults: { _controller: CSIDBundle:Order:products }
+
+# User    
+csid_user:
+    path:     /user
+    defaults: { _controller: CSIDBundle:User:index }
+
+csid_user_edit:
+    path:     /user/edit
+    defaults: { _controller: CSIDBundle:User:edit }
+
+csid_user_edit_pass:
+    path:     /user/editPass
+    defaults: { _controller: CSIDBundle:User:editPass }
+
+# Basket    
+csid_basket:
+    path:     /basket
+    defaults: { _controller: CSIDBundle:Basket:index }  
+    
+csid_basket_update_qty:
+    path:     /basket/update-qty
+    defaults: { _controller: CSIDBundle:Basket:updateQty } 
+    
+csid_basket_add_product:
+    path:     /basket/add-product/{id}
+    defaults: { _controller: CSIDBundle:Basket:addProduct } 
+    
+csid_basket_calculate_price:
+    path:     /basket/calculatePrice
+    defaults: { _controller: CSIDBundle:Basket:calculateItem }    
+    
+csid_basket_add:
+    path:     /basket/add
+    defaults: { _controller: CSIDBundle:Basket:add }
+    
+csid_basket_delete:
+    path:     /basket/delete/{id}
+    defaults: { _controller: CSIDBundle:Basket:deleteItem }
+    
+csid_basket_delete_increase_decrease:
+    path:     /basket/delete-IncDec/{id}
+    defaults: { _controller: CSIDBundle:Basket:deleteIncreaseDecrease }
+    
+csid_basket_empty:
+    path:     /basket/empty
+    defaults: { _controller: CSIDBundle:Basket:empty }
+    
+csid_basket_show:
+    path:     /basket/show/{id}
+    defaults: { _controller: CSIDBundle:Basket:showItem }
+    
+csid_basket_valid:
+    path:     /basket/valid
+    defaults: { _controller: CSIDBundle:Basket:valid }
+
+# Customers
+csid_customer_add:
+    path:     /customers/add
+    defaults: { _controller: CSIDBundle:Customer:add }  
+    
+csid_delete_customer:
+    path:     /customers/delete/{id}
+    defaults: { _controller: CSIDBundle:Customer:delete }  
+    
+csid_customers:
+    path:     /customers
+    defaults: { _controller: CSIDBundle:Customer:index }     
+    
+csid_customers_autocomplete:
+    path:     /customers/autocomplete
+    defaults: { _controller: CSIDBundle:Customer:autocomplete }    
+    
+csid_customer_edit:
+    path:     /customers/edit/{id}
+    defaults: { _controller: CSIDBundle:Customer:edit }    
+    
+csid_customer_view:
+    path:     /customers/view/{id}
+    defaults: { _controller: CSIDBundle:Customer:view } 
+        
+# Orders    
+csid_orders:
+    path:     /orders
+    defaults: { _controller: CSIDBundle:Order:index }
+    
+csid_order_view:
+    path:     /order/view/{id}
+    defaults: { _controller: CSIDBundle:Order:view }
+    
+csid_order_pdf:
+    path:     /order/pdf/{id}
+    defaults: { _controller: CSIDBundle:Order:pdf }
+    
+csid_order_view_line:
+    path:     /order/view/line/{id}
+    defaults: { _controller: CSIDBundle:Order:viewLine }
+    
+csid_order_valid:
+    path:     /order/valid/{id}
+    defaults: { _controller: CSIDBundle:Order:valid }
+    
+csid_order_delete:
+    path:     /order/delete/{id}
+    defaults: { _controller: CSIDBundle:Order:delete }
+    
+csid_order_send:
+    path:     /order/send/{id}
+    defaults: { _controller: CSIDBundle:Order:send }

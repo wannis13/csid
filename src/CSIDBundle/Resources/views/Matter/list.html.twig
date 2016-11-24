@@ -1,0 +1,16 @@
+<div class="row">
+	{% for matter in matters %}
+	<div class="col-md-3">
+		<div class="radio">
+			<label for="matter_{{ matter.id }}"> <input type="radio" name="matter" id="matter_{{ matter.id }}"
+				value="{{ matter.id }}"
+			/> {{ matter.name }}
+			</label> 
+			<select name="matter_color_{{ matter.id }}">
+				<option></option> {% for color in matter.colors %}
+				<option value="{{ color.id }}">{{ color.name }}</option> {% endfor %}
+			</select>
+		</div>
+	</div>
+	{% endfor %}
+</div>

@@ -1,0 +1,11 @@
+{% block subject %}
+{% autoescape false %}
+[{{ order.user.company }}] {% if order.status == 'quotation' %}{{ "quotation"|trans({}, 'csid') }}{% else %}{{ "order"|trans({}, 'csid') }}{% endif %} n° {{ order.user.commandNo }}{{ order.number }}
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}
+{% endblock %}

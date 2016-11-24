@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %} 
+{% block body %} 
+
+<div class="container">
+	<h3>Rendu</h3>
+	<img   src="{{ asset('uploads/order_items/'~order.id~'.jpg') }}" />
+</div>
+
+{% endblock %}

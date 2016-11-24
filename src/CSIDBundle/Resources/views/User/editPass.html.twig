@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container-shadow-top margin-top">
+		<div class="container">
+		
+			<ol class="breadcrumb">
+			  <li><a href="{{ url('homepage') }}">Accueil</a></li>
+			  <li class="active">Modifier mon mot de passe</li>
+			</ol>
+		
+			<div class="title grid-full">
+			    <h2>Editer mon mot de passe</h2>
+			    <span class="border"></span>
+			</div> 
+			
+			<div class="row">
+	
+				<div class="col-md-6">
+					<div class="panel panel-border panel-info">
+						<div class="panel-heading">Mon mot de passe</div>
+						<div class="panel-body">
+							<form action="{{ path('csid_user_edit_pass') }}" {{ form_enctype(form) }} method="POST" class="csid_customer_edit_form">
+			
+								<div class="row">
+									<div class="col-md-6">
+										{{ form_row(form.current_password) }}
+									</div>
+								</div>
+			
+								<div class="row">
+									<div class="col-md-6">
+										{{ form_row(form.new.first) }}
+									</div>
+									<div class="col-md-6">
+										{{ form_row(form.new.second) }}
+									</div>
+								</div>
+			
+							{{ form_row(form._token) }}
+			
+							<p>
+								<input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" class="btn btn-primary" />
+							</p>
+							{{ bootstrap_set_style('') }}
+			
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+ 
