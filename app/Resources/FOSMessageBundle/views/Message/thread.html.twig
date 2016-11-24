@@ -1,0 +1,37 @@
+{% extends 'FOSMessageBundle::layout.html.twig' %}
+
+{% block fos_message_content %}
+<div class="margin-top">
+	<div class="container">
+		
+		<ul>
+			<li><a href="{{ url('fos_message_inbox') }}">{% trans from 'FOSMessageBundle' %}inbox{% endtrans %}</a></li>
+			<li><a href="{{ url('fos_message_sent') }}">{% trans from 'FOSMessageBundle' %}sent{% endtrans %}</a></li>
+			<li><a href="{{ url('fos_message_deleted') }}">{% trans from 'FOSMessageBundle' %}deleted{% endtrans %}</a></li>
+		</ul>
+	
+		<h2>{{ thread.subject }}</h2>
+		
+		{% for message in thread.messages %}
+		    <div class="messenger_thread_message">
+		        <div class="messenger_thread_message_info">
+		            {% trans with {'%sender%': message.sender|e, '%date%': message.createdAt|date} from 'FOSMessageBundle' %}message_info{% endtrans %}
+		        </div>
+		
+		        <div class="messenger_thread_message_body" id="message_{{ message.id }}">
+		            {{ message.body }}
+		        </div>
+		    </div>
+		{% endfor %}
+		
+		<h3>{% trans from 'FOSMessageBundle' %}reply{% endtrans %}</h3>
+		
+		<form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post">
+		    {{ form_widget(form) }}
+		
+		    <input type="submit" />
+		</form>
+	</div>
+</div>
+
+{% endblock %}

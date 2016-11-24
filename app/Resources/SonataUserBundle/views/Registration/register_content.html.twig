@@ -1,0 +1,61 @@
+
+<div class="margin-top container-shadow-top bg-grey-pattern">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+			
+				<h1>Demande d'accès à l'appliation</h1>
+			
+				<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="csid_user_askactivation_form">
+		    		{{ bootstrap_set_style('inline') }}
+		    		<div class="row">
+		    			
+		    			<div class="col-md-6">
+							{{ form_row(form.lastname) }}
+		    			</div>
+		    			
+		    			<div class="col-md-6">
+							{{ form_row(form.firstname) }}
+		    			</div>
+		    			
+		    			<div class="col-md-6">
+		    				{{ form_row(form.username) }}
+		    			</div>
+		    			
+		    			<div class="col-md-6">
+							{{ form_row(form.email) }}
+		    			</div>
+		    			
+		    			<div class="col-md-6">
+							{{ form_row(form.adress) }}
+		    			</div>
+
+		    			<div class="col-md-6">
+							{{ form_row(form.city) }}
+		    			</div>
+		    			<div class="col-md-6">
+							{{ form_row(form.postal_code) }}
+		    			</div>
+		    			<div class="col-md-6">
+							{{ form_row(form.plainPassword.first) }}
+		    			</div>
+		    			<div class="col-md-6">
+							{{ form_row(form.plainPassword.second) }}
+		    			</div>
+		    			
+		    		</div>
+					
+					{{ form_row(form._token) }}
+					
+					<p>
+				        <input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" class="btn btn-primary" />
+				    </p>
+					{{ bootstrap_set_style('') }}
+				    
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,323 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+		
+	{% else %}		
+		    <div class="margin-top container-shadow-top bg-grey-pattern">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 col-ads">
+							<div class="clearfix">
+								<div class="row-fluid">
+									<div class="col-xs-3 col-l">
+										<a href="" id="firstImg" class="wow swing">
+											<img src="/img/img1.jpg" class="img-responsive" />
+											<span class="overlay"></span>
+										</a>
+									</div>
+									<div class="col-xs-6 col-c">
+										<div class="row-fluid">
+											<div class="col-xs-6 col">
+												<a href="" class="wow swing">
+													<img src="/img/img2.jpg" class="img-responsive" />
+													<span class="overlay"></span>
+												</a>
+											</div>
+											<div class="col-xs-6 col">
+												<a href="" class="wow swing">
+													<img src="/img/img3.jpg" class="img-responsive" />
+													<span class="overlay"></span>
+												</a>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<div class="col-xs-6 col">
+												<a href="" class="wow swing">
+													<img src="/img/img4.jpg" class="img-responsive" />
+													<span class="overlay"></span>	
+												</a>
+											</div>
+											<div class="col-xs-6 col">
+												<a href="" class="wow swing"><img src="/img/img5.jpg" class="img-responsive" />
+													<span class="overlay"></span>
+												</a>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<div class="col-xs-6 col">
+												<a href="" class="wow swing"><img src="/img/img7.jpg" class="img-responsive" />
+													<span class="overlay"></span>
+												</a>
+											</div>
+											<div class="col-xs-6 col">
+												<a href="" class="wow swing"><img src="/img/img8.jpg" class="img-responsive" />
+													<span class="overlay"></span>
+												</a>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-3 col-r">
+										<a href="" id="lastImg" class=" wow swing">
+											<img src="/img/img6.jpg" class="img-responsive" />
+											<span class="overlay"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						<div class="col-md-6">
+							
+							<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST">
+							
+								<h2>Demande d'accès à l'application web <br/> <img src="/img/logo-carlooker2.png" alt="Carlooker" /></h2>
+								
+								{{ bootstrap_set_style('inline') }}
+								
+								<div class="row">
+									<div class="col-sm-6">
+										{{ form_row(form.username) }}
+									</div>
+									<div class="col-sm-6">
+										{{ form_row(form.email) }}
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										{{ form_row(form.plainPassword.first) }}
+									</div>
+									<div class="col-sm-6">
+										{{ form_row(form.plainPassword.second) }}
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										{{ form_row(form.postal_code) }}
+									</div>
+									<div class="col-sm-6">
+										{{ form_row(form.city) }}
+									</div>
+								</div>
+								
+								{{ form_row(form._token) }}
+								
+								{{ bootstrap_set_style('') }}
+								
+								<p>En cliquant sur S'inscrire, vous acceptez nos <a href="">nos conditions</a>.</p>
+								
+								<button type="submit" class="btn btn-primary">S'inscrire</button>
+								<a href="#" onclick="fb_login();" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+			<div class="margin-top container-blue text-center container-services container-shadow-top bg-blue-pattern wow fadeIn">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-3">
+							<p><img src="/img/ico-man.png" alt="Man" /></p>
+							<p>Créer gratuitement votre <br/><span>profil</span></p>
+						</div>
+						<div class="col-sm-3">
+							<p><img src="/img/ico-star.png" alt="Star" /></p>
+							<p>Consultez & déposez des <br/><span>annonces</span></p>
+						</div>
+						<div class="col-sm-3">
+							<p><img src="/img/ico-message.png" alt="Message" /></p>
+							<p>Echangez via la <br/><span>messagerie</span></p>
+						</div>
+						<div class="col-sm-3">
+							<p><img src="/img/icon-case.png" alt="Message" /></p>
+							<p>Postulez à des <br/><span>offres d'emploi</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="margin-top  container-shadow-top wow fadeIn">
+				<div class="container container-social-carlooker">
+					<div class="row">
+						<div class="col-md-6 text-center">
+							<img src="/img/social-carlooker.jpg" class="img-responsive" />
+						</div>
+						<div class="col-md-6">
+							<div class="container-grey arrow_box">
+								<h2 class="blue">Un réseau social consacré à l'automobile</h2>
+								<p>
+								destiné aux amateurs de voitures et aux professionnels du domaine.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="margin-top wow fadeIn">
+				<div class="container-grey container-presentation-pro-part">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-5 text-right">
+								<h2>Vous êtes un<br/><span>professionnel</span></h2>
+								<ul class="list-unstyled">
+									<li>Créez le profil Carlooker de votre entreprise gratuitement
+		en quelques clics.</li>
+									<li>Déposez vos annonces disponibles, offres
+		promotionelles et évènements.</li>
+									<li>Souscrivez un abonnement pour disposer de tâches
+		journalières gratuites.</li>
+									<li>Mesurez l’efficacité de votre page grâce à notre outil de
+		statistiques.</li>
+								</ul>
+							</div>
+							<div class="col-sm-2 col-agreement">
+								<img src="/img/ico-agreement.png" class="img-responsive" />
+							</div>
+							<div class="col-sm-5 text-left">
+								<h2>Vous êtes un<br/><span>particulier</span></h2>
+								<ul class="list-unstyled">
+									<li>Créez votre profil Carlooker gratuitement en quelques
+		clics.</li>
+									<li>Déposez et consultez des annonces sur le site (vente,
+		reprise, essai de véhicules...)</li>
+									<li>Connectez-vous aux autres membres de la communauté,
+		particuliers ou professionnels.</li>
+									<li>Echangez vos expériences sur le flux général ou via la 
+		messagerie instantanée
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div class="container-blue container-shadow-top bg-blue-pattern wow fadeIn">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							
+							<form action="{{ path('fos_user_registration_register') }}" method="POST">
+								<h2>Créer votre compte gratuitement sur <br/> <img src="/img/logo-carlooker3.png" alt="Carlooker" /></h2>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label for="" class="sr-only">Prénom</label> 
+											<input type="text" class="form-control" id="" placeholder="Prénom">
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label for="" class="sr-only">Nom</label> 
+											<input type="text" class="form-control" id="" placeholder="Nom">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label for="" class="sr-only">E-mail</label> 
+											<input type="text" class="form-control" id="" placeholder="E-mail">
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label for="" class="sr-only">Mot de passe</label> 
+											<input type="password" class="form-control" id="" placeholder="Mot de passe">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label for="" class="sr-only">Code postal</label> 
+											<input type="text" class="form-control" id="" placeholder="Code postal">
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label for="" class="sr-only">Ville</label> 
+											<input type="password" class="form-control" id="" placeholder="Ville">
+										</div>
+									</div>
+								</div>
+								
+								<p>En cliquant sur S'inscrire, vous acceptez nos <a href="">nos conditions</a>.</p>
+								
+								<button type="submit" class="btn btn-white">S'inscrire</button>
+								<a href="#" onclick="fb_login();" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+							</form>
+						</div>
+						<div class="col-md-6">
+							<h2 class="uppercase">Une sélection de nos professionnels</h2>
+							
+							<div class="container-pro">
+								<div class="row-fluid">
+									<div class="col-xs-3 col">
+										<a href="" class="wow wobble">
+											<img src="/img/img9.jpg" class="img-responsive " />
+											<span class="overlay"></span>
+										</a>
+									</div>
+									<div class="col-xs-3 col">
+										<a href="" class="wow wobble">
+											<img src="/img/img10.jpg" class="img-responsive" />
+											<span class="overlay"></span>
+										</a>
+									</div>
+									<div class="col-xs-3 col">
+										<a href="" class="wow wobble">
+											<img src="/img/img11.jpg" class="img-responsive" />
+											<span class="overlay"></span>
+										</a>
+									</div>
+									<div class="col-xs-3 col">
+										<a href="" class="wow wobble">
+											<img src="/img/img12.jpg" class="img-responsive" />
+											<span class="overlay"></span>
+										</a>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<div class="col-xs-3 col">
+										<a href="" class="wow wobble">
+											<img src="/img/img13.jpg" class="img-responsive" />
+											<span class="overlay"></span>
+										</a>
+									</div>
+									<div class="col-xs-3 col">
+										<a href="" class="wow wobble">
+											<img src="/img/img14.jpg" class="img-responsive" />
+											<span class="overlay"></span>
+										</a>
+									</div>
+									<div class="col-xs-3 col">
+										<a href="" class="wow wobble">
+											<img src="/img/img15.jpg" class="img-responsive" />
+											<span class="overlay"></span>
+										</a>
+									</div>
+									<div class="col-xs-3 col">
+										<a href="" class="wow wobble">
+											<img src="/img/img16.jpg" class="img-responsive" />
+											<span class="overlay"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="/libs/bootstrap3-typeahead/typeahead.js-master/dist/typeahead.bundle.js"></script>
+<script type="text/javascript" src="/libs/bootstrap3-typeahead/typeahead.js-master/dist/typeahead.jquery.js"></script>
+<script type="text/javascript" src="/dist/js/home.min.js"></script>
+{% endblock %}

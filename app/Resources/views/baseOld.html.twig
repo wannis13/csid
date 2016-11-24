@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="st-layout ls-top-navbar ls-bottom-footer hide-sidebar sidebar-r2" lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>{% block title %}Welcome!{% endblock %}</title>
+{% block stylesheets %}
+<link href="/libs/jquery-ui-1.11.4/jquery-ui.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/libs/jquery-ui-1.11.4/jquery-ui.structure.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/libs/jquery-ui-1.11.4/jquery-ui.theme.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/libs/bootstrap/dist/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/libs/font-awesome-4.4.0/css/font-awesome.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/libs/typicons.font-2.0.7/src/font/typicons.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/libs/meanMenu/meanmenu.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/libs/WOW/css/libs/animate.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/libs/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/libs/owl.carousel/owl-carousel/owl.carousel.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="/libs/jqGrid/css/ui.jqgrid.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="/libs/owl.carousel/owl-carousel/owl.theme.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="/dist/css/steps.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/dist/css/main.min.css" media="screen" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block addStylesheets %}
+{% endblock %}
+
+<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+	
+	<div id="header">
+		<div class="container">
+			
+			<a href="{{ url('homepage') }}" class="logo">
+				CSID
+			</a>
+			
+			<div class="login">
+				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+				<a href="{{ path('fos_user_security_logout') }}" title="{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}"><span class="typcn typcn-power"></span></a>
+				<a href="/user"><span class="typcn typcn-user"></span></a>
+				<a href="/basket"><span class="typcn typcn-shopping-cart"></span></a>
+				{% else %}
+	        	<a href="{{ path('fos_user_security_login') }}" class="btn btn-white">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+				{% endif %}
+			</div>
+			
+		</div>
+		
+	</div>
+	<div id="navigation">
+		<div class="container">
+		</div>
+	</div>
+	{% block body %} {% endblock %} 
+	{% for type, messages in app.session.flashBag.all %}
+	<div class="margin-top">
+		<div class="container">
+			{% for message in messages %}
+			<div class="{{ type }}">{{ message|trans({}, 'FOSUserBundle') }}</div>
+			{% endfor %}
+		</div>
+	</div>
+	{% endfor %} 
+	{% block fos_user_content %}{% endblock fos_user_content %} 
+	
+	{% block fos_message_content %}
+	{% endblock %}
+	<footer>
+		
+	</footer>
+	<script type="text/javascript" src="/libs/jquery/dist/jquery.min.js"></script>
+	<script src="/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!--[if lt IE 9]><script type="text/javascript" src="/libs/html5shiv/html5shiv.js"></script><![endif]-->
+	<!--[if lt IE 9]><script type="text/javascript" src="/libs/respond/respond.min.js"></script><![endif]-->
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+	<script type="text/javascript" src="/libs/WOW/dist/wow.min.js"></script>
+	<script type="text/javascript" src="/libs/meanMenu/jquery.meanmenu.min.js"></script>
+	<script type="text/javascript" src="/libs/tinynav/tinynav.min.js"></script>
+	<script type="text/javascript" src="/libs/jquery.formatCurrency-1.4.0/jquery.formatCurrency-1.4.0.min.js"></script>
+	<script type="text/javascript" src="/libs/jquery.formatCurrency-1.4.0/i18n/jquery.formatCurrency.fr-FR.js"></script>
+	<script type="text/javascript" src="/dist/js/main.min.js"></script>
+	
+	
+	{% block javascripts %}
+	
+	{% endblock %}
+</body>
+</html>
