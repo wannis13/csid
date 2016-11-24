@@ -1,0 +1,28 @@
+csid:
+    resource: "@CSIDBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+la2_message:
+    resource: "@La2MessageBundle/Resources/config/routing.yml"
+    prefix:   /
+
+la2_user:
+    resource: "@La2UserBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    
+gallery:
+    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
+    prefix: /media/gallery
+
+media:
+    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
+    prefix: /media
