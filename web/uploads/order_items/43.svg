@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="360" height="120" xml:space="preserve"><desc>Created with Fabric.js 1.6.0-rc.1</desc><defs><pattern x="0" y="0" id="backgroundColorPattern" width="345" height="146" patternUnits="userSpaceOnUse"><image x="0" y="0" width="345" height="146" xlink:href="http://csid.la2dev.com/uploads/matters/image_originale1.jpg"></image></pattern></defs><rect x="0" y="0" width="360" height="120" fill="url(#backgroundColorPattern)"></rect><rect x="-178.5" y="-58.5" rx="0" ry="0" width="357" height="117" style="stroke: #fff; stroke-width: 3; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: transparent; fill-rule: nonzero; opacity: 1;" transform="translate(180 60)"/>
+<g transform="translate(58 63) scale(0.21 0.21)">
+<pattern id="SVGID_11" x="0" y="0" width="1.7957089552238807" height="3.498134328358209">
+<image x="0" y="0" width="308" height="600" xlink:href="http://csid.la2dev.com/uploads/matters/image_contre_plaque1.jpg"></image>
+</pattern>
+<filter id="SVGID_2" y="-35%" height="170%" x="-35%" width="170%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="10"></feGaussianBlur>
+	<feOffset dx="5" dy="5" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgba(0,0,0,0.6)"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<path d="M 416.529 232.52 H 451 c -5.16 -43.57 -24.631 -83.888 -56.131 -115.389 C 363.368 85.631 323.051 66.16 279.48 61 v 34.471 C 350.18 105.768 406.232 161.82 416.529 232.52 z" style="stroke: #000; stroke-width: 0.05; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: url(#SVGID_11); fill-rule: nonzero; opacity: 1;filter: url(#SVGID_2);" transform="translate(109.24 -109.24) translate(-365.24, -146.76) " stroke-linecap="round" />
+<pattern id="SVGID_11" x="0" y="0" width="1.7957089552238805" height="3.498134328358209">
+<image x="0" y="0" width="308" height="600" xlink:href="http://csid.la2dev.com/uploads/matters/image_contre_plaque1.jpg"></image>
+</pattern>
+<filter id="SVGID_3" y="-35%" height="170%" x="-35%" width="170%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="10"></feGaussianBlur>
+	<feOffset dx="5" dy="5" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgba(0,0,0,0.6)"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<path d="M 232.52 95.471 V 61 c -43.57 5.16 -83.888 24.631 -115.389 56.131 C 85.631 148.632 66.16 188.949 61 232.52 h 34.471 C 105.768 161.82 161.82 105.768 232.52 95.471 z" style="stroke: #000; stroke-width: 0.05; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: url(#SVGID_11); fill-rule: nonzero; opacity: 1;filter: url(#SVGID_3);" transform="translate(-109.24 -109.24) translate(-146.76, -146.76) " stroke-linecap="round" />
+<pattern id="SVGID_11" x="0" y="0" width="1.7957089552238807" height="3.4981343283582094">
+<image x="0" y="0" width="308" height="600" xlink:href="http://csid.la2dev.com/uploads/matters/image_contre_plaque1.jpg"></image>
+</pattern>
+<filter id="SVGID_4" y="-35%" height="170%" x="-35%" width="170%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="10"></feGaussianBlur>
+	<feOffset dx="5" dy="5" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgba(0,0,0,0.6)"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<path d="M 279.48 416.529 V 451 c 43.57 -5.16 83.888 -24.631 115.389 -56.131 c 31.5 -31.501 50.971 -71.818 56.131 -115.389 h -34.471 C 406.232 350.18 350.18 406.232 279.48 416.529 z" style="stroke: #000; stroke-width: 0.05; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: url(#SVGID_11); fill-rule: nonzero; opacity: 1;filter: url(#SVGID_4);" transform="translate(109.24 109.24) translate(-365.24, -365.24) " stroke-linecap="round" />
+<pattern id="SVGID_11" x="0" y="0" width="1.7957089552238807" height="3.4981343283582094">
+<image x="0" y="0" width="308" height="600" xlink:href="http://csid.la2dev.com/uploads/matters/image_contre_plaque1.jpg"></image>
+</pattern>
+<filter id="SVGID_5" y="-35%" height="170%" x="-35%" width="170%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="10"></feGaussianBlur>
+	<feOffset dx="5" dy="5" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgba(0,0,0,0.6)"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<path d="M 95.471 279.48 H 61 c 5.16 43.57 24.631 83.888 56.131 115.389 c 31.501 31.5 71.818 50.971 115.389 56.131 v -34.471 C 161.82 406.232 105.768 350.18 95.471 279.48 z" style="stroke: #000; stroke-width: 0.05; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: url(#SVGID_11); fill-rule: nonzero; opacity: 1;filter: url(#SVGID_5);" transform="translate(-109.24 109.24) translate(-146.76, -365.24) " stroke-linecap="round" />
+<pattern id="SVGID_11" x="0" y="0" width="3.1400695301110235" height="6.117018565151344">
+<image x="0" y="0" width="308" height="600" xlink:href="http://csid.la2dev.com/uploads/matters/image_contre_plaque1.jpg"></image>
+</pattern>
+<filter id="SVGID_6" y="-45%" height="190%" x="-45%" width="190%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="10"></feGaussianBlur>
+	<feOffset dx="5" dy="5" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgba(0,0,0,0.6)"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<path d="M 169.471 232.52 c 8.312 -30.596 32.453 -54.737 63.049 -63.049 v -35.038 c -49.473 9.538 -88.549 48.614 -98.087 98.087 H 169.471 z" style="stroke: #000; stroke-width: 0.05; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: url(#SVGID_11); fill-rule: nonzero; opacity: 1;filter: url(#SVGID_6);" transform="translate(-72.52 -72.52) translate(-183.4765, -183.4765) " stroke-linecap="round" />
+<pattern id="SVGID_11" x="0" y="0" width="3.1400695301110244" height="6.117018565151346">
+<image x="0" y="0" width="308" height="600" xlink:href="http://csid.la2dev.com/uploads/matters/image_contre_plaque1.jpg"></image>
+</pattern>
+<filter id="SVGID_7" y="-45%" height="190%" x="-45%" width="190%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="10"></feGaussianBlur>
+	<feOffset dx="5" dy="5" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgba(0,0,0,0.6)"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<path d="M 169.471 279.48 h -35.038 c 9.538 49.473 48.614 88.549 98.087 98.087 v -35.038 C 201.924 334.218 177.782 310.076 169.471 279.48 z" style="stroke: #000; stroke-width: 0.05; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: url(#SVGID_11); fill-rule: nonzero; opacity: 1;filter: url(#SVGID_7);" transform="translate(-72.52 72.52) translate(-183.4765, -328.5235) " stroke-linecap="round" />
+<pattern id="SVGID_11" x="0" y="0" width="3.1400695301110244" height="6.117018565151346">
+<image x="0" y="0" width="308" height="600" xlink:href="http://csid.la2dev.com/uploads/matters/image_contre_plaque1.jpg"></image>
+</pattern>
+<filter id="SVGID_8" y="-45%" height="190%" x="-45%" width="190%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="10"></feGaussianBlur>
+	<feOffset dx="5" dy="5" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgba(0,0,0,0.6)"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<path d="M 342.529 279.48 c -8.312 30.596 -32.453 54.737 -63.049 63.049 v 35.038 c 49.473 -9.538 88.549 -48.614 98.087 -98.087 H 342.529 z" style="stroke: #000; stroke-width: 0.05; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: url(#SVGID_11); fill-rule: nonzero; opacity: 1;filter: url(#SVGID_8);" transform="translate(72.52 72.52) translate(-328.5235, -328.5235) " stroke-linecap="round" />
+<pattern id="SVGID_11" x="0" y="0" width="3.1400695301110244" height="6.117018565151344">
+<image x="0" y="0" width="308" height="600" xlink:href="http://csid.la2dev.com/uploads/matters/image_contre_plaque1.jpg"></image>
+</pattern>
+<filter id="SVGID_9" y="-45%" height="190%" x="-45%" width="190%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="10"></feGaussianBlur>
+	<feOffset dx="5" dy="5" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgba(0,0,0,0.6)"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<path d="M 342.529 232.52 h 35.038 c -9.538 -49.473 -48.614 -88.549 -98.087 -98.087 v 35.038 C 310.076 177.782 334.218 201.924 342.529 232.52 z" style="stroke: #000; stroke-width: 0.05; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: url(#SVGID_11); fill-rule: nonzero; opacity: 1;filter: url(#SVGID_9);" transform="translate(72.52 -72.52) translate(-328.5235, -183.4765) " stroke-linecap="round" />
+<pattern id="SVGID_11" x="0" y="0" width="0.7897435897435897" height="1.5384615384615385">
+<image x="0" y="0" width="308" height="600" xlink:href="http://csid.la2dev.com/uploads/matters/image_contre_plaque1.jpg"></image>
+</pattern>
+<filter id="SVGID_10" y="-26%" height="152%" x="-26%" width="152%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="10"></feGaussianBlur>
+	<feOffset dx="5" dy="5" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgba(0,0,0,0.6)"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<path d="M 265.521 210.045 V 61 h -19.042 v 149.045 c -18.252 3.775 -32.658 18.182 -36.434 36.434 H 61 v 19.042 h 149.045 c 3.775 18.253 18.182 32.659 36.434 36.435 V 451 h 19.042 V 301.955 c 18.253 -3.775 32.659 -18.182 36.435 -36.435 H 451 v -19.042 H 301.955 C 298.18 228.227 283.773 213.82 265.521 210.045 z" style="stroke: #000; stroke-width: 0.05; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: url(#SVGID_11); fill-rule: nonzero; opacity: 1;filter: url(#SVGID_10);" transform="translate(0 0) translate(-256, -256) " stroke-linecap="round" />
+</g>
+<pattern id="SVGID_13" x="0" y="0" width="1.387589687904023" height="5.046824955188056">
+<image x="0" y="0" width="308" height="600" xlink:href="http://csid.la2dev.com/uploads/matters/image_contre_plaque1.jpg"></image>
+</pattern>
+<filter id="SVGID_12" y="-68%" height="236%" x="-38%" width="176%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="10"></feGaussianBlur>
+	<feOffset dx="5" dy="5" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgba(0,0,0,0.6)"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+	<g transform="translate(218.48 70.5) scale(1.58 2.27)">
+		<text font-family="Arial" font-size="40" font-weight="normal" style="stroke: #000; stroke-width: 0.05; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: url(#SVGID_13); fill-rule: nonzero; opacity: 1;filter: url(#SVGID_12);" ><tspan x="-70.03" y="8.98" fill="[object Object]">test test</tspan></text>
+	</g>
+</svg>
