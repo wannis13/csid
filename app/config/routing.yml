@@ -1,3 +1,7 @@
+mobilier_incendie:
+    resource: "@MobilierIncendieBundle/Resources/config/routing.yml"
+    prefix:   /
+
 csid:
     resource: "@CSIDBundle/Resources/config/routing.yml"
     prefix:   /

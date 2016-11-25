@@ -51,7 +51,8 @@ class AppKernel extends Kernel
             new La2UserBundle\La2UserBundle(),
             new La2MessageBundle\La2MessageBundle(),
             new CSIDBundle\CSIDBundle(),
-            
+
+            new MobilierIncendieBundle\MobilierIncendieBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
