@@ -34,7 +34,7 @@ class DefaultController extends Controller
 	public function indexAction (Request $request)
 	{
 		if (! $this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-			throw $this->createAccessDeniedException();
+            return $this->redirectToRoute('mobilier_incendie_choix_du_mode');
 		}
 		
 		/** @var $retailer \La2UserBundle\Entity\User **/
