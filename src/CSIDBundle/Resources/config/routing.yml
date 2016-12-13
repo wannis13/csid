@@ -3,7 +3,7 @@ sonata_user_register:
     prefix: /register
 
 csid_homepage:
-    path:     /signalétique-sur-mesure
+    path:     /signaletique-sur-mesure
     defaults: { _controller: CSIDBundle:Default:index }
     
 csid_edit_product:
