@@ -71,6 +71,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+            resources:
+                - 'SonataCoreBundle:Form:colorpicker.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -182,8 +185,26 @@ sonata_media:
 
             formats:
                 small: { width: 100 , quality: 75}
-                big:   { width: 500 , quality: 75}  
-      
+                big:   { width: 500 , quality: 75}
+        images_produits:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                preview:   { width: 100, quality: 100}
+                small:     { width: 200, quality: 100}
+                large:     { width: 600, quality: 100}
+        plaquette_pdf:
+            providers:
+               - sonata.media.provider.file
+            formats: ~
+        code_ral_pdf:
+            providers:
+               - sonata.media.provider.file
+            formats: ~
+        dossier_zip_image:
+            providers:
+               - sonata.media.provider.file
+            formats: ~
     cdn:
         server:
             path: /uploads/media # http://media.sonata-project.org/
@@ -192,3 +213,13 @@ sonata_media:
         local:
             directory:  %kernel.root_dir%/../web/uploads/media
             create:     false
+    providers:
+            file:
+               service:    sonata.media.provider.file
+               resizer:    false
+               filesystem: sonata.media.filesystem.local
+               cdn:        sonata.media.cdn.server
+               generator:  sonata.media.generator.default
+               thumbnail:  sonata.media.thumbnail.format
+               allowed_extensions: ['pdf'  ,'zip']
+               allowed_mime_types: ['application/pdf' ,'application/zip']
