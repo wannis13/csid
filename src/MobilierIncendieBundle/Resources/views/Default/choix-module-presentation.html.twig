@@ -1,12 +1,73 @@
 {% extends 'base-choix.html.twig' %}
+{% block addStylesheets %}
+    <style>
+        #navigation {
+            height: 0px;
+        }
+        body {
+
+            background: #003366;
+        }
+        #div-lien-choix-mode{
+       max-width: 1142px !important;
+        }
+    </style>
+
+{% endblock %}
 {% block body %}
     <div class="container">
-        <div class="row">
+       {# <div class="row">
             <div class="col-xs-12">
                 <a href="{{ path('mobilier_incendie_page_presentation') }}">Mobilier incendie</a></br>
 
 
 
+            </div>
+        </div>#}
+    </div>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div id="div-titre-page" class="col-xs-12 text-center"><h1>Quels produits désirez-vous ?</h1></br> <span>Choisissez le type de produits</span></div>
+                    <div id="div-lien-choix-mode" class="row">
+                        <div class="col-sm-3 text-center div_choix_module">
+                            <img class="img-responsive img-choix-mode" src="{{ asset('img/icon-mobilier-incendie.png') }}">
+
+                            <a class="a_titre_ch_mod" href="{{ path('mobilier_incendie_page_presentation') }}" >Mobilier incendie</a>
+
+                            <a class="lien_accede" href="{{ path('mobilier_incendie_page_presentation') }}">Accédez </a>
+
+                        </div>
+                        <div class="col-sm-3 text-center div_choix_module">
+                            <img class="img-responsive img-choix-mode" src="{{ asset('img/plans-consignes.png') }}">
+
+                            <a class="a_titre_ch_mod"  href="#" >Plans et consignes</a>
+
+                            <a class="lien_accede" href="#">Accédez </a>
+
+                        </div>
+                        <div class="col-sm-3 text-center div_choix_module">
+                            <img class="img-responsive img-choix-mode" src="{{ asset('img/signaletique-catalogue.png') }}">
+
+                            <a class="a_titre_ch_mod"  href="#" >Signalétique catalogue</a>
+
+                            <a class="lien_accede" href="#">Accédez </a>
+
+                        </div>
+                        <div class="col-sm-3 text-center div_choix_module">
+                            <img class="img-responsive img-choix-mode" src="{{ asset('img/signaletique-sur-mesure.png') }}">
+
+                            <a class="a_titre_ch_mod"  href="{{ path('csid_homepage') }}" >Signalétique sur-mesure</a>
+
+                            <a class="lien_accede" href="{{ path('csid_homepage') }}">Accédez </a>
+
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

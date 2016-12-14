@@ -1,11 +1,43 @@
 {% extends 'base-choix.html.twig' %}
+{% block addStylesheets %}
+    <style>
+        #navigation {
+            height: 0px;
+        }
+        body {
+
+            background: #003366;
+        }
+    </style>
+
+{% endblock %}
 {% block body %}
     <div class="container">
 
         <div class="row">
             <div class="col-xs-12">
-                <a href="{{ path('mobilier_incendie_choix_du_module' ,{'mode':'presentation'}) }}" >Visiter le catalogue</a></br>
-                <a href="{{ path('mobilier_incendie_choix_du_module' ,{'mode':'achat'}) }}" >Accédez pour acheter</a>
+                <div class="row">
+                    <div id="div-titre-page" class="col-xs-12 text-center"><h1>Choisissez le mode d’utilisation</h1></br> <span>Présentation ou Achat</span></div>
+                    <div id="div-lien-choix-mode" class="row">
+                        <div class="col-sm-6 text-center">
+                            <img class="img-responsive img-choix-mode" src="{{ asset('img/icon-presentation.png') }}">
+                            <span class="span_titre">Présentation</span>
+                            <a class="a_titre" href="{{ path('mobilier_incendie_choix_du_module' ,{'mode':'presentation'}) }}" >Visiter</br> le catalogue</a>
+                            <p class="p-infos-titre">This is Photoshop's version  of Lorem Ipsum. Proin gravidaenim.</p>
+                            <a class="lien_accede" href="{{ path('mobilier_incendie_choix_du_module' ,{'mode':'presentation'}) }}">Accédez </a>
+
+                        </div>
+                        <div class="col-sm-6 text-center">
+                            <img class="img-responsive img-choix-mode" src="{{ asset('img/icon-achat.png') }}">
+                            <span class="span_titre">Achat</span>
+                            <a class="a_titre"  href="{{ path('mobilier_incendie_choix_du_module' ,{'mode':'achat'}) }}" >Accédez pour </br>acheter </a>
+                            <p class="p-infos-titre">This is Photoshop's version  of Lorem Ipsum. Proin gravidaenim.</p>
+                            <a class="lien_accede" href="{{ path('mobilier_incendie_choix_du_module' ,{'mode':'achat'}) }}">Accédez </a>
+
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
