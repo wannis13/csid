@@ -8,30 +8,75 @@
 <meta name="author" content="">
 <title>{% block title %}Welcome!{% endblock %}</title>
 {% block stylesheets %}
-<link href="/libs/jquery-ui-1.11.4/jquery-ui.min.css" media="screen" rel="stylesheet" type="text/css">
-<link href="/libs/jquery-ui-1.11.4/jquery-ui.structure.min.css" media="screen" rel="stylesheet" type="text/css">
-<link href="/libs/jquery-ui-1.11.4/jquery-ui.theme.min.css" media="screen" rel="stylesheet" type="text/css">
-<link href="/libs/bootstrap/dist/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
-<link href="/dist/css/main.min.css" media="screen" rel="stylesheet" type="text/css">
-<link href="/dist/css/login.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="{{ asset('libs/jquery-ui-1.11.4/jquery-ui.min.css') }}"  media="screen" rel="stylesheet" type="text/css">
+<link href="{{ asset('libs/jquery-ui-1.11.4/jquery-ui.structure.min.css') }}"   media="screen" rel="stylesheet" type="text/css">
+<link href="{{ asset('libs/jquery-ui-1.11.4/jquery-ui.theme.min.css') }}"  media="screen" rel="stylesheet" type="text/css">
+<link href="{{ asset('libs/bootstrap/dist/css/bootstrap.min.css') }}"  media="screen" rel="stylesheet" type="text/css">
+<link href="{{ asset('dist/css/main.min.css') }}" media="screen" rel="stylesheet"type="text/css">
+<link href="{{ asset('dist/css/login.min.css') }}"  media="screen" rel="stylesheet"type="text/css">
+<link href="{{ asset('dist/css/login.min.css') }}" media="screen" rel="stylesheet" type="text/css">
+<link href="{{ asset('dist/css/mobilier-incendie.css') }}" media="screen" rel="stylesheet" type="text/css"/>
 {% endblock %}
-{% block addStylesheets %} 
+{% block addStylesheets %}
+	<style>
+		#navigation {
+			height: 0px;
+		}
+		body {
+
+			background: #003366;
+		}
+	</style>
 {% endblock %}
 
 <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
-	<div class="overlay"></div>
-	<div class="overlay2"></div>
-	<div class="overlay3"></div>
-	
 
+	{#<div class="overlay"></div>
+	<div class="overlay2"></div>
+	<div class="overlay3"></div>#}
+
+    <div id="header">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+
+                    <a class="navbar-brand" href="{{ url('homepage') }}">
+                        <img class="img-responsive" src="{{ asset('img/logo-footer.png') }}">
+                    </a>
+                    <span id="titre-logo"> Le design en toute sécurité</span>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li><a href="{{ url('homepage') }}" title="Accueil"><i class="fa fa-home"></i></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="typcn typcn-user"></span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+
+                                    <li><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+    </div>
 	<div class="container body_content">
-			<center><img src="{{ asset('/img/Logo.png') }}" alt="icone csid"/></center>
-		<h1>SIGNAL&#201;TIQUE</h1>
+			{#<center><img src="{{ asset('/img/Logo.png') }}" alt="icone csid"/></center>#}
+		<h1>Connectez-vous</h1>
 		<hr>
-		<h2>LE CONFIGURATEUR POUR PROFESSIONNELS</h2>
-		<form action="{{ path("fos_user_security_check") }}" method="post" >
+		<h2>Se connecter pour accéder à votre espace</h2>
+		<form id="form-login" action="{{ path("fos_user_security_check") }}" method="post" >
 			{% if error %}
 				<div class="alert alert-danger alert-dismissible" role="alert">
 				  	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -43,12 +88,12 @@
 		
 			<div class="form-group">
 			    <label for="username" class="sr-only">username</label>
-			    <input type="text" class="form-control" name="_username" id="username" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" value="{{ last_username }}" required="required">
+			    <input type="text" class="form-control" name="_username" id="username" placeholder="{{ 'security.login.Identifiant'|trans({}, 'FOSUserBundle') }}" value="{{ last_username }}" required="required">
 	  	 	</div>
 			
 			<div class="form-group">
 			    <label for="password" class="sr-only">password</label>
-			    <input type="password" class="form-control" name="_password"  id="password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" required="required">
+			    <input type="password" class="form-control" name="_password"  id="password" placeholder="{{ 'security.login.pasw'|trans({}, 'FOSUserBundle') }}" required="required">
 		  	</div>
 
  			<div class="checkbox">
@@ -57,28 +102,37 @@
 	    		</label>
 	  		</div>	
 	  		
-	    	<input type="submit" id="_submit" name="_submit" value="LOGIN" class="btn-log" /> 
+	    	<input type="submit" id="_submit" name="_submit" value="CONNEXION" class="btn-log" />
 	    	<br>
-	    	<a href="{{ path('fos_user_registration_register') }}">Demande de compte</a>
+			<a class="pull-left" href="#">Mot de passe oublié ?</a>
+	    	<a class="pull-right" href="{{ path('fos_user_registration_register') }}">S’inscrire sur Rouge ligne</a>
 		</form>
 	</div>
-
-
-	<footer>
-		
-	</footer>
-	<script type="text/javascript" src="/libs/jquery/dist/jquery.min.js"></script>
-	<script src="/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-	<!--[if lt IE 9]><script type="text/javascript" src="/libs/html5shiv/html5shiv.js"></script><![endif]-->
-	<!--[if lt IE 9]><script type="text/javascript" src="/libs/respond/respond.min.js"></script><![endif]-->
+    <footer>
+        <div class="container-fluid" style="border: solid 1px">
+            <div id="div-footer" class="row">
+                <img class="img-responsive img-choix-mode" src="{{ asset('img/logo-footer.png') }}">
+                <span id="span-tritre-footer">SHOWROOM</span>
+                <span id="span-adresse-footer">291 av. Roger Guichard - 95610 ERAGNY SUR OISE</span>
+                <span id="span-contact-footer">Tél: +33(0)9 83 76 47 99 / Fax: +33(0)1 79 72 41 80 / Mail: contact@rougeligne.fr</span>
+                <div id="div-cope">
+                    © 2016 CSID. Tous les droits sont réservés.
+                </div>
+            </div>
+        </div>
+    </footer>
+	<script type="text/javascript" src="{{ asset('libs/jquery/dist/jquery.min.js')}}"></script>
+	<script src="{{ asset('libs/jquery-ui-1.11.4/jquery-ui.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+	<!--[if lt IE 9]><script type="text/javascript" src="{{ asset('libs/html5shiv/html5shiv.js')}}"></script><![endif]-->
+	<!--[if lt IE 9]><script type="text/javascript" src="{{ asset('libs/respond/respond.min.js')}}"></script><![endif]-->
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-	<script type="text/javascript" src="/libs/WOW/dist/wow.min.js"></script>
-	<script type="text/javascript" src="/libs/meanMenu/jquery.meanmenu.min.js"></script>
-	<script type="text/javascript" src="/libs/tinynav/tinynav.min.js"></script>
-	<script type="text/javascript" src="/libs/jquery.formatCurrency-1.4.0/jquery.formatCurrency-1.4.0.min.js"></script>
-	<script type="text/javascript" src="/libs/jquery.formatCurrency-1.4.0/i18n/jquery.formatCurrency.fr-FR.js"></script>
-	<script type="text/javascript" src="/libs/tinynav/tinynav.min.js"></script>
-	<script type="text/javascript" src="/dist/js/main.min.js"></script>
+	<script type="text/javascript" src="{{ asset('libs/WOW/dist/wow.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('libs/meanMenu/jquery.meanmenu.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('libs/tinynav/tinynav.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('libs/jquery.formatCurrency-1.4.0/jquery.formatCurrency-1.4.0.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('libs/jquery.formatCurrency-1.4.0/i18n/jquery.formatCurrency.fr-FR.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('libs/tinynav/tinynav.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('dist/js/main.min.js')}}"></script>
 </body>
 </html>
