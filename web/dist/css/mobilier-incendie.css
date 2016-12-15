@@ -238,3 +238,445 @@ label[for=remember_me]
     background-color: #33cccc;
     color: #fff;
 }
+/*page liste produit */
+
+.name_produit{
+display: block;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #333333;
+    padding-top: 25px;
+}
+.cat_produit{
+    display: block;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #999999;
+}
+.couleur_produit{
+    display: block;
+    float: left;
+}
+.prix_produit{
+    display: block;
+    float: right;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #333366;
+}
+.div_produit{
+
+    float: left;
+    padding-bottom: 26px;
+    border-radius: 9px;
+    -webkit-box-shadow:-2px -2px 22px -1px rgba(0,0,0,0.1);
+    -moz-box-shadow:-2px -2px 22px -1px rgba(0,0,0,0.1);
+    box-shadow: -2px -2px 22px -1px rgba(0,0,0,0.1);
+    margin-bottom: 18px;
+    min-height: 349px;
+}
+.infos_produit{
+    padding-left: 24px;
+    padding-right: 8px;
+}
+#div_liste_produits{
+    padding-top: 30px;
+}
+#nav-bar-liste-produit{
+   /* padding-top: 20px;
+    padding-bottom: 20px;*/
+    background-color: #46bce0;
+}
+#nav-bar-liste-produit .navbar {
+    margin-bottom: 0px;
+    min-height: 60px;
+    border: 0;
+}
+#nav-bar-liste-produit .navbar-nav > li > a {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 18px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    color: #fff;
+    padding-left: 0px;
+}
+#nav-bar-liste-produit .navbar-nav > li > a:before{
+    content: "|";
+
+    padding-right: 15px;
+}
+#nav-bar-liste-produit .navbar-nav > li:nth-child(1) > a:before{
+    content: "";
+
+    padding-right: 0px;
+}
+
+#nav-bar-liste-produit .navbar-nav > li > a:hover{
+    color: #46bce0;
+    background-color: #fff;
+}
+.color_prod{
+
+    width: 10px;
+    height: 10px;
+    border-radius: 15px;
+    display: block;
+    float: left;
+    margin-right: 5px;
+
+}
+/*slider */
+
+.bx-wrapper, .bx-viewport, .bx-wrapper img {
+    max-height: 500px !important;
+}
+.bx-wrapper img {
+    max-width: 100%;
+    display: block;
+    width: 100%;
+}
+.bx-wrapper .bx-pager {
+    text-align: center;
+    font-size: .85em;
+    font-family: Arial;
+    font-weight: bold;
+    color: #666;
+    padding-top: 20px;
+    display: none;
+}
+.bx-wrapper {
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow: none;
+    border: 0px solid #fff;
+    background: #fff;
+    margin-bottom: 0px;
+}
+ul.bxslider  >li{
+    position: relative;
+
+}
+.infos_slide{
+    position: absolute;
+  /*  border: solid 1px;*/
+    left: 10%;
+    top:10%;
+    color: #fff;
+    font-family: 'Ubuntu', sans-serif;
+
+}
+.slide_cat_title{
+    display: block;
+    font-weight: 500;
+    font-size: 60px;
+}
+.slide_prod_title{
+    display: block;
+    font-weight: 500;
+    font-size: 42px;
+    text-transform: uppercase;
+  /*  text-decoration: underline;*/
+    border-bottom: solid 4px #46bce0 ;
+   /* -webkit-text-decoration-color:#46bce0 ;
+    -moz-text-decoration-color:#46bce0 ;
+    text-decoration-color: #46bce0 ;*/
+    margin-bottom: 15px;
+    float: left;
+}
+.slide_prod_desc{
+    display: block;
+    font-weight: 400;
+    font-size: 26px;
+    clear: left;
+    margin-bottom: 27px;
+
+}
+.slide_lien_prod{
+    display: block;
+    font-weight: 700;
+    font-size: 16px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left:20px ;
+    padding-right: 20px;
+    background-color:#46bce0 ;
+
+    border-radius: 49px;
+    float: left;
+    color: #fff;
+    text-transform: uppercase;
+    margin-left: 25%;
+}
+@media (max-width: 637px) {
+    .slide_cat_title {
+        font-size: 15px;
+    }
+    .slide_prod_title {
+        font-size: 15px;
+    }
+    .slide_prod_desc {
+        font-size: 15px;
+        margin-bottom: 0px;
+    }
+    .slide_lien_prod {
+        font-size: 12px;
+    }
+}
+.bx-wrapper .bx-next {
+    right: 10px;
+    background: url('../../img/next.png') no-repeat;
+    width: 42px !important;
+    height: 42px !important;
+}
+.bx-wrapper .bx-prev {
+    left: 10px;
+    background: url('../../img/prev.png') no-repeat;
+    width: 42px !important;
+    height: 42px !important;
+}
+.bx-wrapper .bx-next:hover, .bx-wrapper .bx-next:focus {
+    background-position: 0 0;
+}
+/*page fiche produit */
+.btn-lg, .btn-group-lg > .btn {
+    font-size: 18px;
+    line-height: 1.33;
+    padding: 10px 16px;
+    border-radius: 67px;
+    width: 100%;
+    text-align: center;
+    color: #000;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 700;
+    margin-bottom: 30px;
+    font-size: 13px;
+}
+#btn_pdf{
+color: #cc3300;
+    border-color: #cc3300;
+    background: url("../../img/icon_pdf.png") no-repeat;
+    background-position: 15px;
+
+}
+#btn_photo_zip{
+    color: #6699cc;
+    border-color: #6699cc;
+    background: url("../../img/zip.png") no-repeat;
+    background-position: 15px;
+}
+#btn_quest{
+    color: #999999;
+    border-color: #999999;
+    background: url("../../img/ques.png") no-repeat;
+    background-position: 15px;
+}
+#btn_tarifs{
+    color: #000000;
+    border-color: #000000;
+    background: url("../../img/tarifs.png") no-repeat;
+    background-position: 4px;
+}
+.titre_modele{
+    float: left;
+    color: #003366;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+.prix_modele{
+    float: right;
+    color: #46bce0;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+.code_color{
+    width: 24px;
+    height: 24px;
+    border-radius: 24px;
+    float: left;
+
+}
+.titre_color{
+    font-size: 13px;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    text-align: center;
+}
+.titre_bloc{
+    width: 100%;
+    display: block;
+    border-bottom: solid 1px #cccccc;
+    font-weight: 400;
+    font-size: 26px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #000;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+#titre_produit{
+    font-family: 'Ubuntu', sans-serif;
+    color: #000;
+    font-weight: 400;
+    width: 100%;
+    display: block;
+    margin-bottom: 17px;
+    font-size: 36px;
+
+}
+.code_color_per{
+    width: 40px;
+    height: 40px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    float: left;
+    margin-right: 5px;
+    border-radius: 23px;
+    line-height: 40px;
+}
+#code_color_per_titre{
+    font-family: 'Ubuntu', sans-serif;
+    color: #000;
+    font-weight:700;
+    text-transform: uppercase;
+    line-height: 37px;
+    font-size: 13px;
+    float: left;
+}
+#btn_pers_color{
+    padding-bottom: 2px;
+    padding-top: 2px;
+}
+#code_color_per_tel{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color:#46bce0 ;
+    text-transform: uppercase;
+    background: url("../../img/icon_pdf1.png") no-repeat;
+
+    float: right;
+    width: 145px;
+    height: 34px;
+    line-height: 28px;
+    padding-left: 12px;
+    margin-top: 5px;
+
+}
+.titre_bloc_infos{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
+    padding-top:27px ;
+    padding-bottom: 32px;
+    display: block;
+
+ }
+.div_bloc_infos{
+    border: solid 4px;
+    border-radius: 5px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333333;
+    padding-bottom: 15px;
+    min-height: 190px;
+
+}
+#div_add_to_cart{
+    background-color: #003366;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    color: #fff;
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 45px;
+
+}
+#cart_desc_prod{
+    font-size: 14px;
+    font-weight: 500;
+}
+#cart_titre_prod{
+
+    font-size: 32px;
+    font-weight: 400;
+    width: 100%;
+    display: block;
+}
+#cart_prix{
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+}
+#prix_unitaire{
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: 10px;
+    display: block;
+    margin-bottom: -10px;
+}
+.center{
+    width: 218px;
+    margin: 15px auto;
+
+}
+#btn_moin{
+    border-radius: 154px 0px 0px 142px;
+    background-color: transparent;
+    color: #fff;
+    opacity: 1;
+}
+#btn_plus{
+    border-radius: 0px 154px 154px 0px;
+    background-color: transparent;
+    color: #fff;
+    opacity: 1;
+}
+.input-group-addon, .input-group-btn {
+    width: auto;
+}
+#qut_produits {
+    height: 34px;
+    display: block;
+    text-align: center;
+    line-height: 34px;
+    width: 70px;
+}
+#btn_add_to_cart{
+    color: #fff;
+    background-color: #46bce0;
+    background-image: url("../../img/icon-add-to-cart.png") ;
+    background-repeat: no-repeat;
+    background-position: 15px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 16px;
+    border: 0;
+
+}
+#div-tarifs-degressifs{
+    background-color: #ebecf5;
+    padding-top: 35px;
+    padding-bottom: 20px;
+
+}
+#titre_tarifs{
+    color: #000;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
