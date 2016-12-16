@@ -1,0 +1,296 @@
+{% extends 'base-choix.html.twig' %}
+{% block addStylesheets %}
+    <style>
+        #navigation {
+            height: 0px;
+        }
+
+        body {
+
+            background: #fff;
+        }
+        .bx-wrapper, .bx-viewport, .bx-wrapper img {
+            max-height: 515px !important;
+            height: 515px;
+        }
+    </style>
+
+{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <div id="div_breadcrumb" class="row">
+         <div class="container">
+             <ol class="breadcrumb">
+
+                 <li><a href="#" title="Accueil">Accueil</a></li>
+                 <li><a href="#" title="formations">Mobilier incendie</a></li>
+                 <li><a href="#" title="formations">Coffrets</a></li>
+                 <li class="active">Alto simp</li>
+             </ol>
+
+         </div>
+        </div>
+    </div>
+    <div class="container">
+
+        <div id="div_produit" class="row">
+
+               <div class="col-sm-6" >
+                   <div class="row">
+                       <div class="col-xs-12">
+                       <ul class="bxslider-produit">
+                           <li>   <img src="{{ asset('libs/bxslider/docs_src/assets/img/photo2.jpeg') }}"/></li>
+                           <li>   <img src="{{ asset('libs/bxslider/docs_src/assets/img/photo3.jpeg') }}"/></li>
+                           <li> <img src="{{ asset('libs/bxslider/docs_src/assets/img/photo5.jpeg') }}"/></li>
+                          {# <li> <img src="{{ asset('libs/bxslider/docs_src/assets/img/photo1.jpeg') }}"/></li>#}
+                       </ul>
+
+                       <div id="bx-pager">
+                           <a data-slide-index="0" href=""> <img width="130" height="150" src="{{ asset('libs/bxslider/docs_src/assets/img/photo2.jpeg') }}"/></a>
+                           <a data-slide-index="1" href=""> <img width="130" height="150" src="{{ asset('libs/bxslider/docs_src/assets/img/photo3.jpeg') }}"/></a>
+                           <a data-slide-index="2" href=""> <img width="130" height="150" src="{{ asset('libs/bxslider/docs_src/assets/img/photo5.jpeg') }}"/></a>
+                          {# <a data-slide-index="3" href=""> <img width="130" height="150" src="{{ asset('libs/bxslider/docs_src/assets/img/photo1.jpeg') }}"/></a>#}
+                       </div>
+
+                       </div>
+
+                   </div>
+                  <div class="row">
+                      <div class="col-sm-6">
+                          <a id="btn_pdf"class="btn btn-default btn-lg">Plaquette .pdf</a>
+                      </div>
+                      <div class="col-sm-6">
+                          <a id="btn_photo_zip" class="btn btn-default btn-lg">Photos .zip</a>
+                      </div>
+
+                  </div>
+
+                   <div class="row">
+                       <div class="col-sm-6">
+                           <a id="btn_quest" class="btn btn-default btn-lg">J'ai une question</a>
+                       </div>
+                       <div class="col-sm-6">
+                           <a id="btn_tarifs" class="btn btn-default btn-lg">tarifs distributeurs</a>
+                       </div>
+
+                   </div>
+
+               </div>
+               <div class="col-sm-6" >
+                   <span id="titre_produit">
+
+                       Securiss coffret extincteur
+                   </span>
+
+                   <span class="titre_bloc">
+                        VERSIONS
+                   </span>
+                   <a  class="btn btn-default btn-lg btn_modele">
+                               <span class="titre_modele"> modele N°1</span>
+                               <span class="prix_modele"> à partir de 520 €</span>
+                           </a>
+                   <a  class="btn btn-default btn-lg btn_modele">
+                       <span class="titre_modele"> modele N°1</span>
+                       <span class="prix_modele"> à partir de 520 €</span>
+                   </a>
+                   <a  class="btn btn-default btn-lg btn_modele">
+                       <span class="titre_modele"> modele N°1</span>
+                       <span class="prix_modele"> à partir de 520 €</span>
+                   </a>
+                   <a  class="btn btn-default btn-lg btn_modele">
+                       <span class="titre_modele"> modele N°1</span>
+                       <span class="prix_modele"> à partir de 520 €</span>
+                   </a>
+                   <div class="row">
+                    <div class="col-xs-12">
+                         <span class="titre_bloc">
+                         COLORIS
+                       </span>
+
+                    </div>
+                       <div class="col-sm-6">
+                           <a  class="btn btn-default btn-lg btn_modele titre_color">
+                               <span class="code_color" style="background-color:#ff6633 "> </span>
+                               where is
+                           </a>
+                       </div>
+                       <div class="col-sm-6">
+                           <a  class="btn btn-default btn-lg btn_modele titre_color">
+                               <span class="code_color" style="background-color:#cccccc "> </span>
+                               where is
+                           </a>
+                       </div>
+                       <div class="col-sm-6">
+                           <a  class="btn btn-default btn-lg btn_modele titre_color">
+                               <span class="code_color" style="background-color:#333333 "> </span>
+                               where is
+                           </a>
+                       </div>
+                       <div class="col-sm-6">
+                           <a  class="btn btn-default btn-lg btn_modele titre_color">
+                               <span class="code_color" style="background-color:#33cccc "> </span>
+                                  where is
+                           </a>
+                       </div>
+
+                       <div class="col-sm-12">
+                           <a  id="btn_pers_color" class="btn btn-default btn-lg btn_modele">
+                               <span class="code_color_per" style="background-color:#000 ">#</span>
+                               <span id="code_color_per_titre">Personnaliser via code ral</span>
+                               <span id="code_color_per_tel">Télécharger</span>
+
+                           </a>
+                       </div>
+                   </div>
+                   <div class="row">
+                       <div class="col-xs-12">
+                         <span class="titre_bloc">
+                         TECHNIQUE
+                         </span>
+                       </div>
+                       <div class="col-xs-12">
+                           <div class="row">
+                               <div class="col-sm-6">
+
+                                   <div class="col-sm-12 div_bloc_infos" style="border-color:#eeeeee ">
+                                       <span class="titre_bloc_infos" style="color:#333333"> TECHNIQUE</span>
+
+                                        Everything we do is connected with sorrow: hypnosis, heaven, booda-hood, living.
+
+                                   </div>
+
+                               </div>
+                            <div class="col-sm-6">
+                                <div class="col-sm-12 div_bloc_infos" style="border-color:#32c5f2 ">
+                                    <span class="titre_bloc_infos" style="color:#003366"> DIMENSIONS</span>
+                                     <p style="margin-bottom: 0px;">
+                                         Hauteur : 1004mm
+                                         </br>
+                                         Largeur : 344mm
+                                         </br>
+                                         Profondeur : 222mm
+                                         </br>
+                                         Poids : 18k
+                                     </p>
+                                </div>
+                            </div>
+
+                           </div>
+
+                       </div>
+
+                   </div>
+               </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div id="div_add_to_cart" class="row">
+            <div class="container">
+                <div class="row">
+                    <div id="cart_desc_prod" class="col-md-5 col-sm-4">
+                        <span id="cart_titre_prod">
+                            Securiss coffret extincteur
+                        </span>
+
+                        Modèle :  MOdéle N° :1  /   VERSIONS & COLORIS : RAL au choix
+                    </div>
+                    <div id="cart_prix" class="col-md-1 col-sm-2 text-center" style="padding:0 ">
+                        <span id="prix_unitaire">Prix unitaire</span>
+                        439 €
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="center">
+                                <div class="input-group">
+                                      <span  class="input-group-btn">
+                                          <button id="btn_moin" type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus"
+                                                  data-field="quant[1]">
+                                              <span class="glyphicon glyphicon-minus"></span>
+                                          </button>
+                                      </span>
+                                     <input type="hidden" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
+                                    <span id="qut_produits" >1</span>
+
+                                      <span  class="input-group-btn">
+                                          <button id="btn_plus" type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+                                              <span class="glyphicon glyphicon-plus"></span>
+                                          </button>
+                                      </span>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-7">
+                                <a id="btn_add_to_cart"class="btn btn-default btn-lg">Ajouter au panier</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div id="div-tarifs-degressifs" class="row">
+
+            <span id="titre_tarifs">Tableau de prix dégressifs</span>
+
+            <div class="container">
+                <div class="row">
+                     <div class="col-xs-12">
+                         <table  id="table_tarifs" class="table table-bordered">
+                             <thead>
+                             <tr>
+
+                                 <th>Quantités</th>
+                                 <th>Prix unitaire</th>
+                                 <th>Réductions</th>
+                             </tr>
+                             </thead>
+                             <tbody>
+                             <tr>
+
+                                 <td>De 1 à 10</td>
+                                 <td>439 €</td>
+                                 <td class="td_reduction">5%</td>
+                             </tr>
+                             <tr>
+
+                                 <td>De 1 à 10</td>
+                                 <td>439 €</td>
+                                 <td class="td_reduction">5%</td>
+                             </tr>
+                             <tr>
+
+                                 <td>De 1 à 10</td>
+                                 <td>439 €</td>
+                                 <td class="td_reduction">5%</td>
+                             </tr>
+
+                             </tbody>
+                         </table>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('libs/bxslider/dist/jquery.bxslider.min.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('.bxslider-produit').bxSlider({
+
+                        controls : true,
+                        Pager :true,
+                        pagerCustom: '#bx-pager'
+                    }
+            );
+        });
+    </script>
+{% endblock %}
