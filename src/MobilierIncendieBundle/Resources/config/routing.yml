@@ -1,0 +1,16 @@
+mobilier_incendie_choix_du_mode:
+    path:     /
+    defaults: { _controller: MobilierIncendieBundle:Default:choixDuMode }
+mobilier_incendie_choix_du_module:
+    path:     /choix-du-module/{mode}
+    defaults: { _controller: MobilierIncendieBundle:Default:choixDuModule }
+mobilier_incendie_page_achat:
+    path:     /mobilier-incendie-achat
+    defaults: { _controller: MobilierIncendieBundle:Default:mobilierIncendieAchat }
+mobilier_incendie_page_presentation:
+    path:     /mobilier-incendie-presentation
+    defaults: { _controller: MobilierIncendieBundle:Default:mobilierIncendiePresentation }
+mobilier_incendie_produit:
+    path:     /afficher-produit
+    defaults: { _controller: MobilierIncendieBundle:Default:afficherProduit }
+
