@@ -1,12 +1,297 @@
 {% extends 'base-choix.html.twig' %}
+{% block addStylesheets %}
+    <style>
+        #navigation {
+            height: 0px;
+        }
+
+        body {
+
+            background: #fff;
+        }
+    </style>
+
+{% endblock %}
 {% block body %}
-    <div class="container">
+    <div class="container-fluid">
+        <div class="row">
+
+            <ul class="bxslider">
+                <li>
+                    <div class="infos_slide">
+                        <span class="slide_cat_title">shrimps lassi  </span>
+                        <span class="slide_prod_title">vigilNot shangri-la  </span>
+                        <span class="slide_prod_desc">fraticinidas accelerare!Courage, devastation, and x-ray vision. </span>
+                        <a class="slide_lien_prod">en savoir plus</a>
+                    </div>
+                    <img src="{{ asset('libs/bxslider/docs_src/assets/img/photo1.jpeg') }}"/>
+
+
+                </li>
+                <li>
+                    <div class="infos_slide">
+                        <span class="slide_cat_title">shrimps lassi  </span>
+                        <span class="slide_prod_title">vigilNot shangri-la  </span>
+                        <span class="slide_prod_desc">fraticinidas accelerare!Courage, devastation, and x-ray vision. </span>
+                        <a class="slide_lien_prod">en savoir plus</a>
+                    </div>
+
+                    <img src="{{ asset('libs/bxslider/docs_src/assets/img/photo2.jpeg') }}"/>
+
+                </li>
+                <li>
+                    <div class="infos_slide">
+                        <span class="slide_cat_title">shrimps lassi  </span>
+                        <span class="slide_prod_title">vigilNot shangri-la  </span>
+                        <span class="slide_prod_desc">fraticinidas accelerare!Courage, devastation, and x-ray vision. </span>
+                        <a class="slide_lien_prod">en savoir plus</a>
+                    </div>
+
+
+                    <img src="{{ asset('libs/bxslider/docs_src/assets/img/photo3.jpeg') }}"/></li>
+                <li>
+                    <div class="infos_slide">
+                        <span class="slide_cat_title">shrimps lassi  </span>
+                        <span class="slide_prod_title">vigilNot shangri-la  </span>
+                        <span class="slide_prod_desc">fraticinidas accelerare!Courage, devastation, and x-ray vision. </span>
+                        <a class="slide_lien_prod">en savoir plus</a>
+                    </div>
+
+
+                    <img src="{{ asset('libs/bxslider/docs_src/assets/img/photo4.jpeg') }}"/></li>
+            </ul>
+        </div>
 
         <div class="row">
-            <div class="col-xs-12">
-                    page liste produits sans prix
+            <div id="nav-bar-liste-produit">
+
+                <div class="container">
+                        <nav class="navbar navbar-light bg-faded">
+                            <ul class="nav navbar-nav">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#">Coffrets<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Capotages</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Supports - Stands</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Accessoires</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Personnalisation</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Moblier sur-mesures</a>
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
             </div>
         </div>
     </div>
+    <div class="container">
 
+        <div id="div_liste_produits" class="row">
+            <div class="col-sm-3 ">
+                <div class="div_produit">
+                    <img class="img-responsive" src="{{ asset('img/img_produit1.jpg') }}">
+                    <div class="infos_produit">
+                        <span class="name_produit">Alto double</span>
+                        <span class="cat_produit">Coffrets</span>
+                        <span class="couleur_produit">
+                              <span class="color_prod" style="background-color:#ffcc00 "></span>
+                              <span class="color_prod" style="background-color:#ff6633 "></span>
+                              <span class="color_prod" style="background-color:#99cccc "></span>
+                        </span>
+                        <span class="prix_produit"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 ">
+                <div class="div_produit">
+                    <img class="img-responsive" src="{{ asset('img/img_produit.jpg') }}">
+                    <div class="infos_produit">
+                        <span class="name_produit">Alto double</span>
+                        <span class="cat_produit">Coffrets</span>
+                         <span class="couleur_produit">
+                              <span class="color_prod" style="background-color:#ffcc00 "></span>
+                              <span class="color_prod" style="background-color:#ff6633 "></span>
+                              <span class="color_prod" style="background-color:#99cccc "></span>
+                        </span>
+                        <span class="prix_produit"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 ">
+                <div class="div_produit">
+                    <img class="img-responsive" src="{{ asset('img/img_produit2.jpg') }}">
+                    <div class="infos_produit">
+                        <span class="name_produit">Alto double</span>
+                        <span class="cat_produit">Coffrets</span>
+                       <span class="couleur_produit">
+                              <span class="color_prod" style="background-color:#ffcc00 "></span>
+                              <span class="color_prod" style="background-color:#ff6633 "></span>
+                              <span class="color_prod" style="background-color:#99cccc "></span>
+                        </span>
+                        <span class="prix_produit"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 ">
+                <div class="div_produit">
+                    <img class="img-responsive" src="{{ asset('img/img_produit3.jpg') }}">
+                    <div class="infos_produit">
+                        <span class="name_produit">Alto double</span>
+                        <span class="cat_produit">Coffrets</span>
+                        <span class="couleur_produit">
+                              <span class="color_prod" style="background-color:#ffcc00 "></span>
+                              <span class="color_prod" style="background-color:#ff6633 "></span>
+                              <span class="color_prod" style="background-color:#99cccc "></span>
+                        </span>
+                        <span class="prix_produit"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 ">
+                <div class="div_produit">
+                    <img class="img-responsive" src="{{ asset('img/img_produit4.jpg') }}">
+                    <div class="infos_produit">
+                        <span class="name_produit">Alto double</span>
+                        <span class="cat_produit">Coffrets</span>
+                        <span class="couleur_produit">
+                              <span class="color_prod" style="background-color:#ffcc00 "></span>
+                              <span class="color_prod" style="background-color:#ff6633 "></span>
+                              <span class="color_prod" style="background-color:#99cccc "></span>
+                        </span>
+                        <span class="prix_produit"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 ">
+                <div class="div_produit">
+                    <img class="img-responsive" src="{{ asset('img/img_produit1.jpg') }}">
+                    <div class="infos_produit">
+                        <span class="name_produit">Alto double</span>
+                        <span class="cat_produit">Coffrets</span>
+                        <span class="couleur_produit">
+                              <span class="color_prod" style="background-color:#ffcc00 "></span>
+                              <span class="color_prod" style="background-color:#ff6633 "></span>
+                              <span class="color_prod" style="background-color:#99cccc "></span>
+                        </span>
+                        <span class="prix_produit"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 ">
+                <div class="div_produit">
+                    <img class="img-responsive" src="{{ asset('img/img_produit3.jpg') }}">
+                    <div class="infos_produit">
+                        <span class="name_produit">Alto double</span>
+                        <span class="cat_produit">Coffrets</span>
+                         <span class="couleur_produit">
+                              <span class="color_prod" style="background-color:#ffcc00 "></span>
+                              <span class="color_prod" style="background-color:#ff6633 "></span>
+                              <span class="color_prod" style="background-color:#99cccc "></span>
+                        </span>
+                        <span class="prix_produit"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 ">
+                <div class="div_produit">
+                    <img class="img-responsive" src="{{ asset('img/img_produit2.jpg') }}">
+                    <div class="infos_produit">
+                        <span class="name_produit">Alto double</span>
+                        <span class="cat_produit">Coffrets</span>
+                         <span class="couleur_produit">
+                              <span class="color_prod" style="background-color:#ffcc00 "></span>
+                              <span class="color_prod" style="background-color:#ff6633 "></span>
+                              <span class="color_prod" style="background-color:#99cccc "></span>
+                        </span>
+                        <span class="prix_produit"></span>
+                    </div>
+                </div>
+            </div>
+          {#  <div class="col-sm-3 ">
+                <div class="div_produit">
+                    <img class="img-responsive" src="{{ asset('img/img_produit.jpg') }}">
+                    <div class="infos_produit">
+                        <span class="name_produit">Alto double</span>
+                        <span class="cat_produit">Coffrets</span>
+                         <span class="couleur_produit">
+                              <span class="color_prod" style="background-color:#ffcc00 "></span>
+                              <span class="color_prod" style="background-color:#ff6633 "></span>
+                              <span class="color_prod" style="background-color:#99cccc "></span>
+                        </span>
+                        <span class="prix_produit"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 ">
+                <div class="div_produit">
+                    <img class="img-responsive" src="{{ asset('img/img_produit.jpg') }}">
+                    <div class="infos_produit">
+                        <span class="name_produit">Alto double</span>
+                        <span class="cat_produit">Coffrets</span>
+                         <span class="couleur_produit">
+                              <span class="color_prod" style="background-color:#ffcc00 "></span>
+                              <span class="color_prod" style="background-color:#ff6633 "></span>
+                              <span class="color_prod" style="background-color:#99cccc "></span>
+                        </span>
+                        <span class="prix_produit"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 ">
+                <div class="div_produit">
+                    <img class="img-responsive" src="{{ asset('img/img_produit.jpg') }}">
+                    <div class="infos_produit">
+                        <span class="name_produit">Alto double</span>
+                        <span class="cat_produit">Coffrets</span>
+                         <span class="couleur_produit">
+                              <span class="color_prod" style="background-color:#ffcc00 "></span>
+                              <span class="color_prod" style="background-color:#ff6633 "></span>
+                              <span class="color_prod" style="background-color:#99cccc "></span>
+                        </span>
+                        <span class="prix_produit"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 ">
+                <div class="div_produit">
+                    <img class="img-responsive" src="{{ asset('img/img_produit.jpg') }}">
+                    <div class="infos_produit">
+                        <span class="name_produit">Alto double</span>
+                        <span class="cat_produit">Coffrets</span>
+                         <span class="couleur_produit">
+                              <span class="color_prod" style="background-color:#ffcc00 "></span>
+                              <span class="color_prod" style="background-color:#ff6633 "></span>
+                              <span class="color_prod" style="background-color:#99cccc "></span>
+                        </span>
+                        <span class="prix_produit"></span>
+                    </div>
+                </div>
+            </div>#}
+
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+   <script type="text/javascript" src="{{ asset('libs/bxslider/dist/jquery.bxslider.min.js') }}"></script>
+   <script>
+       $(document).ready(function(){
+           $('.bxslider').bxSlider({
+                       mode: 'fade',
+                       controls : true,
+                       Pager :false
+                   }
+           );
+       });
+   </script>
 {% endblock %}
