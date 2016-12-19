@@ -42,7 +42,8 @@ liip_imagine:
             filters:
                 relative_resize: { heighten: 60, widen: 60 }
 parameters:
-    locale: fr
+    locale: en
+    #locale: en
 
 framework:
     #esi:             ~
@@ -74,6 +75,7 @@ twig:
     form:
             resources:
                 - 'SonataCoreBundle:Form:colorpicker.html.twig'
+    cache:  false
 
 # Assetic Configuration
 assetic:
