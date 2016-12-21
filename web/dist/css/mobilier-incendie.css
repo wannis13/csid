@@ -254,6 +254,7 @@ display: block;
     font-weight: 400;
     font-size: 16px;
     color: #999999;
+    padding-bottom: 30px;
 }
 .couleur_produit{
     display: block;
@@ -266,6 +267,10 @@ display: block;
     font-weight: 700;
     font-size: 16px;
     color: #333366;
+    margin-top: -8px;
+}
+.image_page_cat{
+    border-radius: 9px 9px 0px 0px;
 }
 .div_produit{
 
@@ -316,6 +321,10 @@ display: block;
 }
 
 #nav-bar-liste-produit .navbar-nav > li > a:hover{
+    color: #46bce0;
+    background-color: #fff;
+}
+#nav-bar-liste-produit .nav-item.active a {
     color: #46bce0;
     background-color: #fff;
 }
