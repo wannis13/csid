@@ -7,10 +7,34 @@ services:
     class: MobilierIncendieBundle\Admin\CategorieAdmin
     tags:
       -
-        group: Catégories
+        group: Mobilier incendie
         label: admin.categories
         manager_type: orm
         name: sonata.admin
+  admin.color.produit:
+        arguments:
+          - ~
+          - MobilierIncendieBundle\Entity\ProduitColor
+          - ~
+        class: MobilierIncendieBundle\Admin\ProduitColorAdmin
+        tags:
+          -
+            group: Mobilier incendie
+            label: admin.colors
+            manager_type: orm
+            name: sonata.admin
+  admin.produits:
+           arguments:
+             - ~
+             - MobilierIncendieBundle\Entity\Produits
+             - ~
+           class: MobilierIncendieBundle\Admin\ProduitsAdmin
+           tags:
+             -
+               group: Mobilier incendie
+               label: admin.produits
+               manager_type: orm
+               name: sonata.admin
   admin.modele:
     arguments:
       - ~
@@ -19,22 +43,11 @@ services:
     class: MobilierIncendieBundle\Admin\ModeleAdmin
     tags:
       -
-        group: Versions produits
+        group: Mobilier incendie
         label: admin.version
         manager_type: orm
         name: sonata.admin
-  admin.color.produit:
-      arguments:
-        - ~
-        - MobilierIncendieBundle\Entity\ProduitColor
-        - ~
-      class: MobilierIncendieBundle\Admin\ProduitColorAdmin
-      tags:
-        -
-          group: Couleurs Produits
-          label: admin.colors
-          manager_type: orm
-          name: sonata.admin
+
   admin.reduction.produit:
         arguments:
           - ~
@@ -43,19 +56,56 @@ services:
         class: MobilierIncendieBundle\Admin\ReductionsAdmin
         tags:
           -
-            group: Réductions Produits
+            group: Mobilier incendie
             label: admin.reductions
             manager_type: orm
             name: sonata.admin
-  admin.produits:
+  admin.tarifs_client.produit:
           arguments:
             - ~
-            - MobilierIncendieBundle\Entity\Produits
+            - MobilierIncendieBundle\Entity\TarifClientSpecial
             - ~
-          class: MobilierIncendieBundle\Admin\ProduitsAdmin
+          class: MobilierIncendieBundle\Admin\TarifClientSpecialAdmin
           tags:
             -
-              group: Produits mobilier incendie
-              label: admin.produits
+              group: Mobilier incendie
+              label: admin.tarifs_client
               manager_type: orm
               name: sonata.admin
+  admin.tarifs_livraison.produit:
+            arguments:
+              - ~
+              - MobilierIncendieBundle\Entity\TarifsLivraison
+              - ~
+            class: MobilierIncendieBundle\Admin\TarifsLivraisonAdmin
+            tags:
+              -
+                group: Mobilier incendie
+                label: admin.tarifs_livraison_qte
+                manager_type: orm
+                name: sonata.admin
+  admin.tarifs_livraison_client.produit:
+              arguments:
+                - ~
+                - MobilierIncendieBundle\Entity\TarifsLivraisonParClient
+                - ~
+              class: MobilierIncendieBundle\Admin\TarifsLivraisonParClientAdmin
+              tags:
+                -
+                  group: Mobilier incendie
+                  label: admin.tarifs_livraison_client
+                  manager_type: orm
+                  name: sonata.admin
+  admin.options.produit:
+                arguments:
+                  - ~
+                  - MobilierIncendieBundle\Entity\Options
+                  - ~
+                class: MobilierIncendieBundle\Admin\OptionsAdmin
+                tags:
+                  -
+                    group: Mobilier incendie
+                    label: admin.options
+                    manager_type: orm
+                    name: sonata.admin
+

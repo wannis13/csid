@@ -5,12 +5,24 @@ mobilier_incendie_choix_du_module:
     path:     /choix-du-module/{mode}
     defaults: { _controller: MobilierIncendieBundle:Default:choixDuModule }
 mobilier_incendie_page_achat:
-    path:     /mobilier-incendie-achat
-    defaults: { _controller: MobilierIncendieBundle:Default:mobilierIncendieAchat }
+    path:     /mobilier-incendie-achat/{cat_id}
+    defaults: { _controller: MobilierIncendieBundle:Default:mobilierIncendieAchat , cat_id:0}
+    requirements:
+            cat_id: '\d+'
 mobilier_incendie_page_presentation:
     path:     /mobilier-incendie-presentation
-    defaults: { _controller: MobilierIncendieBundle:Default:mobilierIncendiePresentation }
-mobilier_incendie_produit:
-    path:     /afficher-produit
-    defaults: { _controller: MobilierIncendieBundle:Default:afficherProduit }
+    defaults: { _controller: MobilierIncendieBundle:Default:mobilierIncendiePresentation}
+mobilier_incendie_produit_achat:
+    path:     /afficher-produit-achat/{id}
+    defaults: { _controller: MobilierIncendieBundle:Default:afficherProduitModeAchat }
+    requirements:
+                id: '\d+'
+mobilier_incendie_produit_presentation:
+    path:     /afficher-produit-presentation/{id}
+    defaults: { _controller: MobilierIncendieBundle:Default:afficherProduitModePresentation }
+    requirements:
+                id: '\d+'
+mobilier_incendie_panier:
+    path:     /panier
+    defaults: { _controller: MobilierIncendieBundle:Default:panier }
 
