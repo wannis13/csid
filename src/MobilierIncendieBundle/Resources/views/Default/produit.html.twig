@@ -79,7 +79,7 @@
                <div class="col-sm-6" >
                    <span id="titre_produit">
 
-                       Securiss coffret extincteur
+                      {{ prod.name }}
                    </span>
 
                    <span class="titre_bloc">
@@ -155,7 +155,7 @@
                                    <div class="col-sm-12 div_bloc_infos" style="border-color:#eeeeee ">
                                        <span class="titre_bloc_infos" style="color:#333333"> TECHNIQUE</span>
 
-                                        Everything we do is connected with sorrow: hypnosis, heaven, booda-hood, living.
+                                        {{ prod.description|raw }}
 
                                    </div>
 
@@ -164,13 +164,13 @@
                                 <div class="col-sm-12 div_bloc_infos" style="border-color:#32c5f2 ">
                                     <span class="titre_bloc_infos" style="color:#003366"> DIMENSIONS</span>
                                      <p style="margin-bottom: 0px;">
-                                         Hauteur : 1004mm
+                                         Hauteur : {{ prod.hauteur }}mm
                                          </br>
-                                         Largeur : 344mm
+                                         Largeur : {{ prod.largeur }}mm
                                          </br>
-                                         Profondeur : 222mm
+                                         Profondeur : {{ prod.profondeur }}mm
                                          </br>
-                                         Poids : 18k
+                                         Poids : {{ prod.poids }}k
                                      </p>
                                 </div>
                             </div>
@@ -191,7 +191,7 @@
                 <div class="row">
                     <div id="cart_desc_prod" class="col-md-5 col-sm-4">
                         <span id="cart_titre_prod">
-                            Securiss coffret extincteur
+                            {{ prod.name }}
                         </span>
 
                         Modèle :  MOdéle N° :1  /   VERSIONS & COLORIS : RAL au choix
@@ -253,24 +253,14 @@
                              </tr>
                              </thead>
                              <tbody>
+                             {% for tarif in  prod.tarifsDegressifs  %}
                              <tr>
 
-                                 <td>De 1 à 10</td>
-                                 <td>439 €</td>
-                                 <td class="td_reduction">5%</td>
+                                 <td>De {{ tarif.QuantiteMin }} à {{ tarif.QuantiteMax }}</td>
+                                 <td>{{ tarif.PrixUnitaire }} €</td>
+                                 <td class="td_reduction">{{ tarif.Reduction }}%</td>
                              </tr>
-                             <tr>
-
-                                 <td>De 1 à 10</td>
-                                 <td>439 €</td>
-                                 <td class="td_reduction">5%</td>
-                             </tr>
-                             <tr>
-
-                                 <td>De 1 à 10</td>
-                                 <td>439 €</td>
-                                 <td class="td_reduction">5%</td>
-                             </tr>
+                            {% endfor%}
 
                              </tbody>
                          </table>
