@@ -10,7 +10,7 @@ framework:
     translator: { fallback: "%locale%" }
 
 web_profiler:
-    toolbar: false
+    toolbar: true
     intercept_redirects: false
 
 monolog:
@@ -180,5 +180,6 @@ knp_snappy:
     temporary_folder: %kernel.cache_dir%/snappy
     pdf:
         enabled:    true
-        binary:     /usr/local/bin/wkhtmltopdf
+        #binary:     /usr/local/bin/wkhtmltopdf # serveur lunix
+        binary: "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" # pour test sur localhot sur windowas
         options:    []   

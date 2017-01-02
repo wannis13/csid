@@ -192,9 +192,11 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
             formats:
-                preview:   { width: 100, quality: 100}
-                small:     { width: 200, quality: 100}
-                large:     { width: 600, quality: 100}
+               # preview:   { width: 100, quality: 100}
+                small:     { width: 190, height: 282, quality: 100}
+                img_page_cat: { width: 269, height: 269 , quality: 100}
+                large:     {  width: 585, height: 516 , quality: 100}
+
         plaquette_pdf:
             providers:
                - sonata.media.provider.file
@@ -203,6 +205,10 @@ sonata_media:
             providers:
                - sonata.media.provider.file
             formats: ~
+        tarifs_distributeurs_pdf:
+             providers:
+                - sonata.media.provider.file
+             formats: ~
         dossier_zip_image:
             providers:
                - sonata.media.provider.file
