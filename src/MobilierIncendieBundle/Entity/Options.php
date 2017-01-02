@@ -19,6 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
+ * @ORM\Entity(repositoryClass="MobilierIncendieBundle\Repository\OptionsRepository")
  */
 class Options
 {	
@@ -47,7 +48,7 @@ class Options
      *     message="The value {{ value }} is not a valid {{ type }}."
      * )
      */
-	//private $prix;
+	 private $prix;
 
 	/**
 	 * Many Features have One Product.
@@ -55,6 +56,29 @@ class Options
 	 * @ORM\JoinColumn(name="produit_id", referencedColumnName="id")
 	 */
 	private $produits;
+
+	/**
+	 *
+	 * @ORM\OneToMany(targetEntity="MobilierIncendieBundle\Entity\Reductions", mappedBy="options" , cascade={"persist", "remove"})
+	 */
+	private $tarifs_degressifs;
+
+	public function __construct()
+	{
+		$this->tarifs_degressifs = new \Doctrine\Common\Collections\ArrayCollection();
+
+	}
+	public function addTarifsDegressif(\MobilierIncendieBundle\Entity\Reductions $tarifs_degressifs)
+	{
+
+		$this->tarifs_degressifs[] = $tarifs_degressifs;
+
+		return $this;
+	}
+	public function removeTarifsDegressif(\MobilierIncendieBundle\Entity\Reductions $tarifs_degressifs)
+	{
+		$this->tarifs_degressifs->removeElement($tarifs_degressifs);
+	}
 
 	/**
 	 * @return int
@@ -103,6 +127,50 @@ class Options
 	{
 		$this->produits = $produits;
 	}
+
+	/**
+	 * @return float
+	 */
+	public function getPrix()
+	{
+		return $this->prix;
+	}
+
+	/**
+	 * @param float $prix
+	 */
+	public function setPrix($prix)
+	{
+		$this->prix = $prix;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getTarifsDegressifs()
+	{
+		return $this->tarifs_degressifs;
+	}
+
+	/**
+	 * @param mixed $tarifs_degressifs
+	 */
+	public function setTarifsDegressifs($tarifs_degressifs)
+	{
+		// $this->tarifs_degressifs = $tarifs_degressifs;
+
+		if (count($tarifs_degressifs) > 0) {
+			foreach ($tarifs_degressifs as $i) {
+				$this->addTarifsDegressif($i);
+				$i->setOptions($this);
+				$i->setPrixUnitaire($this->getPrix());
+				//$i->setProduits($this->getProduits());
+			}
+		}
+		return $this;
+	}
+
+
 	public function __toString()
 	{
 		return (string)$this->getName();

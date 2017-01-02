@@ -37,11 +37,29 @@ class ProduitColor
      * @ORM\Column(name="name", type="string", length=50)
      */
     private $name;
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prix", type="float" ,nullable=true)
+     *
+     */
+    private $prix=0;
+
+
+/*Option coloris RAL personnalisé : RAL à indiquer suivant palette RAL classique téléchargeable en .pdf / accessible uniquement à partir de 25 unités : +15E H.T par unité.*/
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="quanitite_min", type="integer" ,nullable=true)
+     *
+     */
+    private $quanitite_min=1;
+
 
     /**
      * @var string
      *
-     * @ORM\Column(name="code_color", type="string", length=50)
+     * @ORM\Column(name="code_color", type="string", length=50 ,nullable=true)
      */
     private $code_color;
 
@@ -67,7 +85,58 @@ class ProduitColor
      */
     private $active;
 
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="MobilierIncendieBundle\Entity\Reductions", mappedBy="coloris" , cascade={"persist", "remove"})
+     */
+    private $tarifs_degressifs;
+    /**
+     * Many Features have One Product.
+     * @ORM\ManyToOne(targetEntity="MobilierIncendieBundle\Entity\Produits", inversedBy="coloris")
+     * @ORM\JoinColumn(name="produit_id", referencedColumnName="id")
+     */
+    private $produits;
 
+    public function __construct()
+    {
+        $this->tarifs_degressifs = new \Doctrine\Common\Collections\ArrayCollection();
+
+    }
+    public function addTarifsDegressif(\MobilierIncendieBundle\Entity\Reductions $tarifs_degressifs)
+    {
+
+        $this->tarifs_degressifs[] = $tarifs_degressifs;
+
+        return $this;
+    }
+    public function removeTarifsDegressif(\MobilierIncendieBundle\Entity\Reductions $tarifs_degressifs)
+    {
+        $this->tarifs_degressifs->removeElement($tarifs_degressifs);
+    }
+    /**
+     * @return mixed
+     */
+    public function getTarifsDegressifs()
+    {
+        return $this->tarifs_degressifs;
+    }
+
+    /**
+     * @param mixed $tarifs_degressifs
+     */
+    public function setTarifsDegressifs($tarifs_degressifs)
+    {
+        // $this->tarifs_degressifs = $tarifs_degressifs;
+
+        if (count($tarifs_degressifs) > 0) {
+            foreach ($tarifs_degressifs as $i) {
+                $this->addTarifsDegressif($i);
+                $i->setColoris($this);
+               $i->setPrixUnitaire($this->getPrix());
+            }
+        }
+        return $this;
+    }
 
     /**
      * Get id
@@ -85,7 +154,7 @@ class ProduitColor
      */
     public function __toString()
     {
-        return $this->name;
+        return (string)$this->name;
     }
 
     /**
@@ -235,7 +304,54 @@ class ProduitColor
     public function setActive($active)
     {
         $this->active = $active;
-    }  
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getProduits()
+    {
+        return $this->produits;
+    }
+
+    /**
+     * @param mixed $produits
+     */
+    public function setProduits($produits)
+    {
+        $this->produits = $produits;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrix()
+    {
+        return $this->prix;
+    }
+
+    /**
+     * @param float $prix
+     */
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+    }
+
+    /**
+     * @return float
+     */
+    public function getQuanititeMin()
+    {
+        return $this->quanitite_min;
+    }
+
+    /**
+     * @param float $quanitite_min
+     */
+    public function setQuanititeMin($quanitite_min)
+    {
+        $this->quanitite_min = $quanitite_min;
+    }
 
 }

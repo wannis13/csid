@@ -16,9 +16,9 @@ class ReductionsType extends AbstractType
     {
         $builder
             ->add('quantite_min')
-            ->add('quantite_max')
-            ->add('prix_unitaire')
-            ->add('reduction')
+            ->add('quantite_max' ,null ,array('required'=>false) )
+            //->add('prix_unitaire' )
+            ->add('reduction' ,null ,array('required'=>true ,'label'=>'Réduction en €'))
             //->add('produits')
         ;
     }

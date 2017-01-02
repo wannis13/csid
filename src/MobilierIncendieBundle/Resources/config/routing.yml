@@ -25,4 +25,35 @@ mobilier_incendie_produit_presentation:
 mobilier_incendie_panier:
     path:     /panier
     defaults: { _controller: MobilierIncendieBundle:Default:panier }
-
+add_produit_panier:
+    path:     /ajouter_au_panier/{id}
+    defaults: { _controller: MobilierIncendieBundle:Panier:add }
+    requirements:
+               id: '\d+'
+index_panier:
+    path:     /panier/index
+    defaults: { _controller: MobilierIncendieBundle:Panier:index }
+get_prix_degressif:
+    path:     /prix_degressif
+    defaults: { _controller: MobilierIncendieBundle:Panier:getPrixDegressif }
+get_prix_degressif_option:
+    path:     /prix_degressif_option
+    defaults: { _controller: MobilierIncendieBundle:Panier:getPrixDegressifOption }
+get_prix_degressif_color:
+    path:     /prix_degressif_color
+    defaults: { _controller: MobilierIncendieBundle:Panier:getPrixDegressifColor }
+get_qte_min_tarif_degressif_produit:
+    path:     /qte_min_tarif_degressif_produit/{id}
+    defaults: { _controller: MobilierIncendieBundle:Panier:getQuantiteMinTarifDegressifProduit }
+get_qte_min_tarif_degressif_option:
+    path:     /qte_min_tarif_degressif_option/{id}
+    defaults: { _controller: MobilierIncendieBundle:Panier:getQuantiteMinTarifDegressifOption }
+get_qte_min_tarif_degressif_color:
+    path:     /qte_min_tarif_degressif_color/{id}
+    defaults: { _controller: MobilierIncendieBundle:Panier:getQuantiteMinTarifDegressifColor }
+update_quantite_prix_ligne_panier:
+    path:     /update_quantite_prix_ligne_panier
+    defaults: { _controller: MobilierIncendieBundle:Panier:UpdateQtyProduct }
+update_prix_panier:
+    path:     /update_prix_panier
+    defaults: { _controller: MobilierIncendieBundle:Panier:UpdatePrixPanier }

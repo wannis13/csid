@@ -15,11 +15,12 @@ class QuestionsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
-            ->add('email')
-            ->add('message')
-            ->add('produits')
+            ->add('nom' ,null , array('required'=>true ,'label'=>'Nom'))
+            ->add('prenom' ,null , array('required'=>true ,'label'=>'Prénom'))
+            ->add('email' ,null , array('required'=>true ,'label'=>'Email'))
+            ->add('message' ,null , array('required'=>true ,'label'=>'Message'))
+           
+            //->add('produits')
         ;
     }
     

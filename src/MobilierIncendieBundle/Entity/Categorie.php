@@ -40,7 +40,7 @@ class Categorie
 
 	/**
 	 *
-	 * @ORM\ManyToMany(targetEntity="MobilierIncendieBundle\Entity\Produits", mappedBy="categories")
+	 * @ORM\OneToMany(targetEntity="MobilierIncendieBundle\Entity\Produits", mappedBy="categories")
 	 *
 	 */
 	private $produits;

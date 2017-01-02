@@ -200,22 +200,18 @@ class Produits
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="ProduitColor")
-     * @ORM\JoinTable(name="produits_coloris",
-     *      joinColumns={@ORM\JoinColumn(name="produit_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="color_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="MobilierIncendieBundle\Entity\ProduitColor" ,mappedBy="produits" , cascade={"persist", "remove"})
+     *
      */
     private $coloris;
 
-    /*
+
+    /**
      *
-     * @ORM\ManyToMany(targetEntity="MobilierIncendieBundle\Entity\Modele")
-     * @ORM\JoinTable(name="versions_produits",
-     *      joinColumns={@ORM\JoinColumn(name="produit_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="version_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="MobilierIncendieBundle\Entity\Options", mappedBy="produits" , cascade={"persist", "remove"})
      */
+    private $options;
+
 
 
     /**
@@ -226,8 +222,8 @@ class Produits
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="MobilierIncendieBundle\Entity\Categorie", inversedBy="produits")
-     * @ORM\JoinTable(name="produits_catgories")
+     * @ORM\ManyToOne(targetEntity="MobilierIncendieBundle\Entity\Categorie", inversedBy="produits")
+     * @ORM\joinColumn(name="categorie_id", referencedColumnName="id")
      */
     private $categories;
 
@@ -235,7 +231,7 @@ class Produits
     {
         $this->coloris = new \Doctrine\Common\Collections\ArrayCollection();
         $this->versions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+       // $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tarifs_degressifs = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tarifs_clints = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tarifs_livraison = new \Doctrine\Common\Collections\ArrayCollection();
@@ -338,6 +334,13 @@ class Produits
 
 
     private $plaquette_pdf;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\JoinColumn(name="tarifs_distributeurs_pdf_id", referencedColumnName="id")
+     */
+    private $tarifs_distributeurs_pdf;
+
     /**
      * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="code_ral_pdf_id", referencedColumnName="id")
@@ -377,11 +380,6 @@ class Produits
      */
     private $tarifs_livraison_par_client;
 
-    /**
-     *
-     * @ORM\OneToMany(targetEntity="MobilierIncendieBundle\Entity\Options", mappedBy="produits" , cascade={"persist", "remove"})
-     */
-    private $options;
 
     /**
      * @var float
@@ -561,8 +559,10 @@ class Produits
 
         if (count($tarifs_degressifs) > 0) {
             foreach ($tarifs_degressifs as $i) {
-                $this->addTarifsDegressif($i);
                 $i->setProduits($this);
+                $i->setPrixUnitaire($this->getPrix());
+                $this->addTarifsDegressif($i);
+
             }
         }
 
@@ -656,6 +656,7 @@ class Produits
             foreach ($tarifs_livraison_par_client as $i) {
                 $this->addTarifslivraisonParClient($i);
                 $i->setProduits($this);
+
             }
         }
 
@@ -700,6 +701,22 @@ class Produits
     public function setPrix($prix)
     {
         $this->prix = $prix;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTarifsDistributeursPdf()
+    {
+        return $this->tarifs_distributeurs_pdf;
+    }
+
+    /**
+     * @param mixed $tarifs_distributeurs_pdf
+     */
+    public function setTarifsDistributeursPdf($tarifs_distributeurs_pdf)
+    {
+        $this->tarifs_distributeurs_pdf = $tarifs_distributeurs_pdf;
     }
 
 

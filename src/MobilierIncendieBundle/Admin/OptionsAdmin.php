@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use MobilierIncendieBundle\Form\ReductionsType;
 
 class OptionsAdmin extends Admin
 {
@@ -15,19 +16,43 @@ class OptionsAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         // to remove a single route
-        $collection->remove('create');
+      //  $collection->remove('create');
 
     }
    protected function configureFormFields(FormMapper $formMapper)
     {
-        $object= $this -> getSubject();
+       /* $object= $this -> getSubject();
         $help="<h4>Changer l'option de produit ".$object->getProduits()->getName()."</h4>";
         $formMapper
             ->with('admin.general', array('class' => 'col-md-6', 'collapsed' => true))
             ->add('name',null, array('label' => 'admin.option',
                 'help' => $help
             ))
-            ->end();
+            ->end();*/
+        $formMapper
+            ->with('admin.general', array('class' => 'col-md-6', 'collapsed' => true))
+            ->add('produits',null, array('label' => 'admin.produits' ))
+            ->add('name',null, array('label' => 'admin.option' ))
+            ->add('prix' ,null,array('label'=>"Prix de base"))
+            ->add('tarifs_degressifs', 'collection', array(
+                'type' => new ReductionsType(),
+                'required' => true,
+                'allow_add' => true,
+                'prototype' => true,
+                'allow_delete' => true,
+                'by_reference' => true,
+                'label' => "Ajouter tarif dégressif pour cette option",
+                'options' => array('label' => 'Tarif dégressif', 'label_attr' => array('class' => 'answers')),
+            ),
+                array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                    'sortable' => 'id',
+                )
+            )
+        ;
+
+
     }
 
 
@@ -42,11 +67,22 @@ class OptionsAdmin extends Admin
         $listMapper->add('produits.name', null, array('label' => 'admin.produit'));
 
         $listMapper->add('name', null, array('label' => 'admin.option'));
+        $listMapper->add('prix', null, array('label' => 'Prix en €'));
           $listMapper->add('_action', 'actions', array(
                                             'actions' => array(
                                                 'delete' => array(),
                                                 'edit' => array(),
                                             )
                                   ))  ;
+    }
+    public function prePersist($object)
+    {
+        $this->preUpdate($object);
+    }
+
+    public function preUpdate($object)
+    {
+        $object->setTarifsDegressifs($object->getTarifsDegressifs());
+      
     }
 }

@@ -19,6 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
+ * @ORM\Entity(repositoryClass="MobilierIncendieBundle\Repository\ReductionsRepository")
  */
 class Reductions
 {	
@@ -41,14 +42,14 @@ class Reductions
 	/**
 	 * @var integer
 	 *
-	 * @ORM\Column(type="integer")
+	 * @ORM\Column(type="integer" ,nullable=true)
 	 */
 	 private $quantite_max;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="prix", type="float")
+     * @ORM\Column(name="prix", type="float" ,nullable=true)
      * @Assert\Type(
      *     type="float",
      *     message="The value {{ value }} is not a valid {{ type }}."
@@ -69,6 +70,18 @@ class Reductions
 	 * @ORM\JoinColumn(name="produit_id", referencedColumnName="id")
 	 */
 	private $produits;
+	/**
+	 * Many Features have One Product.
+	 * @ORM\ManyToOne(targetEntity="MobilierIncendieBundle\Entity\Options", inversedBy="tarifs_degressifs")
+	 * @ORM\JoinColumn(name="option_id", referencedColumnName="id")
+	 */
+	private $options;
+	/**
+	 * Many Features have One Product.
+	 * @ORM\ManyToOne(targetEntity="MobilierIncendieBundle\Entity\ProduitColor", inversedBy="tarifs_degressifs")
+	 * @ORM\JoinColumn(name="color_id", referencedColumnName="id")
+	 */
+	private $coloris;
 	/**
 	 * @return int
 	 */
@@ -184,6 +197,39 @@ class Reductions
 	{
 		$this->produits = $produits;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getOptions()
+	{
+		return $this->options;
+	}
+
+	/**
+	 * @param mixed $options
+	 */
+	public function setOptions($options)
+	{
+		$this->options = $options;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getColoris()
+	{
+		return $this->coloris;
+	}
+
+	/**
+	 * @param mixed $coloris
+	 */
+	public function setColoris($coloris)
+	{
+		$this->coloris = $coloris;
+	}
+
   public function __toString()
   {
 	  return (string)$this->getId();

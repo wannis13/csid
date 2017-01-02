@@ -41,17 +41,14 @@ class Modele
     /**
      * @var float
      *
-     * @ORM\Column(name="prix", type="float")
-     * @Assert\Type(
-     *     type="float",
-     *     message="The value {{ value }} is not a valid {{ type }}."
-     * )
+     * @ORM\Column(name="prix", type="float" ,nullable=true)
+     *
      */
 	private $prix;
 
 	/**
 	 * Many Features have One Product.
-	 * @ORM\ManyToOne(targetEntity="MobilierIncendieBundle\Entity\Produits", inversedBy="tarifs_degressifs")
+	 * @ORM\ManyToOne(targetEntity="MobilierIncendieBundle\Entity\Produits", inversedBy="versions")
 	 * @ORM\JoinColumn(name="produit_id", referencedColumnName="id")
 	 */
 	private $produits;

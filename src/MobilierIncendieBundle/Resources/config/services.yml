@@ -108,4 +108,15 @@ services:
                     label: admin.options
                     manager_type: orm
                     name: sonata.admin
-
+  admin.questions.produit:
+                  arguments:
+                    - ~
+                    - MobilierIncendieBundle\Entity\Questions
+                    - ~
+                  class: MobilierIncendieBundle\Admin\QuestionsAdmin
+                  tags:
+                    -
+                      group: Mobilier incendie
+                      label: admin.questions
+                      manager_type: orm
+                      name: sonata.admin

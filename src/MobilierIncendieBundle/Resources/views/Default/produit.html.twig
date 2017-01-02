@@ -24,8 +24,8 @@
 
                  <li><a href="#" title="Accueil">Accueil</a></li>
                  <li><a href="#" title="formations">Mobilier incendie</a></li>
-                 <li><a href="#" title="formations">Coffrets</a></li>
-                 <li class="active">Alto simp</li>
+                 <li><a href="{{ path('mobilier_incendie_produit_achat', {'id': prod.categories.id}) }}" title="formations">{{ prod.categories.name }}</a></li>
+                 <li class="active">{{ prod.name }}</li>
              </ol>
 
          </div>
@@ -39,16 +39,31 @@
                    <div class="row">
                        <div class="col-xs-12">
                        <ul class="bxslider-produit">
-                           <li>   <img src="{{ asset('libs/bxslider/docs_src/assets/img/photo2.jpeg') }}"/></li>
-                           <li>   <img src="{{ asset('libs/bxslider/docs_src/assets/img/photo3.jpeg') }}"/></li>
-                           <li> <img src="{{ asset('libs/bxslider/docs_src/assets/img/photo5.jpeg') }}"/></li>
-                          {# <li> <img src="{{ asset('libs/bxslider/docs_src/assets/img/photo1.jpeg') }}"/></li>#}
+
+                           {% set  count = prod.Images|length  %}
+                           {% if count!=0 %}
+                               {% for image in prod.Images %}
+
+
+
+                                       <img  class="img-responsive image_page_cat" src="/web{% path image, 'large' %}">
+
+                               {% endfor %}
+                           {% else %}
+                               <img style="height: 229px;" class="img-responsive image_page_cat" src="{{ asset('uploads/media/no-image.jpg') }}">
+                           {% endif %}
+
                        </ul>
 
                        <div id="bx-pager">
-                           <a data-slide-index="0" href=""> <img width="130" height="150" src="{{ asset('libs/bxslider/docs_src/assets/img/photo2.jpeg') }}"/></a>
-                           <a data-slide-index="1" href=""> <img width="130" height="150" src="{{ asset('libs/bxslider/docs_src/assets/img/photo3.jpeg') }}"/></a>
-                           <a data-slide-index="2" href=""> <img width="130" height="150" src="{{ asset('libs/bxslider/docs_src/assets/img/photo5.jpeg') }}"/></a>
+                           {% if count!=0 %}
+                               {% for image in prod.Images %}
+
+                                   {% set  index =  loop.index - 1  %}
+                                   <a data-slide-index="{{ index }}" href=""> <img width="130" height="150" src="/web{% path image, 'small' %}"/></a>
+
+                               {% endfor %}
+                           {% endif %}
                           {# <a data-slide-index="3" href=""> <img width="130" height="150" src="{{ asset('libs/bxslider/docs_src/assets/img/photo1.jpeg') }}"/></a>#}
                        </div>
 
@@ -57,20 +72,38 @@
                    </div>
                   <div class="row">
                       <div class="col-sm-6">
-                          <a id="btn_pdf"class="btn btn-default btn-lg">Plaquette .pdf</a>
+
+
+                          <a id="btn_pdf" href="/web{%  path prod.plaquettePdf, 'reference'  %}" download="/web{%  path prod.plaquettePdf, 'reference'  %}"
+                             class="btn        btn-default btn-lg">Plaquette .pdf</a>
                       </div>
                       <div class="col-sm-6">
-                          <a id="btn_photo_zip" class="btn btn-default btn-lg">Photos .zip</a>
+                          <a id="btn_photo_zip"  href="/web{% path prod.dossierZipImage, 'reference' %}" download="/web{% path prod.dossierZipImage, 'reference' %}" class="btn btn-default btn-lg">Photos .zip</a>
                       </div>
 
                   </div>
 
                    <div class="row">
                        <div class="col-sm-6">
-                           <a id="btn_quest" class="btn btn-default btn-lg">J'ai une question</a>
+                           <a id="btn_quest" onclick="$('#form_question').toggle()" class="btn btn-default btn-lg">J'ai une question</a>
+
                        </div>
                        <div class="col-sm-6">
-                           <a id="btn_tarifs" class="btn btn-default btn-lg">tarifs distributeurs</a>
+                           <a id="btn_tarifs" href="/web{%  path prod.TarifsDistributeursPdf, 'reference'  %}"  download="/web{%  path prod.TarifsDistributeursPdf, 'reference'  %}" class="btn btn-default btn-lg">tarifs distributeurs</a>
+                       </div>
+                       <div class="col-sm-12">
+                           {% for flash_message in app.session.flashBag.get('notice') %}
+                               <div class="alert alert-success">
+                                   {{ flash_message }}
+                               </div>
+                           {% endfor %}
+                           {{ form_start(form) }}
+                           {{ form_widget(form) }}
+
+                           <input type="submit" value="Envoyer"
+                                  class="btn btn-default pull-right" />
+                           {{ form_end(form) }}
+
                        </div>
 
                    </div>
@@ -81,65 +114,73 @@
 
                       {{ prod.name }}
                    </span>
+                   {% set  count_modele =prod.versions|length  %}
+                   {% if count_modele !=0 %}
+                       <span class="titre_bloc">
+                            VERSIONS
+                       </span>
 
-                   <span class="titre_bloc">
-                        VERSIONS
-                   </span>
-                   <a  class="btn btn-default btn-lg btn_modele">
-                               <span class="titre_modele"> modele N°1</span>
-                               <span class="prix_modele"> à partir de 520 €</span>
+
+                       {% for modele in prod.versions %}
+                           <a  class="btn btn-default btn-lg btn_modele btn_version" data-id="{{ modele.id }}" data-title="{{ modele.name }}">
+                                       <span class="titre_modele"> {{ modele.name }}</span>
+                                       <span class="prix_modele">{% if modele.prix!=""  %} à partir de {{ modele.prix }}€ {% endif %}</span>
                            </a>
-                   <a  class="btn btn-default btn-lg btn_modele">
-                       <span class="titre_modele"> modele N°1</span>
-                       <span class="prix_modele"> à partir de 520 €</span>
-                   </a>
-                   <a  class="btn btn-default btn-lg btn_modele">
-                       <span class="titre_modele"> modele N°1</span>
-                       <span class="prix_modele"> à partir de 520 €</span>
-                   </a>
-                   <a  class="btn btn-default btn-lg btn_modele">
-                       <span class="titre_modele"> modele N°1</span>
-                       <span class="prix_modele"> à partir de 520 €</span>
-                   </a>
+                       {% endfor %}
+                   {% endif %}
+
+                   {% set  count_option =prod.options|length  %}
+                   {% if count_option !=0 %}
+                       <span class="titre_bloc">
+                           Options
+                       </span>
+
+
+                       {% for option in prod.options %}
+                           <a  class="btn btn-default btn-lg btn_option" data-id="{{option.id }}" data-prix="{{option.prix }}" data-title="{{ option.name }}">
+                               <span class="titre_modele"> {{option.name }}</span>
+                              {# <span class="prix_modele">{% if modele.prix!=""  %} à partir de {{ modele.prix }}€ {% endif %}</span>#}
+                           </a>
+                       {% endfor %}
+                   {% endif %}
+
+
+
+
+
+
+
                    <div class="row">
+                       {% set  count_coloris =prod.Coloris|length  %}
+                       {% if count_coloris !=0 %}
                     <div class="col-xs-12">
                          <span class="titre_bloc">
                          COLORIS
                        </span>
 
                     </div>
-                       <div class="col-sm-6">
-                           <a  class="btn btn-default btn-lg btn_modele titre_color">
-                               <span class="code_color" style="background-color:#ff6633 "> </span>
-                               where is
-                           </a>
-                       </div>
-                       <div class="col-sm-6">
-                           <a  class="btn btn-default btn-lg btn_modele titre_color">
-                               <span class="code_color" style="background-color:#cccccc "> </span>
-                               where is
-                           </a>
-                       </div>
-                       <div class="col-sm-6">
-                           <a  class="btn btn-default btn-lg btn_modele titre_color">
-                               <span class="code_color" style="background-color:#333333 "> </span>
-                               where is
-                           </a>
-                       </div>
-                       <div class="col-sm-6">
-                           <a  class="btn btn-default btn-lg btn_modele titre_color">
-                               <span class="code_color" style="background-color:#33cccc "> </span>
-                                  where is
-                           </a>
-                       </div>
+
+                       {% for color in prod.Coloris %}
+
+
+                           <div class="col-sm-6"><a  class="btn btn-default btn-lg btn_modele titre_color"  data-id="{{ color.id }}" data-prix="{{ color.prix }}" data-qte="{{ color.QuanititeMin }}" data-title="{{ color.name }}">
+                                   <span class="code_color" style="background-color:{{ color.CodeColor }}"> </span>
+                                  {{ color.name }}
+                               </a>
+                           </div>
+                       {% endfor %}
+                      {% endif %}
+
+
+
 
                        <div class="col-sm-12">
-                           <a  id="btn_pers_color" class="btn btn-default btn-lg btn_modele">
+                           <div  id="btn_pers_color"  class="btn btn-default btn-lg btn_modele">
                                <span class="code_color_per" style="background-color:#000 ">#</span>
-                               <span id="code_color_per_titre">Personnaliser via code ral</span>
-                               <span id="code_color_per_tel">Télécharger</span>
+                               <span id="code_color_per_titre"><input id="code_color_ral" type="text" style="font-size: 12px;height: 40px;width: 254px;" placeholder="Rentrer le code RAL que vous souhaitez" class="form-control"/></span>
+                               <a href="/web{% path prod.codeRalPdf , 'reference' %}"  download="/web{% path prod.codeRalPdf , 'reference' %}" id="code_color_per_tel">Télécharger</a>
 
-                           </a>
+                           </div>
                        </div>
                    </div>
                    <div class="row">
@@ -183,22 +224,48 @@
                </div>
 
         </div>
+
+
+
+
+        {{ form_start(form_order) }}
+        {{ form_widget(form_order) }}
+
+        <input type="submit" value="Envoyer"
+               class="btn btn-default pull-right" />
+        {{ form_end(form_order) }}
     </div>
+    <div style="display: none">
+    <input type="text" id="prix_color" value="0" data-id=""/>
+    <input type="text" id="prix_option" value="0" data-id=""/>
+    <input type="text" id="qte_min_color" value="0" data-id=""/>
+    <input type="text" id="prix_produit" value="{{ prod.prix }}" data-id="{{ prod.id }}"/>
+    </div>
+
+    <div style="display: none">
+        <input type="hidden" id="is_clicked_color" value="0"/>
+        <input type="hidden" id="is_clicked_option" value="0"/>
+        <input type="hidden" id="is_clicked_version" value="0"/>
+        <input type="hidden" id="is_ral_au_choix" value="0"/>
+        <input type="hidden" id="no_vide_code_color" value="0"/>
+    </div>
+
 
     <div class="container-fluid">
         <div id="div_add_to_cart" class="row">
             <div class="container">
                 <div class="row">
+
                     <div id="cart_desc_prod" class="col-md-5 col-sm-4">
                         <span id="cart_titre_prod">
                             {{ prod.name }}
                         </span>
 
-                        Modèle :  MOdéle N° :1  /   VERSIONS & COLORIS : RAL au choix
+                        VERSIONS :  <span id="choix_versions"></span>  / COLORIS : <span id="choix_color"> </span> / OPTIONS : <span id="choix_option"> </span>
                     </div>
                     <div id="cart_prix" class="col-md-1 col-sm-2 text-center" style="padding:0 ">
-                        <span id="prix_unitaire">Prix unitaire</span>
-                        439 €
+                        <span id="prix_unitaire">Prix unitaire H.T</span>
+                        <span id="span_prix_unitaire"></span>
 
                     </div>
                     <div class="col-sm-6">
@@ -254,13 +321,36 @@
                              </thead>
                              <tbody>
                              {% for tarif in  prod.tarifsDegressifs  %}
-                             <tr>
+                                {# {{ dump(tarif) }}#}
+                                {% if tarif.coloris ==null  and tarif.options ==null   %}
+                                     <tr>
+                                         <td>Tarif dégressif sur produit : De {% if  loop.index == 1%}<input id="tarif_produit" type="hidden" value="{{ tarif.QuantiteMin }}"/>{% endif %}{{ tarif.QuantiteMin }} à {% if tarif.QuantiteMax!="" %}{{ tarif.QuantiteMax }}{% else %} + {% endif %}</td>
+                                         <td co>{{ tarif.produits.prix}} €</td>
+                                         <td class="td_reduction"> - {{ tarif.Reduction }} €</td>
+                                     </tr>
+                                {% endif %}
+                             {% endfor%}
 
-                                 <td>De {{ tarif.QuantiteMin }} à {{ tarif.QuantiteMax }}</td>
-                                 <td>{{ tarif.PrixUnitaire }} €</td>
-                                 <td class="td_reduction">{{ tarif.Reduction }}%</td>
-                             </tr>
-                            {% endfor%}
+                             {% for coloris in  prod.Coloris  %}
+                                 {% for tarif in  coloris.tarifsDegressifs  %}
+                                        <tr>
+                                            <td>Tarif dégressif sur coloris personnalisé : De {% if  loop.index == 1%}<input id="tarif_coloris_{{ tarif.coloris.id }}" type="hidden" value="{{ tarif.QuantiteMin }}"/>{% endif %} {{ tarif.QuantiteMin }} à {% if tarif.QuantiteMax!="" %}{{ tarif.QuantiteMax }}{% else %} + {% endif %}</td>
+                                            <td co>{{ tarif.coloris.prix}} €</td>
+                                            <td class="td_reduction"> - {{ tarif.Reduction }} €</td>
+                                        </tr>
+                                 {% endfor%}
+                             {% endfor%}
+                             {% for option in  prod.Options  %}
+                                 {% for tarif in  option.tarifsDegressifs  %}
+                                        <tr>
+                                            <td>Tarif dégressif sur {{ tarif.options.name }} : De {% if  loop.index == 1%}<input id="tarif_options_{{ tarif.options.id}}" type="hidden" value="{{ tarif.QuantiteMin }}"/>{% endif %} {{ tarif.QuantiteMin }} à {% if tarif.QuantiteMax!="" %}{{ tarif.QuantiteMax }}{% else %} + {% endif %}</td>
+                                            <td>{{ tarif.options.prix}} €</td>
+                                            <td class="td_reduction"> - {{ tarif.Reduction }} €</td>
+                                        </tr>
+
+                                 {% endfor%}
+                             {% endfor%}
+
 
                              </tbody>
                          </table>
@@ -268,12 +358,288 @@
                 </div>
             </div>
         </div>
+
     </div>
 {% endblock %}
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('libs/bxslider/dist/jquery.bxslider.min.js') }}"></script>
     <script>
+
+
+
+
+        function  calcule_prix () {
+            prix_color =$("#prix_color").val();
+            prix_option =$("#prix_option").val();
+            prix_produit=$("#prix_produit").val();
+           // alert( prix_produit);
+            var prix_totale=parseFloat(prix_color)+parseFloat(prix_option)+parseFloat(prix_produit);
+
+            var prix_totale_tva=prix_totale*(1.2)
+            $("#mobilierincendiebundle_orderdetail_amount").val(prix_totale);
+            $("#mobilierincendiebundle_orderdetail_amountVAT").val(parseFloat(prix_totale_tva).toFixed(2));
+            $("#span_prix_unitaire").html("").html(prix_totale+" €");
+        };
+
+
+        $('#code_color_ral').keyup(function() {
+            $("#mobilierincendiebundle_orderdetail_code_color_ral").val( $('#code_color_ral').val());
+            if( $("#mobilierincendiebundle_orderdetail_code_color_ral").val()=='')
+            {
+              $("#no_vide_code_color").val(0);
+
+            }
+            else {
+                $("#no_vide_code_color").val(1);
+            }
+        });
+        /******************************************prix degressif produit***********************************************/
+        function prixDegressif() {
+           qte_min_produit=$("#tarif_produit").val();
+             qte= $("#mobilierincendiebundle_orderdetail_qty").val();
+             id_produit=$("#prix_produit").data('id');
+          if(parseInt(qte)>= parseInt(qte_min_produit))
+            {
+                  $.ajax({
+                    url: "{{ path('get_prix_degressif') }}",
+                    type: 'POST',
+                    data: {'id': id_produit ,'qte' :qte},
+                    dataType: 'json',
+                    success: function (json) {
+
+                        $("#prix_produit").val(json.prix);
+                        calcule_prix ();
+
+                    }
+                });
+
+            }
+            /*************prix degressif option ******************/
+           var id_option=   $("#prix_option").attr("data-id") ;
+            var quantite_min_option=$("#tarif_options_"+id_option).val();
+            if(parseInt(qte)>= parseInt(quantite_min_option)){
+                $.ajax({
+                    url: "{{ path('get_prix_degressif_option') }}",
+                    type: 'POST',
+                    data: {'id': id_option ,'qte' :qte},
+                    dataType: 'json',
+                    success: function (json) {
+
+                        $("#prix_option").val(json.prix);
+                        calcule_prix ();
+                    }
+                });
+            }
+            /*************prix degressif coloris ******************/
+            var id_color=   $("#prix_color").attr("data-id") ;
+            var quantite_min_color=$("#tarif_coloris_"+id_color).val();
+            if(parseInt(qte)>= parseInt(quantite_min_color)){
+                $.ajax({
+                    url: "{{ path('get_prix_degressif_color') }}",
+                    type: 'POST',
+                    data: {'id': id_color ,'qte' :qte},
+                    dataType: 'json',
+                    success: function (json) {
+                        $("#prix_color").val(json.prix);
+                        calcule_prix ();
+                    }
+                });
+            }
+        }
+        function prixDegressifBtnMin() {
+            /*************prix degressif produit ******************/
+            qte_min_produit=$("#tarif_produit").val();
+            qte= $("#mobilierincendiebundle_orderdetail_qty").val();
+            id_produit=$("#prix_produit").data('id');
+         if(parseInt(qte)== (parseInt(qte_min_produit)-1))
+            {
+                $.ajax({
+                    url: "{{ path('get_prix_degressif') }}",
+                    type: 'POST',
+                    data: {'id': id_produit ,'qte' :qte},
+                    dataType: 'json',
+                    success: function (json) {
+                        $("#prix_produit").val(json.prix);
+                        calcule_prix ();
+
+                    }
+                });
+
+            }
+            /*************prix degressif options ******************/
+            var id_option=   $("#prix_option").attr("data-id") ;
+            var quantite_min_option=$("#tarif_options_"+id_option).val();
+            if(parseInt(qte)== (parseInt(quantite_min_option)-1)){
+
+                $.ajax({
+                    url: "{{ path('get_prix_degressif_option') }}",
+                    type: 'POST',
+                    data: {'id': id_option ,'qte' :qte},
+                    dataType: 'json',
+                    success: function (json) {
+                       // alert(json.prix);
+                        $("#prix_option").val(json.prix);
+                        calcule_prix ();
+                    }
+                });
+            }
+
+            /*************prix degressif coloris ******************/
+            var id_color=   $("#prix_color").attr("data-id") ;
+            var quantite_min_color=$("#tarif_coloris_"+id_color).val();
+            if(parseInt(qte)== (parseInt(quantite_min_color) -1)){
+                $.ajax({
+                    url: "{{ path('get_prix_degressif_color') }}",
+                    type: 'POST',
+                    data: {'id': id_color ,'qte' :qte},
+                    dataType: 'json',
+                    success: function (json) {
+                        $("#prix_color").val(json.prix);
+                        calcule_prix ();
+                    }
+                });
+            }
+        }
+        /*****************************************************************************************/
+        function  plusQuanitite () {
+            val_initialer =$("#qut_produits").text();
+            val_initialer=parseInt(val_initialer)+1;
+            $("#qut_produits").text(val_initialer);
+            $("#mobilierincendiebundle_orderdetail_qty").val(val_initialer);
+            $("#btn_moin").removeAttr("disabled")
+
+        };
+        function  minQuanitite () {
+            val_initialer =$("#qut_produits").text();
+            if(parseInt(val_initialer)>1){
+                val_initialer=parseInt(val_initialer)-1;
+                $("#qut_produits").text(val_initialer);
+                $("#mobilierincendiebundle_orderdetail_qty").val(val_initialer);
+            }
+            if(parseInt(val_initialer)==1){
+                $("#btn_moin").attr('disabled');
+            }
+
+        };
+        $("#btn_plus").click(function () {
+
+            plusQuanitite ();
+            prixDegressif();
+
+        })
+        $("#btn_moin").click(function () {
+            minQuanitite ();
+            prixDegressif();
+            prixDegressifBtnMin();
+        })
+
+
         $(document).ready(function(){
+
+         /*   var json={{ json| raw }}*/
+            $('.btn_version').click(function () {
+                id = $(this).data('id');
+                title = $(this).data('title');
+                $("#choix_versions").text("").text(title);
+
+                $("#mobilierincendiebundle_orderdetail_version").val(id);
+                $('.btn_version').removeClass('active');
+                $(this).addClass('active');
+                $("#is_clicked_version").val(1);
+            });
+            $('.titre_color').click(function () {
+                id = $(this).data('id');
+                prix=$(this).data('prix');
+                title = $(this).data('title');
+
+                $("#mobilierincendiebundle_orderdetail_color").val(id);
+                $("#prix_color").val(prix);
+
+
+                $("#prix_color").attr('data-id', id);
+                calcule_prix ();
+                $('.titre_color').removeClass('active');
+                $(this).addClass('active');
+                $("#is_clicked_color").val(1);
+                if(title=='RAL au choix'){
+
+                   $("#is_ral_au_choix").val(1);
+                }
+                else{
+                    $("#is_ral_au_choix").val(0);
+                }
+                $("#choix_color").text("").text(title);
+            });
+            $('.btn_option').click(function () {
+                prix=$(this).data('prix');
+                id = $(this).data('id');
+                //alert(id);
+                title = $(this).data('title');
+                title = $(this).data('title');
+                $("#choix_option").text("").text(title);
+
+                $("#mobilierincendiebundle_orderdetail_option").val(id);
+                $("#prix_option").val(prix);
+                $("#prix_option").attr('data-id', id);
+
+                calcule_prix ();
+                $('.btn_option').removeClass('active');
+                $(this).addClass('active');
+                $("#is_clicked_option").val(1);
+            });
+            $("#btn_add_to_cart").click(function () {
+
+                if($("#is_clicked_version").val()==0)
+                {
+                    var dialogInstance5 = new BootstrapDialog()
+                            .setTitle('Versions')
+                            .setMessage('Veuillez sélectionner une version !')
+                            .setType(BootstrapDialog.TYPE_DANGER)
+                            .open();
+                }
+                if($("#is_clicked_option").val()==0)
+                {
+                    var dialogInstance4 = new BootstrapDialog()
+                     .setTitle('Options')
+                            .setMessage('Veuillez sélectionner une option !')
+                            .setType(BootstrapDialog.TYPE_DANGER)
+                            .open();
+                }
+                if($("#is_clicked_color").val()==0)
+                {
+                    var dialogInstance3 = new BootstrapDialog()
+                            .setTitle('Coloris')
+                            .setMessage('Veuillez sélectionner un couleur !')
+                            .setType(BootstrapDialog.TYPE_DANGER)
+
+                            .open();
+                }
+                if($("#is_ral_au_choix").val()==1 && $("#no_vide_code_color").val()==0)
+                {
+                    var dialogInstance3 = new BootstrapDialog()
+                            .setTitle('Ral au choix')
+                            .setMessage('Veuillez rentrer le code RAL que vous souhaitez !')
+                            .setType(BootstrapDialog.TYPE_DANGER)
+
+                            .open();
+                }
+
+                if($("#is_ral_au_choix").val()==1 )
+                {
+                    if($("#no_vide_code_color").val()==1 && $("#is_clicked_option").val()==1 && $("#is_clicked_version").val()==1 ) {
+                        $("#form_ajouter_produit_au_panier").submit();
+                    }
+                }
+                else if($("#is_ral_au_choix").val()==0){
+                    if($("#is_clicked_color").val()==1 && $("#is_clicked_option").val()==1 && $("#is_clicked_version").val()==1 ) {
+                        $("#form_ajouter_produit_au_panier").submit();
+                    }
+                }
+
+
+
+            })
+
             $('.bxslider-produit').bxSlider({
 
                         controls : true,
@@ -282,5 +648,8 @@
                     }
             );
         });
+    </script>
+    <script type="text/javascript">
+
     </script>
 {% endblock %}

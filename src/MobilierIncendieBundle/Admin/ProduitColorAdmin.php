@@ -5,6 +5,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use MobilierIncendieBundle\Form\ReductionsType;
 
 class ProduitColorAdmin extends Admin
 {
@@ -40,10 +41,32 @@ class ProduitColorAdmin extends Admin
         
         $formMapper
             ->with('admin.general', array('class' => 'col-md-6', 'collapsed' => true))
+            ->add('produits',null, array('label' => 'admin.produits' ,'required'=>true ))
             ->add('name', 'text', array('label' => 'admin.label'))
+
             ->add('code_color', 'sonata_type_color_selector', array('label' => 'admin.color'))
+            ->add('prix')
+             ->add('quanitite_min' ,null ,array('label'=>'Quantite minimum ' ,'help'=>"Remplir ce champ lors de la création du coloris RAL personnalisé pour indiquer la quantité minimum pour acheter un produit avec option coloris RAL"))
+
+            ->add('tarifs_degressifs', 'collection', array(
+                'type' => new ReductionsType(),
+                'required' => true,
+                'allow_add' => true,
+                'prototype' => true,
+                'allow_delete' => true,
+                'by_reference' => true,
+                'label' => 'Ajouter tarif dégressif pour cette couleur',
+                'options' => array('label' => 'Tarif dégressif', 'label_attr' => array('class' => 'answers')),
+            ),
+                array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                    'sortable' => 'id',
+                )
+            )
+
             ->add('active','checkbox',array('label'=>'admin.activate'))
-            ->add('file', 'file', $fileFieldOptions)
+            //->add('file', 'file', $fileFieldOptions)
             ->end();
     }
 
@@ -56,10 +79,19 @@ class ProduitColorAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('id', null, array('label' => 'id'));
-        $listMapper->add('image', 'string', array('template' => 'CSIDBundle:MatterColorAdmin:list_image.html.twig', 'label' => 'pictrogram.image'));
+       // $listMapper->add('image', 'string', array('template' => 'CSIDBundle:MatterColorAdmin:list_image.html.twig', 'label' => 'pictrogram.image'));
+        $listMapper->add('produits.name', null, array('label' => 'admin.produit'));
         $listMapper->addIdentifier('name', null, array('label' => 'admin.label'));
+        $listMapper->add('prix', null, array('label' => 'Prix en €'));
+
         $listMapper->add('code_color', null ,array('label' => 'admin.color'));
         $listMapper->add('active',null,array('label'=>'admin.activate' ,  'editable' => true));
+        $listMapper->add('_action', 'actions', array(
+            'actions' => array(
+                'delete' => array(),
+                'edit' => array(),
+            )
+        ))  ;
     }
     /**
      *
@@ -68,13 +100,22 @@ class ProduitColorAdmin extends Admin
      */
     public function postUpdate($object)
     {
-        $object->upload();
+        //$object->upload();
+        $object->setTarifsDegressifs($object->getTarifsDegressifs());
 
     }
 
     public function prePersist($object)
     {
-        $object->upload();
+        //$object->upload();
+        $object->setTarifsDegressifs($object->getTarifsDegressifs());
+
+    }
+
+
+    public function preUpdate($object)
+    {
+        $object->setTarifsDegressifs($object->getTarifsDegressifs());
 
     }
 }

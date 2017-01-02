@@ -45,8 +45,8 @@ class ReductionsAdmin extends Admin
         $listMapper->add('produits.name', null, array('label' => 'admin.produit'));
         $listMapper->add('quantite_min', null, array('label' => 'admin.quantite_min'));
         $listMapper->add('quantite_max', null, array('label' => 'admin.quantite_max'));
-        $listMapper->add('prix_unitaire', null, array('label' => 'admin.prix_unitaire'));
-        $listMapper->add('reduction', 'string', array('template' => 'MobilierIncendieBundle:ProduitReductionAdmin:reduction.html.twig' ,'label' => 'admin.reduction'));
+        //$listMapper->add('prix_unitaire', null, array('label' => 'admin.prix_unitaire'));
+        $listMapper->add('reduction', 'string', array('template' => 'MobilierIncendieBundle:ProduitReductionAdmin:reduction.html.twig' ,'label' => 'Réductions en €'));
         $listMapper->add('_action', 'actions', array(
                                             'actions' => array(
                                                 'delete' => array(),

@@ -20,26 +20,28 @@ class ProduitsAdmin extends Admin
 
     protected function configureFormFields(FormMapper $formMapper)
     {
+        
         $formMapper
             ->tab('admin.general', array('class' => 'col-md-12', 'collapsed' => true))
             ->with('admin.general', array('class' => 'col-md-6', 'collapsed' => true))
             ->add('name', 'text', array('label' => 'admin.name'))
             ->add('description', 'textarea', array('label' => 'admin.description', 'attr' => array('class' => 'ckeditor')))
-            ->add('hauteur', 'number', array('label' => 'admin.hauteur'))
-            ->add('largeur', 'number', array('label' => 'admin.largeur'))
-            ->add('poids', 'number', array('label' => 'admin.poids'))
+            ->add('hauteur', 'number', array('label' => 'admin.hauteur' ,'required'=>false))
+            ->add('largeur', 'number', array('label' => 'admin.largeur','required'=>false))
+            ->add('poids', 'number', array('label' => 'admin.poids','required'=>false))
+            ->add('Profondeur', 'number', array('label' => 'Profondeur','required'=>false))
             ->add('reference', 'text', array('label' => 'admin.reference'))
             ->add('prix_achat', 'text', array('label' => 'admin.prix_achat'))
             ->add('prix', 'text', array('label' => 'admin.prix'))
             ->end();
-        $formMapper->with('admin.matter_colors', array('class' => 'col-md-6'))
+       /* $formMapper->with('admin.matter_colors', array('class' => 'col-md-6'))
             ->add('coloris', 'sonata_type_model', array(
                 'required' => false,
                 'expanded' => true,
                 'multiple' => true,
 
             ))
-            ->end();
+            ->end();*/
        /* $formMapper->with('admin.version', array('class' => 'col-md-6'))
             ->add('versions', 'sonata_type_model', array(
                 'required' => false,
@@ -50,9 +52,9 @@ class ProduitsAdmin extends Admin
             ->end();*/
         $formMapper->with('admin.categories', array('class' => 'col-md-6'))
             ->add('categories', 'sonata_type_model', array(
-                'required' => false,
-                'expanded' => true,
-                'multiple' => true,
+                'required' => true,
+                'expanded' => false,
+                'multiple' => false,
 
             ))
             ->end();
@@ -98,6 +100,25 @@ class ProduitsAdmin extends Admin
         $formMapper->with(' ', array('class' => 'col-md-6'))
             // ->add('plaquette_pdf','sonata_type_model', array('required' => false, 'multiple'=>false) ,array('link_parameters' => array('context' => 'plaquette_pdf')))
 
+            ->add('tarifs_distributeurs_pdf', 'sonata_type_model_list',
+                array(
+                    'label' => 'Tarifs distributeurs .PDF',
+                    'required' => true,
+                    'by_reference' => false
+                ),
+                array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                    'link_parameters' => array(
+                        'context' => 'code_ral_pdf',
+                        'provider' => 'sonata.media.provider.file',
+                    )
+                )
+            )
+            ->end();
+        $formMapper->with(' ', array('class' => 'col-md-6'))
+            // ->add('plaquette_pdf','sonata_type_model', array('required' => false, 'multiple'=>false) ,array('link_parameters' => array('context' => 'plaquette_pdf')))
+
             ->add('dossier_zip_image', 'sonata_type_model_list',
                 array(
                     'label' => 'admin.dossier_zip_image',
@@ -115,12 +136,12 @@ class ProduitsAdmin extends Admin
             )
             ->end()
             ->end();
-        $formMapper
+       /* $formMapper
             ->tab('admin.versions')
             ->with('admin.versions', array(
                 'class' => 'col-md-6',
                 'box_class' => 'box box-solid box-danger',
-                // 'description' => 'Lorem ipsum',
+
             ))
             ->add('versions', 'collection', array(
                 'type' => new ModeleType(),
@@ -141,7 +162,7 @@ class ProduitsAdmin extends Admin
 
 
             ->end()
-            ->end();
+            ->end();*/
 
         $formMapper->tab('admin.tarifs_clints', array('class' => 'col-md-12'))
             ->with('Tarif dégressifs', array('class' => 'col-md-6'))
@@ -235,7 +256,7 @@ class ProduitsAdmin extends Admin
 
             ->end()
             ->end();
-        $formMapper
+      /*  $formMapper
             ->tab('admin.options')
                 ->with('admin.options', array(
                     'class' => 'col-md-6',
@@ -260,8 +281,10 @@ class ProduitsAdmin extends Admin
                 )
 
 
-                ->end()
-        ->end();
+
+
+            ->end()
+        ->end();*/
 
 
     }
@@ -275,7 +298,9 @@ class ProduitsAdmin extends Admin
     {
         $listMapper->addIdentifier('id', null, array('label' => 'id'));
         $listMapper->addIdentifier('name', null, array('label' => 'admin.name'))
-            ->add('description', 'textarea', array('label' => 'admin.description'))
+            //->add('description', 'textarea', array('label' => 'admin.description'))
+            ->add('description', 'string', array('template' => 'MobilierIncendieBundle:ProduitReductionAdmin:description-produit.html.twig' ,'label' => 'admin.description'))
+
             ->add('hauteur', null, array('label' => 'admin.hauteur'))
             ->add('largeur', null, array('label' => 'admin.largeur'))
             ->add('poids', null, array('label' => 'admin.poids'))
@@ -294,7 +319,7 @@ class ProduitsAdmin extends Admin
         $object->setTarifsClints($object->getTarifsClints());
         $object->setTarifsLivraison($object->getTarifsLivraison());
         $object->setTarifsLivraisonParClient($object->getTarifsLivraisonParClient());
-        $object->setOptions($object->getOptions());
-        $object->setVersions($object->getVersions());
+       // $object->setOptions($object->getOptions());
+        //$object->setVersions($object->getVersions());
     }
 }

@@ -1,0 +1,524 @@
+{% extends 'base-choix.html.twig' %}
+{% block addStylesheets %}
+    <style>
+        #navigation {
+            height: 0px;
+        }
+
+        body {
+
+            background: #fff;
+        }
+        #btn_moin, .btn_moin {
+            border-radius: 154px 0px 0px 142px;
+            background-color: transparent;
+            color: #999999;
+            opacity: 1;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        #btn_plus ,.btn_plus{
+            border-radius: 0px 154px 154px 0px;
+            background-color: transparent;
+            color: #999999;
+            opacity: 1;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        #qut_produits {
+            height: 33px;
+            display: block;
+            text-align: center;
+            line-height: 34px;
+            width: 45px;
+            border: solid 1px #ccc;
+        }
+        .center {
+            width: 115px;
+            margin: 0;
+        }
+    </style>
+
+{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <div id="div_top_panier" class="row">
+         <div class="container">
+             <div class="row">
+                 <div class="col-sm-4 col-xs-12">
+                     <img width="56" height="56" id="img_profile" class="img-circle" src="{{ asset('img/2732e6c4.png') }}"/>
+                     <div style="float: left;">
+                         <span class="titre_panier">Mark Barhm </span>
+                         <p class="infos_panier">
+                             E-mail : mark@gmail.com</br>
+                             Téléphone : +33 5 56 50 47 97
+                         </p> 
+                         
+                     </div>
+                    
+
+                 </div>
+                 <div class="col-sm-4 col-xs-12">
+
+                     <span class="titre_panier">adresse de Facturation  <a class="modifier_adresse" href="#">modifier</a></span>
+                     <p class="infos_panier">
+                         Bât U, 29 Rue Robert Caumont, 33000 Bordeaux, France
+                     </p>
+                 </div>
+                 <div class="col-sm-4 col-xs-12">
+
+                     <span class="titre_panier">adresse de livraison <a class="modifier_adresse" href="#">modifier</a></span>
+                     <p class="infos_panier">
+                         Rue de Huy 78, 4530 Villers-le-Bouillet, Belgique
+                     </p>
+
+                 </div>
+             </div>
+         </div>
+        </div>
+    </div>
+    <div class="container">
+        <table id="table_panier" class="table">
+            <thead>
+            <tr>
+                <th>référence</th>
+                <th>désignation</th>
+                <th>quantité</th>
+                <th>prix d'achat H.T.</th>
+                <th>total prix d'achat H.T.</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if order.LigneOrder is defined  %}
+             {#   {{ dump(order.LigneOrder) }}#}
+            {% for item in  order.LigneOrder %}
+
+            <tr>
+                <td class="tab_reference">{{ item.produit.reference }}</br> <input type="hidden" id="ligne_order_{{ item.id }}" value="{{ item.amount  }}"/></td>
+                <td>
+                    {% set  count = item.produit.Images|length  %}
+                    {% if count!=0 %}
+                        {% for image in item.produit.Images %}
+
+                            {% if loop.index  ==1 %}
+
+                                <img  class="img_prod_panier" src="/web{% path image, 'img_page_cat' %}">
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <img  class="img_prod_panier" src="{{ asset('uploads/media/no-image.jpg') }}">
+                    {% endif %}
+                    <div style="float: left">
+                        <span class="tab_titre_prod">{{ item.Produit.name }}</span></br>
+                         <input type="hidden" id="id_produit_{{item.id  }}" data-id="{{ item.produit.id }}" data-qte="{{ render(controller('MobilierIncendieBundle:Panier:getQuantiteMinTarifDegressifProduit', {'id': item.produit.id })) }}" value="{{item.produit.prix  }}"/>
+
+                        <span class="tab_color_prod">
+                            {% if item.color is defined %}
+                            Couleur - {{  item.color.Name }} <label class="tab_code_color" style="background-color:{{  item.color.CodeColor }}"></br>
+                                id_color_{{item.color.id  }}:
+                                <input type="hidden" id="id_color_{{item.id  }}" data-id="{{ item.color.id }}" data-qte="{{ render(controller('MobilierIncendieBundle:Panier:getQuantiteMinTarifDegressifColor', {'id': item.color.id})) }}" value="{{item.color.prix  }}"/>
+
+
+                            </label>
+                            {% endif %}
+                            </br>
+                            {% if item.option is defined %}
+                                Option - {{ item.option.Name }}</br>
+                                <input type="hidden" id="id_option_{{item.id  }}" data-id="{{ item.option.id }}" data-qte="{{ render(controller('MobilierIncendieBundle:Panier:getQuantiteMinTarifDegressifOption', {'id': item.option.id})) }}" value="{{item.option.prix  }}"/>
+
+                                </br>
+                            {% endif %}
+                            {% if item.version is defined %}
+                                Version - {{ item.version.Name }}
+                               {# <input type="text" id="id_version_{{item.version.id  }}"/>#}
+                            {% endif %}
+                        </span>
+
+                    </div>
+                </td>
+                <td>
+
+                    <div class="center">
+                        <div class="input-group">
+                                      <span  class="input-group-btn">
+                                          <button  type="button" class="btn btn-default btn-number btn_moin" data-type="minus"
+                                                  data-id="{{ item.id }}">
+                                              <span class="glyphicon glyphicon-minus"></span>
+                                          </button>
+                                      </span>
+                            <input type="hidden" name="quant[1]" class="form-control input-number" value="{{ item.Qty }}" min="1" max="200">
+                            <input class="qut_produits" type="text" id="qut_produits_{{ item.id }}" value="{{ item.Qty }}"/>
+
+                                      <span  class="input-group-btn">
+                                          <button type="button" class="btn btn-default btn-number btn_plus" data-type="plus" data-id="{{ item.id }}">
+                                              <span class="glyphicon glyphicon-plus"></span>
+                                          </button>
+                                      </span>
+                        </div>
+                    </div>
+
+
+
+                </td>
+                <td class="tab_prix_achat"><span  id="span_prix_u_{{ item.id }}">{{  item.amount }}</span> €</td>
+                <td class="tab_prix_achat_total"><span class="span_prix_u_ligne_panier" id="span_prix_total_{{ item.id }}">{% set res = item.amount * item.Qty %} {{  res }}</span> €    <a class="btn_remove" href="#"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td>
+            </tr>
+            {% endfor %}
+           {% endif %}
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div id="div_infos_prix" class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <table id="tab_infos_prix" class="table">
+
+                        <tbody>
+                        <tr id="tr_1_infos_prix">
+                            <td>Total prix d’achat H.T.</td>
+                            <td class="text-right"><span id="span_prix_totale_ht_panier">0</span> €</td>
+                        </tr>
+                        <tr>
+                            <td>Transport CSID</td>
+                            <td class="text-right"><span id="span_prix_transport_csid">0</span> €</td>
+                        </tr>
+                        <tr>
+                            <td>TVA (20%)</td>
+                            <td class="text-right"><span id="span_prix_totale_tva_panier">0</span> €</td>
+                        </tr>
+                        <tr>
+                            <td>Total prix d’achat TTC</td>
+                            <td class="text-right"><span id="span_prix_totale_ttc_panier">0</span> €</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="div_tabs" class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+
+
+                    <ul id="panir_nav_tabs" class="nav nav-tabs">
+                        <li><a data-toggle="tab" href="#home">continuer mes achats</a></li>
+                        <li><a data-toggle="tab" href="#menu1">contacter csid</a></li>
+                        <li><a data-toggle="tab" href="#menu2">souvegarder ce devis</a></li>
+                        <li  class="active"><a data-toggle="tab" href="#menu3">commander</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade">
+                            <h3>HOME</h3>
+                            <p>Some content.</p>
+                        </div>
+                        <div id="menu1" class="tab-pane fade">
+                            <h3>Menu 1</h3>
+                            <p>Some content in menu 1.</p>
+                        </div>
+                        <div id="menu2" class="tab-pane fade">
+
+                        </div>
+                        <div id="menu3" class="tab-pane fade in active">
+                            <form id="form_panier">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                        <div class="col-sm-3" style="padding-right: 5px;">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nom d’affaire">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" style="padding-right: 5px; padding-left: 5px">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="formGroupExampleInput2" style="padding-right: 0px;" placeholder="N° de bon de commande">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Bon de commande officiel et/ou bon de livraison">
+                                            </div>
+                                        </div>
+                                            <div class="col-xs-12">
+
+                                                <textarea class="form-control" placeholder="Laisser un commentaire.">
+
+                                                </textarea>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <button id="btn_envoyer" type="submit" class="btn btn-primary">ENVOYER</button>
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+{% block javascripts %}
+    <script type="application/javascript">
+        function plusQuanitite(id) {
+            val_initialer = $("#qut_produits_" + id).val();
+            val_initialer = parseInt(val_initialer) + 1;
+            $("#qut_produits_" + id).val(val_initialer);
+        }
+        ;
+        function minQuanitite(id) {
+            val_initialer = $("#qut_produits_" + id).val();
+            if (parseInt(val_initialer) > 1) {
+                val_initialer = parseInt(val_initialer) - 1;
+                $("#qut_produits_" + id).val(val_initialer);
+            }
+        }
+        ;
+        function calcule_prix(id) {
+
+            prix_color = $("#id_color_" + id).val();
+            prix_option = $("#id_option_" + id).val();
+            prix_produit = $("#id_produit_" + id).val();
+            var prix_totale = parseFloat(prix_color) + parseFloat(prix_option) + parseFloat(prix_produit);
+            $("#span_prix_u_" + id).html("").html(prix_totale);
+            qte = $("#qut_produits_" + id).val();
+            $("#span_prix_total_" + id).html("").html(prix_totale * parseInt(qte));
+        }
+        ;
+        function UpdateQuantitePrix(id) {
+
+            prix_color = $("#id_color_" + id).val();
+            prix_option = $("#id_option_" + id).val();
+            prix_produit = $("#id_produit_" + id).val();
+            var prix_totale = parseFloat(prix_color) + parseFloat(prix_option) + parseFloat(prix_produit);
+
+            qte = $("#qut_produits_" + id).val();
+
+
+            prix=prix_totale * parseInt(qte);
+            $.ajax({
+                url: "{{ path('update_quantite_prix_ligne_panier') }}",
+                type: 'POST',
+                data: {'id': id, 'qte': qte ,'prix': prix},
+                async: false,
+                dataType: 'json',
+                success: function (json) {
+                   // console.log(json);
+                }
+            });
+          }
+        ;
+        function UpdatePrixPanier() {
+            prix_ht=$('#span_prix_totale_ht_panier').text();
+            prix_ttc=$('#span_prix_totale_ttc_panier').text();
+            id={{ order.id }}
+
+           $.ajax({
+                url: "{{ path('update_prix_panier') }}",
+                type: 'POST',
+                data: {'id': id, 'prix_ht': prix_ht ,'prix_ttc': prix_ttc},
+                async: false,
+                dataType: 'json',
+                success: function (json) {
+                   // console.log(json);
+                }
+            });
+        }
+        ;
+        function calcule_prix_totale_panier() {
+            prix_total_ht = 0;
+            $('span.span_prix_u_ligne_panier').each(function () {
+                prix_ligne_panier =  $(this).text()
+                prix_total_ht =parseFloat(prix_total_ht)  + parseFloat(prix_ligne_panier);
+            });
+
+            prix_transport_csid = $("#span_prix_transport_csid").text() ;
+            prix_totale_tva_panier = (parseFloat(prix_total_ht) + parseFloat(prix_transport_csid)) * 0.2;
+
+            prix_totale_ttc_panier = (parseFloat(prix_total_ht) + parseFloat(prix_transport_csid)) * 1.2;
+            $('#span_prix_totale_ht_panier').text(parseFloat(prix_total_ht).toFixed(2));
+            $('#span_prix_totale_tva_panier').text(parseFloat(prix_totale_tva_panier).toFixed(2));
+            $('#span_prix_totale_ttc_panier').text(parseFloat(prix_totale_ttc_panier).toFixed(2));
+        }
+        ;
+
+        /******************************************prix degressif produit***********************************************/
+        function prixDegressif(id) {
+            qte = $("#qut_produits_" + id).val();
+            id_produit = $("#id_produit_" + id).data('id');
+            qte_min_produit = $("#id_produit_" + id).data('qte');
+
+            if (parseInt(qte) >= parseInt(qte_min_produit)) {
+                $.ajax({
+                    url: "{{ path('get_prix_degressif') }}",
+                    type: 'POST',
+                    data: {'id': id_produit, 'qte': qte},
+                    dataType: 'json',
+                    async: false,
+                    success: function (json) {
+                        $("#id_produit_" + id).val(json.prix);
+                         calcule_prix(id);
+                        calcule_prix_totale_panier();
+                    }
+                });
+
+            }else {
+                calcule_prix(id);
+                calcule_prix_totale_panier();
+            }
+            /*************prix degressif option ******************/
+            var id_option = $("#id_option_" + id).attr("data-id");
+            var quantite_min_option = $("#id_option_" + id).attr("data-qte");
+
+
+            if (parseInt(qte) >= parseInt(quantite_min_option)) {
+                $.ajax({
+                    url: "{{ path('get_prix_degressif_option') }}",
+                    type: 'POST',
+                    data: {'id': id_option, 'qte': qte},
+                    dataType: 'json',
+                    async: false,
+                    success: function (json) {
+
+                        $("#id_option_" + id).val(json.prix);
+                         calcule_prix(id);
+                        calcule_prix_totale_panier();
+                    }
+                });
+            }else {
+                calcule_prix(id);
+                calcule_prix_totale_panier();
+            }
+            /*************prix degressif coloris ******************/
+            var id_color = $("#id_color_" + id).attr("data-id");
+            var quantite_min_color = $("#id_color_" + id).attr("data-qte");
+            if (parseInt(qte) >= parseInt(quantite_min_color)) {
+                $.ajax({
+                    url: "{{ path('get_prix_degressif_color') }}",
+                    type: 'POST',
+                    data: {'id': id_color, 'qte': qte},
+                    dataType: 'json',
+                    async: false,
+                    success: function (json) {
+                        $("#id_color_"+ id).val(json.prix);
+                         calcule_prix(id);
+                        calcule_prix_totale_panier();
+                    }
+                });
+            }else {
+                calcule_prix(id);
+                calcule_prix_totale_panier();
+            }
+
+
+
+        }
+        /**************btn min quantite***************/
+        function prixDegressifBtnMin(id) {
+            /*************prix degressif produit ******************/
+            qte = $("#qut_produits_" + id).val();
+            id_produit = $("#id_produit_" + id).data('id');
+            qte_min_produit = $("#id_produit_" + id).data('qte');
+            if (parseInt(qte) == (parseInt(qte_min_produit) - 1)) {
+                $.ajax({
+                    url: "{{ path('get_prix_degressif') }}",
+                    type: 'POST',
+                    data: {'id': id_produit, 'qte': qte},
+                    dataType: 'json',
+                    async: false,
+                    success: function (json) {
+                        $("#id_produit_" + id).val(json.prix);
+                         calcule_prix(id);
+                        calcule_prix_totale_panier();
+
+                    }
+                });
+
+            }
+            /*************prix degressif options ******************/
+            var id_option = $("#id_option_" + id).attr("data-id");
+            var quantite_min_option = $("#id_option_" + id).attr("data-qte");
+            if (parseInt(qte) == (parseInt(quantite_min_option) - 1)) {
+
+                $.ajax({
+                    url: "{{ path('get_prix_degressif_option') }}",
+                    type: 'POST',
+                    data: {'id': id_option, 'qte': qte},
+                    dataType: 'json',
+                    async: false,
+                    success: function (json) {
+                        // alert(json.prix);
+                        $("#id_option_" + id).val(json.prix);
+                         calcule_prix(id);
+                        calcule_prix_totale_panier();
+                    }
+                });
+            }
+
+            /*************prix degressif coloris ******************/
+            var id_color = $("#id_color_" + id).attr("data-id");
+            var quantite_min_color = $("#id_color_" + id).attr("data-qte");
+            if (parseInt(qte) == (parseInt(quantite_min_color) - 1)) {
+                $.ajax({
+                    url: "{{ path('get_prix_degressif_color') }}",
+                    type: 'POST',
+                    data: {'id': id_color, 'qte': qte},
+                    dataType: 'json',
+                    async: false,
+                    success: function (json) {
+                        $("#id_color_" + id).val(json.prix);
+                        calcule_prix(id);
+                        calcule_prix_totale_panier();
+                    }
+                });
+            }
+
+            prixDegressif(id)
+        }
+
+
+        $(document).ready(function () {
+            calcule_prix_totale_panier();
+
+            $(".btn_plus").click(function () {
+                id_ligne_order = $(this).data('id');
+                plusQuanitite(id_ligne_order);
+                prixDegressif(id_ligne_order);
+                UpdateQuantitePrix(id_ligne_order);
+                UpdatePrixPanier();
+
+
+            })
+            $(".btn_moin").click(function () {
+                id_ligne_order = $(this).data('id');
+                minQuanitite(id_ligne_order);
+                prixDegressifBtnMin(id_ligne_order);
+                UpdateQuantitePrix(id_ligne_order);
+                UpdatePrixPanier();
+
+            })
+        });
+    </script>
+{% endblock %}

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class OptionsType extends AbstractType
+class OrderMobilierIncendieType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,17 +15,20 @@ class OptionsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('prix')
-            //->add('produits')
-          /*  ->add('tarifs_degressifs' ,'collection',
-                array('type'=> new ReductionsType(),
-                    'required' => true,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'label' => false,
-                    'options' => array('label' => 'Option', 'label_attr' => array('class' => 'answers'))
-                ))*/
+            ->add('created')
+            ->add('signatureDate')
+            ->add('number')
+            ->add('status')
+            ->add('hideToCSID')
+            ->add('amount')
+            ->add('amountVAT')
+            ->add('amountWithMargin')
+            ->add('amountVATWithMargin')
+            ->add('vat')
+            ->add('createdBy')
+            ->add('retailer')
+            ->add('customer')
+            ->add('signature')
         ;
     }
     
@@ -35,7 +38,7 @@ class OptionsType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'MobilierIncendieBundle\Entity\Options'
+            'data_class' => 'MobilierIncendieBundle\Entity\OrderMobilierIncendie'
         ));
     }
 
@@ -44,6 +47,6 @@ class OptionsType extends AbstractType
      */
     public function getName()
     {
-        return 'mobilierincendiebundle_options';
+        return 'mobilierincendiebundle_ordermobilierincendie';
     }
 }

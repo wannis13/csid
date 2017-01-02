@@ -9,16 +9,17 @@ use Sonata\AdminBundle\Form\FormMapper;
 class ModeleAdmin extends Admin
 {
     protected $translationDomain = 'csid';
-    protected $baseRouteName = 'version';
+    /*protected $baseRouteName = 'version';
     protected $baseRoutePattern = 'version';
-    protected $classnameLabel = 'version';
+    protected $classnameLabel = 'version';*/
 
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->with('admin.general', array('class' => 'col-md-6', 'collapsed' => true))
+            ->add('produits',null, array('label' => 'admin.produits' ))
             ->add('name', 'text', array('label' => 'admin.label'))
-            ->add('prix', 'number', array('label' => 'admin.price'))
+            //->add('prix', 'number', array('label' => 'admin.price'))
             ->end();
     }
 
@@ -31,7 +32,8 @@ class ModeleAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('id', null, array('label' => 'id'));
+        $listMapper->add('produits.name', null, array('label' => 'admin.produit'));
         $listMapper->addIdentifier('name', null, array('label' => 'admin.label'));
-        $listMapper->add('prix', null, array('label' => 'admin.price'));
+       // $listMapper->add('prix', null, array('label' => 'admin.price'));
     }
 }
