@@ -120,3 +120,17 @@ services:
                       label: admin.questions
                       manager_type: orm
                       name: sonata.admin
+   # PDF
+  csid.pdf.commande:
+          class: MobilierIncendieBundle\Pdf\Pdf
+          arguments:
+              - @knp_snappy.pdf
+              - @templating
+  # Mailer
+  csid.mailer.commande:
+          class: MobilierIncendieBundle\Mailer\Mailer
+          arguments:
+              - @mailer
+              - @router
+              - @templating
+              - @csid.pdf.commande

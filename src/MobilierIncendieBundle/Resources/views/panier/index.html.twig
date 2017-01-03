@@ -78,6 +78,23 @@
         </div>
     </div>
     <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                {% for flash_message in app.session.flashBag.get('notice') %}
+                    <div class="alert alert-success">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+                {% for flash_message in app.session.flashBag.get('error') %}
+                    <div class="alert alert-success">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% set  countligne =order.LigneOrder|length  %}
+        {% if countligne != 0 %}
+
         <table id="table_panier" class="table">
             <thead>
             <tr>
@@ -115,7 +132,7 @@
                         <span class="tab_color_prod">
                             {% if item.color is defined %}
                             Couleur - {{  item.color.Name }} <label class="tab_code_color" style="background-color:{{  item.color.CodeColor }}"></br>
-                                id_color_{{item.color.id  }}:
+
                                 <input type="hidden" id="id_color_{{item.id  }}" data-id="{{ item.color.id }}" data-qte="{{ render(controller('MobilierIncendieBundle:Panier:getQuantiteMinTarifDegressifColor', {'id': item.color.id})) }}" value="{{item.color.prix  }}"/>
 
 
@@ -169,9 +186,15 @@
 
             </tbody>
         </table>
+         {% else %}
+             <div class="alert alert-info">
+                Panier vide
+             </div>
+        {% endif %}
+
 
     </div>
-
+    {% if countligne != 0 %}
     <div id="div_infos_prix" class="container-fluid">
         <div class="container">
             <div class="row">
@@ -225,31 +248,20 @@
                             <p>Some content in menu 1.</p>
                         </div>
                         <div id="menu2" class="tab-pane fade">
-
-                        </div>
-                        <div id="menu3" class="tab-pane fade in active">
-                            <form id="form_panier">
+                            <form id="form_panier" action="{{ form_comment_devis.vars.action }}" name="{{ form_comment_devis.vars.name }}" method="post">
                                 <div class="row">
                                     <div class="col-sm-9">
                                         <div class="row">
-                                        <div class="col-sm-3" style="padding-right: 5px;">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nom d’affaire">
+                                            <div class="col-sm-3" style="padding-right: 5px;">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" required="required" name="{{  form_comment_devis.nom_d_affiare.vars.full_name }}" id="formGroupExampleInput" placeholder="Nom d’affaire">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-3" style="padding-right: 5px; padding-left: 5px">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="formGroupExampleInput2" style="padding-right: 0px;" placeholder="N° de bon de commande">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Bon de commande officiel et/ou bon de livraison">
-                                            </div>
-                                        </div>
+
+
                                             <div class="col-xs-12">
 
-                                                <textarea class="form-control" placeholder="Laisser un commentaire.">
+                                                <textarea name="{{  form_comment_devis.commentaire.vars.full_name }}" class="form-control" placeholder="Laisser un commentaire.">
 
                                                 </textarea>
 
@@ -257,6 +269,50 @@
 
                                         </div>
                                     </div>
+                                    {{ form_widget(form_comment_devis._token) }}
+
+                                    <div class="col-sm-3">
+                                        <button id="btn_envoyer" type="submit" class="btn btn-primary">ENVOYER</button>
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </form>
+                        </div>
+                        <div id="menu3" class="tab-pane fade in active">
+                            <form id="form_panier" action="{{ form.vars.action }}" name="{{ form.vars.name }}" method="post">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                        <div class="col-sm-3" style="padding-right: 5px;">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" required="required"  name="{{  form.nom_d_affiare.vars.full_name }}" id="formGroupExampleInput" placeholder="Nom d’affaire">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" style="padding-right: 5px; padding-left: 5px">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" required="required"  name="{{  form.num_bon_d_commande.vars.full_name }}" id="formGroupExampleInput2" style="padding-right: 0px;" placeholder="N° de bon de commande">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="{{  form.fileBcOuBl.vars.full_name }}" id="formGroupExampleInput2" placeholder="Bon de commande officiel et/ou bon de livraison">
+                                            </div>
+                                        </div>
+                                            <div class="col-xs-12">
+
+                                                <textarea name="{{  form.commentaire.vars.full_name }}" class="form-control" placeholder="Laisser un commentaire.">
+
+                                                </textarea>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    {{ form_widget(form._token) }}
 
                                     <div class="col-sm-3">
                                         <button id="btn_envoyer" type="submit" class="btn btn-primary">ENVOYER</button>
@@ -276,7 +332,7 @@
             </div>
         </div>
     </div>
-
+   {% endif %}
 
 
 {% endblock %}

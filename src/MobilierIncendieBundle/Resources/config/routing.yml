@@ -57,3 +57,12 @@ update_quantite_prix_ligne_panier:
 update_prix_panier:
     path:     /update_prix_panier
     defaults: { _controller: MobilierIncendieBundle:Panier:UpdatePrixPanier }
+pdf_file_commande:
+    path:     /pdf_file_commande/{id}
+    defaults: { _controller: MobilierIncendieBundle:Panier:pdf }
+send_commande_pdf:
+    path:     /send_commande_pdf/{id}
+    defaults: { _controller: MobilierIncendieBundle:Panier:sendCommende }
+send_devis_pdf:
+    path:     /send_devis_pdf/{id}
+    defaults: { _controller: MobilierIncendieBundle:Panier:sendDevis }
