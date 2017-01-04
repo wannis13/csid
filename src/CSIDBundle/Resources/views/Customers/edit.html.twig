@@ -1,6 +1,24 @@
-{% extends 'base.html.twig' %}
+{#{% if app.session.get('menu')=='mobilie-incendie'  %}#}
+  {# {% extends 'base-mobilie-incendie.html.twig' %}#}
+{#{% endif %}#}
+{#{% if app.session.get('menu')=='signalletique-sur-mesure'  %}
+	{% extends 'base.html.twig' %}
+{% endif %}#}
 
+{% set parent = 'base.html.twig' %}
+ {% if app.session.get('menu') == 'mobilie-incendie'  %}
+	{% set parent = 'base-mobilie-incendie.html.twig' %}
+{% endif %}
+{% extends parent %}
+ {#{% if app.session.get('menu')=='mobilie-incendie'  %}
+	 ********{{ app.session.get('menu') }}************
+ {% endif %}
+
+	 {% if app.session.get('menu')=='signalletique-sur-mesure'  %}
+		 ---------{{ app.session.get('menu') }}--------------
+	 {% endif %}#}
 {% block fos_user_content %}
+
 	<div class="margin-top container-shadow-top">
 		<div class="container">
 		
@@ -15,7 +33,7 @@
 				
 					<form {{ form_enctype(form) }} method="POST" class="csid_customer_edit_form">
 			    		
-			    		<h2>Informations générales</h2>
+			    		<h2>Informations générales</h2>sdfdsfsd
 			    		
 			    		<div class="row">
 						<div class="col-md-6">
