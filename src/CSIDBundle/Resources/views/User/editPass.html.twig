@@ -1,4 +1,8 @@
-{% extends 'base.html.twig' %}
+{% set parent = 'base.html.twig' %}
+ {% if app.session.get('menu') == 'mobilie-incendie'  %}
+	 {% set parent = 'base-mobilie-incendie.html.twig' %}
+ {% endif %}
+{% extends parent %}
 
 {% block body %}
 	<div class="container-shadow-top margin-top">
