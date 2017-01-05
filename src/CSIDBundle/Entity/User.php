@@ -106,6 +106,27 @@ class User extends baseUser
 	 */
 	protected $orders;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="MobilierIncendieBundle\Entity\Adress", mappedBy="user", fetch="EXTRA_LAZY", cascade={"persist", "remove"})
+     */
+   // protected $adressLivraisonFacturation;
+
+    /**
+     * @ORM\OneToOne(targetEntity="MobilierIncendieBundle\Entity\Adress")
+     * @@ORM\JoinColumn(name="adresse_livraison_id", referencedColumnName="id")
+     */
+    protected $adressLivraison;
+
+    /**
+     * @ORM\OneToOne(targetEntity="MobilierIncendieBundle\Entity\Adress")
+     * @@ORM\JoinColumn(name="adresse_facturation_id", referencedColumnName="id")
+     */
+    protected $adressFacturation;
+
+
+
+
     /**
      * Set address
      *
@@ -379,4 +400,37 @@ class User extends baseUser
     {
         return $this->tva;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAdressLivraison()
+    {
+        return $this->adressLivraison;
+    }
+
+    /**
+     * @param mixed $adressLivraison
+     */
+    public function setAdressLivraison($adressLivraison)
+    {
+        $this->adressLivraison = $adressLivraison;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAdressFacturation()
+    {
+        return $this->adressFacturation;
+    }
+
+    /**
+     * @param mixed $adressFacturation
+     */
+    public function setAdressFacturation($adressFacturation)
+    {
+        $this->adressFacturation = $adressFacturation;
+    }
+    
 }
